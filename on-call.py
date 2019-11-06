@@ -9,7 +9,7 @@ from itertools import cycle
 MONDAYS = []
 EMPLOYEE_ASSIGNMENTS = []
 
-# replace with email addresses
+# replace with email addresses of your employees
 EMPLOYEES = [
     'Ronnie',
     'Bobby',
