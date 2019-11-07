@@ -10,16 +10,6 @@ D = imports.datetime.now()
 MONDAYS = []
 EMPLOYEE_ASSIGNMENTS = []
 
-# replace with email addresses of your employees
-# EMPLOYEES = [
-    # 'Bobby',
-    # 'Johnny',
-    # 'Mike',
-    # 'Ralph',
-    # 'Ricky',
-    # 'Ronnie',
-# ]
-
 number_of_weeks = input("How many weeks in the future would you like to make \
 the schedule for? ")
 number_of_weeks = number_of_weeks + 1
