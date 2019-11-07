@@ -1,20 +1,22 @@
 """ __doc__ """
 
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from dateutil.rrule import *
-D = datetime.now()
-from itertools import cycle
+import imports
+import thanksgiving
+import xmas
+
+D = imports.datetime.now()
 
 MONDAYS = []
 EMPLOYEE_ASSIGNMENTS = []
 
 # replace with email addresses of your employees
 EMPLOYEES = [
-    'Ronnie',
     'Bobby',
-    'Ricky',
+    'Johnny',
     'Mike',
+    'Ralph',
+    'Ricky',
+    'Ronnie',
 ]
 
 number_of_weeks = input("How many weeks in the future would you like to make \
@@ -22,9 +24,9 @@ the schedule for? ")
 number_of_weeks = number_of_weeks + 1
 
 for i in range(1, number_of_weeks, 1):
-    MONDAYS.append(D + relativedelta(weekday=MO(+i)))
+    MONDAYS.append(D + imports.relativedelta(weekday=imports.MO(+i)))
 
-for n, employee in enumerate(cycle(EMPLOYEES)):
+for n, employee in enumerate(imports.cycle(EMPLOYEES)):
     EMPLOYEE_ASSIGNMENTS.append(employee)
     if n >= number_of_weeks:
         break
