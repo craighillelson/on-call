@@ -1,6 +1,7 @@
 """ __doc__ """
 
 import imports
+import employees
 import thanksgiving
 import xmas
 
@@ -10,14 +11,14 @@ MONDAYS = []
 EMPLOYEE_ASSIGNMENTS = []
 
 # replace with email addresses of your employees
-EMPLOYEES = [
-    'Bobby',
-    'Johnny',
-    'Mike',
-    'Ralph',
-    'Ricky',
-    'Ronnie',
-]
+# EMPLOYEES = [
+    # 'Bobby',
+    # 'Johnny',
+    # 'Mike',
+    # 'Ralph',
+    # 'Ricky',
+    # 'Ronnie',
+# ]
 
 number_of_weeks = input("How many weeks in the future would you like to make \
 the schedule for? ")
@@ -26,7 +27,7 @@ number_of_weeks = number_of_weeks + 1
 for i in range(1, number_of_weeks, 1):
     MONDAYS.append(D + imports.relativedelta(weekday=imports.MO(+i)))
 
-for n, employee in enumerate(imports.cycle(EMPLOYEES)):
+for n, employee in enumerate(imports.cycle(employees.EMPLOYEES)):
     EMPLOYEE_ASSIGNMENTS.append(employee)
     if n >= number_of_weeks:
         break
