@@ -3,21 +3,32 @@
 import imports
 import employees
 
-D = imports.datetime.now()
-
-MONDAYS = []
-EMPLOYEE_ASSIGNMENTS = []
-
-tgiving_wk_start = imports.datetime.strptime('2019-11-22', "%Y-%m-%d")
-tgiving_wk_end = imports.datetime.strptime('2019-11-29', "%Y-%m-%d")
-xmas_wk_start = imports.datetime.strptime('2019-12-18', "%Y-%m-%d")
-xmas_wk_end = imports.datetime.strptime('2019-12-26', "%Y-%m-%d")
-
 def print_employee_holiday_week(a, b, c, d):
     if a < date < b or c < date < d:
         print date.strftime('%Y-%m-%d'), employee_assigned, "- holiday week"
     else:
         print date.strftime('%Y-%m-%d'), employee_assigned
+
+def format_dates(x):
+    x = str(year) + '-' + x
+    x = imports.datetime.strptime(x, '%Y-%m-%d')
+    return x
+
+D = imports.datetime.now()
+year = D.year
+
+tgiving_wk_start = '11-22'
+tgiving_wk_end = '11-29'
+xmas_wk_start = '12-18'
+xmas_wk_end = '12-26'
+
+tgiving_wk_start = format_dates(tgiving_wk_start)
+tgiving_wk_end = format_dates(tgiving_wk_end)
+xmas_wk_start = format_dates(xmas_wk_start)
+xmas_wk_end = format_dates(xmas_wk_end)
+
+MONDAYS = []
+EMPLOYEE_ASSIGNMENTS = []
 
 number_of_weeks = input("How many weeks in the future would you like to make \
 the schedule for? ")
