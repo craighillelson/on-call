@@ -5,4 +5,4 @@ https://pypi.org/project/python-dateutil/
 
 # Instructions
 1. Save "on-call.py" to a directory containing a csv of employees.
-1. In Terminal, type "python on-call.py"
+1. In Terminal, type "python3 on-call.py"
