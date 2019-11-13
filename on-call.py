@@ -25,7 +25,8 @@ def write_to_csv(name_of_file, dct):
         out_csv = csv.writer(out_file)
         out_csv.writerow(HEADERS)
         for date, employee in dct.items():
-            keys_values = (date, employee)
+            # keys_values = (date, employee)
+            keys_values = (date.strftime('%Y-%m-%d'), employee)
             out_csv.writerow(keys_values)
 
 
@@ -64,4 +65,4 @@ for date, employee_assigned in sorted(ASSIGNMENTS.items()):
     print_employee_holiday_week(tgiving_wk_start, tgiving_wk_end, \
     xmas_wk_start, xmas_wk_end)
 
-write_to_csv('on-call.csv', ASSIGNMENTS)
+write_to_csv('on-call_schedule.csv', ASSIGNMENTS)
