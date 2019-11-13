@@ -1,5 +1,6 @@
 """ __doc__ """
 
+import csv
 import imports
 import employees
 
@@ -15,6 +16,17 @@ def format_dates(x):
     x = str(year) + '-' + x
     x = imports.datetime.strptime(x, '%Y-%m-%d')
     return x
+
+
+def write_to_csv(name_of_file, dct):
+    """ write dictionary to csv """
+    HEADERS = 'date', 'employee'
+    with open(name_of_file, "w") as out_file:
+        out_csv = csv.writer(out_file)
+        out_csv.writerow(HEADERS)
+        for date, employee in dct.items():
+            keys_values = (date, employee)
+            out_csv.writerow(keys_values)
 
 
 D = imports.datetime.now()
@@ -51,3 +63,5 @@ ASSIGNMENTS = dict(zip(MONDAYS, EMPLOYEE_ASSIGNMENTS))
 for date, employee_assigned in sorted(ASSIGNMENTS.items()):
     print_employee_holiday_week(tgiving_wk_start, tgiving_wk_end, \
     xmas_wk_start, xmas_wk_end)
+
+write_to_csv('on-call.csv', ASSIGNMENTS)
