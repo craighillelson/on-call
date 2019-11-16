@@ -4,5 +4,5 @@ Python 3.8 script to loop through a list of employees to assign them on call shi
 https://pypi.org/project/python-dateutil/
 
 # Instructions
-1. Save "on-call.py" to a directory containing a csv of employees.
+1. Save "on-call.py" to a directory containing a csv of employees with "employee" as the header.
 1. In Terminal, type "python3 on-call.py"
