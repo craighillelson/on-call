@@ -1,68 +1,52 @@
 """ __doc__ """
 
-import csv
-import imports
 import employees
+import functions
+import vars
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MO, SU
+from itertools import cycle
 
-def print_employee_holiday_week(a, b, c, d):
-    if a < date < b or c < date < d:
-        print(f"{date.strftime('%Y-%m-%d')} - {employee_assigned}"
-        " - holiday week")
-    else:
-        print(f"{date.strftime('%Y-%m-%d')} - {employee_assigned}")
+RTN = lambda: "\n"
 
-
-def format_dates(x):
-    x = str(year) + '-' + x
-    x = imports.datetime.strptime(x, '%Y-%m-%d')
-    return x
-
-
-def write_to_csv(name_of_file, dct):
-    """ write dictionary to csv """
-    HEADERS = 'date', 'employee'
-    with open(name_of_file, "w") as out_file:
-        out_csv = csv.writer(out_file)
-        out_csv.writerow(HEADERS)
-        for date, employee in dct.items():
-            # keys_values = (date, employee)
-            keys_values = (date.strftime('%Y-%m-%d'), employee)
-            out_csv.writerow(keys_values)
-
-
-D = imports.datetime.now()
-year = D.year
-
-tgiving_wk_start = '11-22'
-tgiving_wk_end = '11-29'
-xmas_wk_start = '12-18'
-xmas_wk_end = '12-26'
-
-tgiving_wk_start = format_dates(tgiving_wk_start)
-tgiving_wk_end = format_dates(tgiving_wk_end)
-xmas_wk_start = format_dates(xmas_wk_start)
-xmas_wk_end = format_dates(xmas_wk_end)
-
+TODAY = datetime.now()
 MONDAYS = []
 EMPLOYEE_ASSIGNMENTS = []
 
-number_of_weeks = input("How many weeks in the future would you like to make \
-the schedule for? ")
-number_of_weeks = int(number_of_weeks) + 1
+NUMBER_OF_WEEKS = input('How many weeks in the future would you like to make \
+the schedule for? ')
+NUMBER_OF_WEEKS = int(NUMBER_OF_WEEKS) + 1
 
-for i in range(1, number_of_weeks, 1):
-    MONDAYS.append(D + imports.relativedelta(weekday=imports.MO(+i)))
-    d5 = D + imports.relativedelta(weekday=imports.MO(+i))
+# populate a list of mondays
+for i in range(1, NUMBER_OF_WEEKS, 1):
+    mon_incremented = TODAY + relativedelta(weekday=MO(+i))
+    MONDAYS.append(mon_incremented)
+    i = i + 1
 
-for n, employee in enumerate(imports.cycle(employees.EMPLOYEES)):
+for n, employee in enumerate(cycle(employees.EMPLOYEES)):
     EMPLOYEE_ASSIGNMENTS.append(employee)
-    if n >= number_of_weeks:
+    if n >= NUMBER_OF_WEEKS:
         break
 
 ASSIGNMENTS = dict(zip(MONDAYS, EMPLOYEE_ASSIGNMENTS))
 
-for date, employee_assigned in sorted(ASSIGNMENTS.items()):
-    print_employee_holiday_week(tgiving_wk_start, tgiving_wk_end, \
-    xmas_wk_start, xmas_wk_end)
+print('shift -', 'employee -', 'holiday week')
 
-write_to_csv('on-call_schedule.csv', ASSIGNMENTS)
+for shift, employee in ASSIGNMENTS.items():
+    month = shift.month
+    day = shift.day
+    shift_month_day = (month, day)
+    if vars.TGIVING_WK_START < shift_month_day <= vars.TGIVING_WK_END or \
+    vars.XMAS_WK_START < shift_month_day < vars.XMAS_WK_END:
+        print(f"{shift.strftime('%Y-%m-%d')} - {employee} - yes")
+    else:
+        print(f"{shift.strftime('%Y-%m-%d')} - {employee} - no")
+
+print(RTN())
+
+output = str(TODAY.strftime("%Y-%m-%d_%H:%M")) + '_on_call.csv'
+functions.write_to_csv(output, ASSIGNMENTS)
+print(f'{output} has been exported successfully')
+
+print(RTN())
