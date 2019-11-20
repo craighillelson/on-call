@@ -10,6 +10,11 @@ from itertools import cycle
 
 RTN = lambda: "\n"
 
+def ouput_shift_employee(a, b, c):
+        a = str(a.strftime('%Y-%m-%d'))
+        print(a, b, c)
+
+
 TODAY = datetime.now()
 MONDAYS = []
 EMPLOYEE_ASSIGNMENTS = []
@@ -39,9 +44,9 @@ for shift, employee in ASSIGNMENTS.items():
     shift_month_day = (month, day)
     if vars.TGIVING_WK_START < shift_month_day <= vars.TGIVING_WK_END or \
     vars.XMAS_WK_START < shift_month_day < vars.XMAS_WK_END:
-        print(f"{shift.strftime('%Y-%m-%d')} - {employee} - yes")
+        ouput_shift_employee(shift, employee, 'yes')
     else:
-        print(f"{shift.strftime('%Y-%m-%d')} - {employee} - no")
+        ouput_shift_employee(shift, employee, 'no')
 
 print(RTN())
 
