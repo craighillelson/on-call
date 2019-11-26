@@ -5,4 +5,6 @@ https://pypi.org/project/python-dateutil/
 
 # Instructions
 1. Save "on-call.py" to a directory containing a csv of employees with "employee" as the header.
-1. In Terminal, type "python3 on-call.py"
+1. Upload a csv of employees with the following headers: employee,start_date
+1. start_date must be formatted as YYYY-MM-DD
+1. In Terminal, type "python3 create_schedule.py"
