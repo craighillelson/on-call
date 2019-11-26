@@ -8,3 +8,7 @@ https://pypi.org/project/python-dateutil/
 1. Upload a csv of employees with the following headers: employee,start_date
 1. start_date must be formatted as YYYY-MM-DD
 1. In Terminal, type "python3 create_schedule.py"
+
+# Files
+
+add_employee.py - add employee
