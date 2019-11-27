@@ -32,6 +32,7 @@ i = 1
 num_weeks = int(prompt_user.num) + 1
 
 # populate a list of mondays and a list of sundays
+# make mondays tuples?
 for i in range(1, num_weeks, 1):
     mon_inc = TODAY + relativedelta(weekday=MO(+i))
     sun_inc = TODAY + relativedelta(weekday=SU(+i+1))

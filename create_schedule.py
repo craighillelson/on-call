@@ -35,3 +35,19 @@ print(RTN())
     # for k, v in dct.items():
         # print(k, v)
     # i += 1
+
+# resolution logic edited
+# while True:
+    # if i > 0:
+        # break
+    # for k, v in dct.items():
+        # if pto:
+            # if pto_start <= shift_start:
+                # continue
+            # else:
+            #   pass
+        # else:
+            # print(k, v)
+    # for k, v in dct.items():
+        # print(k, v)
+    # i += 1
