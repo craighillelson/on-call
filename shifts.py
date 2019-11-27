@@ -1,7 +1,8 @@
 """ __doc__ """
 
 import prompt_user
-from datetime import datetime
+from datetime import date
+# from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO, SU
 
@@ -23,8 +24,9 @@ def append_shifts():
     SHIFTS.append(shift)
 
 
-TODAY = datetime.now()
+TODAY = date.today()
 MONDAYS = []
+# MONDAYS_TUPLES = []
 SUNDAYS = []
 SHIFTS = []
 i = 1
@@ -36,6 +38,7 @@ num_weeks = int(prompt_user.num) + 1
 for i in range(1, num_weeks, 1):
     mon_inc = TODAY + relativedelta(weekday=MO(+i))
     sun_inc = TODAY + relativedelta(weekday=SU(+i+1))
+    # MONDAYS_TUPLES.append((mon_inc))
     MONDAYS.append(mon_inc)
     SUNDAYS.append(sun_inc)
     i += 1
@@ -57,3 +60,6 @@ for mon, sun in zip(MONDAYS, SUNDAYS):
     else:
         shift = concat_shift('no')
         append_shifts()
+
+# for mon in MONDAYS_TUPLES:
+    # print(mon)

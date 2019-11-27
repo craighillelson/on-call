@@ -23,6 +23,10 @@ for shift, emp in ASSIGNMENTS.items():
 
 print(RTN())
 
+# loop through shifts, if employee will be on pto, evaluate same for the next
+# employee until an available employee is found
+# at that point, assign shift to that employee
+
 # resolution logic
 # while True:
     # if i > 0:
