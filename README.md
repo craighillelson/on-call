@@ -12,4 +12,6 @@ https://pypi.org/project/python-dateutil/
 # Files
 
 * add_employee.py - add employee
+* list_pto.py - parses pto.csv and determines next availability
 * prompt_user.py - prompt user for the number of weeks into the future they'd like to make the schedule for
+* pto.csv - store for pto data
