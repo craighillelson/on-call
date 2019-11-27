@@ -41,6 +41,10 @@ print(RTN())
     # if i > 0:
         # break
     # for k, v in dct.items():
+        # if date < start_date + 12 weeks:
+            # continue
+        # else:
+            # pass
         # if pto:
             # if pto_start <= shift_start:
                 # continue
