@@ -23,11 +23,11 @@ with open('employees.csv') as csv_file:
         first_eligible_shift = date_strptime + relativedelta(weekday=MO(+12))
         employees_dct[row.employee] = [date_strptime, first_eligible_shift]
 
-print(RTN())
+# print(RTN())
 
-print('employee, start_eligible_dates')
-for emp, start_eligible_dates in employees_dct.items():
-    print(emp)
-    print(f"start date: {output_date(0)}")
-    print(f"first eligible shift: {output_date(1)}")
-    print(RTN())
+# print('employee, start_eligible_dates')
+# for emp, start_eligible_dates in employees_dct.items():
+    # print(emp)
+    # print(f"start date: {output_date(0)}")
+    # print(f"first eligible shift: {output_date(1)}")
+    # print(RTN())
