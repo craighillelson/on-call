@@ -1,3 +1,5 @@
+""" __doc__ """
+
 import csv
 from collections import namedtuple
 from datetime import datetime
@@ -22,12 +24,3 @@ with open('employees.csv') as csv_file:
         date_strptime = datetime.strptime(row.start_date, '%Y-%m-%d')
         first_eligible_shift = date_strptime + relativedelta(weekday=MO(+12))
         employees_dct[row.employee] = [date_strptime, first_eligible_shift]
-
-# print(RTN())
-
-# print('employee, start_eligible_dates')
-# for emp, start_eligible_dates in employees_dct.items():
-    # print(emp)
-    # print(f"start date: {output_date(0)}")
-    # print(f"first eligible shift: {output_date(1)}")
-    # print(RTN())
