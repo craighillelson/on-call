@@ -8,12 +8,7 @@ from dateutil.rrule import MO, SU
 
 RTN = lambda: "\n"
 
-def output_date(a):
-    return start_eligible_dates[a].strftime('%Y-%m-%d')
-
-
 employees_dct = {}
-employees_lst = []
 
 with open('employees.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
