@@ -26,6 +26,6 @@ with open('employees.csv', 'w') as out_file:
 
 print('employee added')
 print(f'key: {add_emp}')
-print(f'value: {add_start_date}')
+print(f'value: {date_formatted}')
 
 print(RTN())
