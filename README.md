@@ -10,8 +10,13 @@ https://pypi.org/project/python-dateutil/
 1. In Terminal, type "python3 create_schedule.py"
 
 # Files
-
 * add_employee.py - add employee
+* add_pto.py - add pto for a given employee to pto.csv
+* create_schedule.py - find the specified number of start dates
 * list_pto.py - parses pto.csv and determines next availability
+* eligible_employees.py - determines employees eligible to work on-call shifts by comparing the list of shifts with employees' first eligible shift
 * prompt_user.py - prompt user for the number of weeks into the future they'd like to make the schedule for
-* pto.csv - store for pto data
+* pto.csv - stores pto data
+* remove_employee.py - lists employees and gives user the option to remove one
+* shifts.csv - stores on-call shift schedule
+* shifts.py - populates a list of dates of consecutive Mondays based on user's response in prompt_user.py
