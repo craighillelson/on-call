@@ -1,61 +1,52 @@
 """ __doc__ """
 
+import csv
+from datetime import date
+from itertools import cycle
 import shifts
 import employees
-from itertools import cycle
 
 RTN = lambda: "\n"
 
-EMPLOYEES_CYCLED = []
 i = 1
+TODAY = date.today()
+ELIGIBLE_EMPLOYEES = []
+ASSIGNMENTS = {}
 
-for num, employee in enumerate(cycle(employees.employees_dct)):
-    if i >= shifts.num_weeks:
+for emp in employees.EMPLOYEES_LST:
+    if i >= shifts.NUM_WEEKS:
         break
-    EMPLOYEES_CYCLED.append(employee)
+    name = emp[0]
+    first_eligible = emp[1]
+    if first_eligible < TODAY:
+        ELIGIBLE_EMPLOYEES.append(emp[0])
+    else:
+        pass
     i += 1
-
-ASSIGNMENTS = dict(zip(shifts.SHIFTS, EMPLOYEES_CYCLED))
-
-print('shift (mon - sun), holiday week, employee')
-for shift, emp in ASSIGNMENTS.items():
-    print(f'{shift} - {emp}')
 
 print(RTN())
 
-# loop through shifts, if employee will be on pto, evaluate same for the next
-# employee until an available employee is found
-# at that point, assign shift to that employee
+for shift, emp in zip((shifts.SHIFTS), cycle(ELIGIBLE_EMPLOYEES)):
+    ASSIGNMENTS[shift] = emp
 
-# resolution logic
-# while True:
-    # if i > 0:
-        # break
-    # for k, v in dct.items():
-        # if k == 'Gene':
-            # continue
-        # else:
-            # print(k, v)
-    # for k, v in dct.items():
-        # print(k, v)
-    # i += 1
+i = 1
 
-# resolution logic edited
-# while True:
-    # if i > 0:
-        # break
-    # for k, v in dct.items():
-        # if date < start_date + 12 weeks:
-            # continue
-        # else:
-            # pass
-        # if pto:
-            # if pto_start <= shift_start:
-                # continue
-            # else:
-            #   pass
-        # else:
-            # print(k, v)
-    # for k, v in dct.items():
-        # print(k, v)
-    # i += 1
+print('shift, employee')
+for shift, emp in ASSIGNMENTS.items():
+    # num += 1
+    print(f'{i} - {shift} - {emp}')
+    i += 1
+
+print(RTN())
+
+with open('shifts.csv', 'w') as out_file:
+    HEADERS = 'shift', 'name'
+    out_csv = csv.writer(out_file)
+    out_csv.writerow(HEADERS)
+    for shift, emp in ASSIGNMENTS.items():
+        keys_values = (shift, emp)
+        out_csv.writerow(keys_values)
+
+print('"shifts.csv" exported successfully')
+
+print(RTN())
