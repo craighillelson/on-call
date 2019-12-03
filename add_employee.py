@@ -7,7 +7,7 @@ from datetime import datetime
 RTN = lambda: '\n'
 
 add_emp = input('Enter the name of the employee to be added \n')
-add_start_date = input('Enter the employee\'s start date \n')
+add_start_date = input('Enter the employee\'s start date (YYYY-MM-DD) \n')
 date_strptime = datetime.strptime(add_start_date, '%Y-%m-%d')
 date_formatted = date_strptime.date()
 
