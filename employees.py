@@ -6,7 +6,9 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO
 
-employees_lst = []
+EMPLOYEES_LST = []
+EMPLOYEES_DCT = {}
+EMPLOYEES_FIRST_ELIGIBLE = {}
 
 with open('employees.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
@@ -18,4 +20,6 @@ with open('employees.csv') as csv_file:
         first_eligible_shift = date_strptime + relativedelta(weekday=MO(+12))
         first_eligible_shift_form = first_eligible_shift.date()
         emp_first_eligible = row.employee, first_eligible_shift_form
-        employees_lst.append(emp_first_eligible)
+        EMPLOYEES_LST.append(emp_first_eligible)
+        EMPLOYEES_DCT[row.employee] = row.start_date
+        EMPLOYEES_FIRST_ELIGIBLE[row.employee] = first_eligible_shift_form
