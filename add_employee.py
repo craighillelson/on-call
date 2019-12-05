@@ -17,15 +17,21 @@ print(RTN())
 
 HEADERS = 'employee', 'start_date'
 
+print('employee added')
+print(f'key: {add_emp}')
+print(f'value: {date_formatted}')
+
+print(RTN())
+
+print('employees')
+for emp, start_date in employees.EMPLOYEES_DCT.items():
+    print(emp, start_date)
+
 with open('employees.csv', 'w') as out_file:
     out_csv = csv.writer(out_file)
     out_csv.writerow(HEADERS)
     for emp, start_date in employees.EMPLOYEES_DCT.items():
-        keys_values = (emp, date_formatted)
+        keys_values = (emp, start_date)
         out_csv.writerow(keys_values)
-
-print('employee added')
-print(f'key: {add_emp}')
-print(f'value: {date_formatted}')
 
 print(RTN())
