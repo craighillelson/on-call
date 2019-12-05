@@ -31,7 +31,7 @@ SUNDAYS = []
 SHIFTS = []
 i = 1
 
-num_weeks = int(prompt_user.num) + 1
+num_weeks = int(prompt_user.NUM) + 1
 
 # populate a list of mondays and a list of sundays
 # make mondays tuples?

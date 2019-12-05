@@ -14,7 +14,7 @@ ELIGIBLE_EMPLOYEES = []
 ASSIGNMENTS = {}
 
 for emp in employees.EMPLOYEES_LST:
-    if i >= shifts.NUM_WEEKS:
+    if i >= shifts.num_weeks:
         break
     name = emp[0]
     first_eligible = emp[1]
@@ -31,7 +31,7 @@ for shift, emp in zip((shifts.SHIFTS), cycle(ELIGIBLE_EMPLOYEES)):
 
 i = 1
 
-print('shift, employee')
+print('shift, holiday week, employee')
 for shift, emp in ASSIGNMENTS.items():
     # num += 1
     print(f'{i} - {shift} - {emp}')
@@ -40,7 +40,7 @@ for shift, emp in ASSIGNMENTS.items():
 print(RTN())
 
 with open('shifts.csv', 'w') as out_file:
-    HEADERS = 'shift', 'name'
+    HEADERS = 'shift', 'name', 'holiday week', 'employee'
     out_csv = csv.writer(out_file)
     out_csv.writerow(HEADERS)
     for shift, emp in ASSIGNMENTS.items():
