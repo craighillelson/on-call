@@ -10,6 +10,7 @@ print(RTN())
                     # 'b. specify a starting date (YYYY-MM-DD)?\n')
 
 print('By defualt, schedules created to start on the next Monday and '
-      'run for twelve weeks.')
+      'run for twelve weeks.\nEmployees are eligible for inclusion in the '
+      'on-call schedule twelve weeks after their start date.')
 
 NUM = 12
