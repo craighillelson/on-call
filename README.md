@@ -15,7 +15,7 @@ https://pypi.org/project/python-dateutil/
 * create_schedule.py - find the specified number of start dates
 * list_employees.py - lists employees and the first shift that each is available for
 * list_pto.py - parses pto.csv and determines next availability
-* list_shifts.py - lists shifts and assignments
+* list_shifts.py - lists shifts assigned by employee
 * eligible_employees.py - determines employees eligible to work on-call shifts by comparing the list of shifts with employees' first eligible shift
 * prompt_user.py - prompt user for the number of weeks into the future they'd like to make the schedule for
 * pto.csv - stores pto data
