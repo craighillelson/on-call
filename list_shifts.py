@@ -6,6 +6,8 @@ from collections import namedtuple
 RTN = lambda: "\n"
 
 dct = {}
+employees = []
+res = []
 
 with open('shifts.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
@@ -17,10 +19,16 @@ with open('shifts.csv') as csv_file:
 
 print(RTN())
 
-# do holiday week calculations here
+SCHED_GROUPED_BY_EMP = {}
 
-print('shift, employee')
-for shift, emp in dct.items():
-    print(shift, emp)
+for shift, emp in sorted(dct.items()):
+    SCHED_GROUPED_BY_EMP.setdefault(emp, []).append(shift)
 
+print('shifts grouped by employee')
 print(RTN())
+
+for emp, shifts in SCHED_GROUPED_BY_EMP.items():
+    print(emp)
+    for shift in shifts:
+        print(shift)
+    print(RTN())
