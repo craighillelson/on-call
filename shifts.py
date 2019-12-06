@@ -15,7 +15,8 @@ def format_date(a):
 
 def concat_shift(a):
     """ concatenate shift """
-    shift = format_date(mon) +' - '+ format_date(sun) +' - '+a
+    # shift = format_date(mon) +' - '+ format_date(sun) +' - '+a
+    shift = format_date(mon) +' - '+ format_date(sun)
     return shift
 
 
@@ -46,20 +47,22 @@ for i in range(1, num_weeks, 1):
 # assemble a list of shifts and designate the weeks in which thanksgiving or
 # christmas fall
 for mon, sun in zip(MONDAYS, SUNDAYS):
-    month = mon.month
-    day = mon.day
-    mon_month_day = (month, day)
-    TGIVING_WK_START = (11, 19)
-    TGIVING_WK_END = (11, 25)
-    XMAS_WK_START = (12, 18)
-    XMAS_WK_END = (12, 26)
-    if TGIVING_WK_START < mon_month_day <= TGIVING_WK_END or \
-    XMAS_WK_START < mon_month_day < XMAS_WK_END:
-        shift = concat_shift('yes')
-        append_shifts()
-    else:
-        shift = concat_shift('no')
-        append_shifts()
+    shift = format_date(mon) +' - '+ format_date(sun)
+    SHIFTS.append(shift)
+    # month = mon.month
+    # day = mon.day
+    # mon_month_day = (month, day)
+    # TGIVING_WK_START = (11, 19)
+    # TGIVING_WK_END = (11, 25)
+    # XMAS_WK_START = (12, 18)
+    # XMAS_WK_END = (12, 26)
+    # if TGIVING_WK_START < mon_month_day <= TGIVING_WK_END or \
+    # XMAS_WK_START < mon_month_day < XMAS_WK_END:
+        # shift = concat_shift('yes')
+        # append_shifts()
+    # else:
+        # shift = concat_shift('no')
+        # append_shifts()
 
 # for mon in MONDAYS_TUPLES:
     # print(mon)
