@@ -33,3 +33,5 @@ for emp, shifts in SCHED_GROUPED_BY_EMP.items():
         i += 1
         print(i, shift)
     print(RTN())
+
+# write shifts per employee to individual csvs
