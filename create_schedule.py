@@ -24,14 +24,14 @@ for emp in employees.EMPLOYEES_LST:
         pass
     i += 1
 
-print(RTN())
-
 for shift, emp in zip((shifts.SHIFTS), cycle(ELIGIBLE_EMPLOYEES)):
     ASSIGNMENTS[shift] = emp
 
 i = 1
 
-print('shift, holiday week, employee')
+print(RTN())
+
+print('shift, employee')
 for shift, emp in ASSIGNMENTS.items():
     # num += 1
     print(f'{i} - {shift} - {emp}')
@@ -40,7 +40,7 @@ for shift, emp in ASSIGNMENTS.items():
 print(RTN())
 
 with open('shifts.csv', 'w') as out_file:
-    HEADERS = 'shift', 'name', 'holiday week', 'employee'
+    HEADERS = 'shift', 'employee'
     out_csv = csv.writer(out_file)
     out_csv.writerow(HEADERS)
     for shift, emp in ASSIGNMENTS.items():
