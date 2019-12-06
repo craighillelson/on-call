@@ -33,7 +33,6 @@ print(RTN())
 
 print('shift, employee')
 for shift, emp in ASSIGNMENTS.items():
-    # num += 1
     print(f'{i} - {shift} - {emp}')
     i += 1
 
