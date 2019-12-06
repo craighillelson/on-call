@@ -5,9 +5,7 @@ from collections import namedtuple
 
 RTN = lambda: "\n"
 
-dct = {}
-employees = []
-res = []
+SCHED = {}
 
 with open('shifts.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
@@ -15,13 +13,13 @@ with open('shifts.csv') as csv_file:
     CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
     for rows in F_CSV:
         row = CSV_ROW(*rows)
-        dct[row.shift] = row.employee
+        SCHED[row.shift] = row.employee
 
 print(RTN())
 
 SCHED_GROUPED_BY_EMP = {}
 
-for shift, emp in sorted(dct.items()):
+for shift, emp in sorted(SCHED.items()):
     SCHED_GROUPED_BY_EMP.setdefault(emp, []).append(shift)
 
 print('shifts grouped by employee')
