@@ -8,7 +8,7 @@ RTN = lambda: '\n'
 
 domain = input('What is your domain name?\n')
 
-email_prefix = input('Enter the email prefix of the employee to be added \n')
+email_prefix = input('Enter the email prefix of the employee to be added\n')
 email = email_prefix + '@' + domain
 
 add_start_date = input('Enter the employee\'s start date (YYYY-MM-DD)\n')
