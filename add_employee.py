@@ -6,9 +6,12 @@ from datetime import datetime
 
 RTN = lambda: '\n'
 
-add_emp = input('Enter the email address of the employee to be added  \n')
-# validate that user entered an email address
-add_start_date = input('Enter the employee\'s start date (YYYY-MM-DD) \n')
+domain = input('What is your fully qualified domain name?\n')
+
+add_emp = input('Enter the email address of the employee to be added \n')
+# validate that user entered a vaid email address based on the domain specified
+# above
+add_start_date = input('Enter the employee\'s start date (YYYY-MM-DD)\n')
 # validate that user entered date in YYYY-MM-DD format
 date_strptime = datetime.strptime(add_start_date, '%Y-%m-%d')
 date_formatted = date_strptime.date()
