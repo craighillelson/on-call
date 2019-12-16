@@ -8,7 +8,7 @@ RTN = lambda: '\n'
 
 domain = input('What is your fully qualified domain name?\n')
 
-add_emp = input('Enter the email address of the employee to be added \n')
+add_emp = input('Enter the email prefix of the employee to be added \n')
 # validate that user entered a vaid email address based on the domain specified
 # above
 add_start_date = input('Enter the employee\'s start date (YYYY-MM-DD)\n')
