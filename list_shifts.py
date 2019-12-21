@@ -27,8 +27,7 @@ print(RTN())
 
 for emp, shifts in SCHED_GROUPED_BY_EMP.items():
     print(emp)
-    for i, shift in enumerate(shifts):
-        i += 1
+    for i, shift in enumerate(shifts, 1):
         print(i, shift)
     print(RTN())
 
