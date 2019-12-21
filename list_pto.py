@@ -2,7 +2,8 @@
 
 import csv
 from collections import namedtuple
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO
 
