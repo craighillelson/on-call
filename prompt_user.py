@@ -14,3 +14,4 @@ print('By defualt, schedules created to start on the next Monday and '
       'on-call schedule twelve weeks after their start date.')
 
 NUM = 12
+# schedules should be made for an entire quarter at a time
