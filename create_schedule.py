@@ -6,7 +6,7 @@ from itertools import cycle
 import shifts
 import employees
 
-RTN = lambda: "\n"
+RTN = lambda: '\n'
 
 i = 1
 TODAY = date.today()
