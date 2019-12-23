@@ -29,7 +29,7 @@ NUM = 12
 # schedules should be made for an entire quarter at a time
 
 # qtr = input('What quarter would you like the schedule to start? '
-            '(enter a number between 1 and 4\n')
+            # '(enter a number between 1 and 4\n')
 # year = input('In what year (enter in YYYY format)\n')
 
 # month_day = num_to_month_day(qtr)
