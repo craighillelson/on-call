@@ -28,8 +28,18 @@ print('By defualt, schedules created to start on the next Monday and '
 NUM = 12
 # schedules should be made for an entire quarter at a time
 
-# qtr = input('What quarter would you like the schedule to start? '
-            # '(enter a number between 1 and 4\n')
+while True:
+    try:
+        qtr = int(input('What quarter would you like the schedule to start? '
+                        '(enter a number between 1 and 4\n'))
+        if qtr > 4:
+            print(f'please enter a number between 1 and 4')
+        else:
+            print(RTN())
+            break
+    except ValueError:
+        print('Please enter an integer.')
+
 # year = input('In what year (enter in YYYY format)\n')
 
 # month_day = num_to_month_day(qtr)
