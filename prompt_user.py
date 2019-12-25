@@ -1,12 +1,27 @@
 """ __doc__ """
 
-def num_to_month_day(argument):
+from datetime import date
+from datetime import datetime
+
+def qtr_to_month_day(argument):
     """ switch case statement """
+    """ assigns user choice to a list of start and """
+    """ end dates for each quarter """
     switcher = {
-        '1': ['01-01', '03-31',],
-        '2': ['04-01', '06-30',],
-        '3': ['07-01', '09-30',],
-        '4': ['10-01', '12-31',],
+        1: ['01-01', '03-31',],
+        2: ['04-01', '06-30',],
+        3: ['07-01', '09-30',],
+        4: ['10-01', '12-31',],
+    }
+    return switcher.get(argument, 'nothing')
+
+
+def user_selected_year(argument):
+    """ switch case statement """
+    """ converts user choice into this year or next year """
+    switcher = {
+        'a': this_year,
+        'b': next_year,
     }
     return switcher.get(argument, 'nothing')
 
@@ -15,24 +30,31 @@ RTN = lambda: '\n'
 
 print(RTN())
 
-# prompt user for start date
-# validate user input
-# START_DATE = input('Would you like to create a schedule that \n'
-                    # 'a. starts on the next Monday or \n'
-                    # 'b. specify a starting date (YYYY-MM-DD)?\n')
+today = date.today()
+this_year = today.year
+next_year = this_year + 1
 
 print('By defualt, schedules created to start on the next Monday and '
-      'run for twelve weeks.\nEmployees are eligible for inclusion in the '
+      'run for twelve weeks.\n\nEmployees are eligible for inclusion in the '
       'on-call schedule twelve weeks after their start date.')
 
-NUM = 12
-# schedules should be made for an entire quarter at a time
+qtrs = [
+    1,
+    2,
+    3,
+    4,
+]
+
+years = [
+    'a',
+    'b',
+]
 
 while True:
     try:
         qtr = int(input('What quarter would you like the schedule to start? '
-                        '(enter a number between 1 and 4\n'))
-        if qtr > 4:
+                        '(enter a number between 1 and 4)\n'))
+        if qtr not in qtrs:
             print(f'please enter a number between 1 and 4')
         else:
             print(RTN())
@@ -40,11 +62,30 @@ while True:
     except ValueError:
         print('Please enter an integer.')
 
-# year = input('In what year (enter in YYYY format)\n')
+while True:
+    try:
+        year = input('Would you like to make the on call schedule for\n'
+                     'a. this year or next year\n'
+                     'b. next year\n')
+        if year not in years:
+            print('Please select "a" or "b"')
+        else:
+            print(RTN())
+            break
+    except ValueError:
+        print('invalid input')
 
-# month_day = num_to_month_day(qtr)
-# start = month_day[0]
-# end = month_day[1]
-# qtr_start = year + '-' + start
-# qtr_end = year + '-' + end
-# print(f'Quarter {qtr} - {qtr_start} - {qtr_end}')
+qtr_start_end = qtr_to_month_day(qtr)
+on_call_year = user_selected_year(year)
+qtr_start = str(on_call_year) + '-' + qtr_start_end[0]
+qtr_end = str(on_call_year) + '-' + qtr_start_end[1]
+
+qtr_start_datetime = datetime.strptime(qtr_start, '%Y-%m-%d')
+qtr_end_datetime = datetime.strptime(qtr_end, '%Y-%m-%d')
+
+qtr_start_date = qtr_start_datetime.date()
+qtr_end_date = qtr_end_datetime.date()
+print('date range selected')
+print(f'quarter start: {qtr_start_date}')
+print(f'quarter end: {qtr_end_date}')
+print(RTN())
