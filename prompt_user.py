@@ -36,7 +36,7 @@ if todays_date.quarter == 4:
     print(f'next quarter: {next_qtr}')
     print(f'the quarter after: {next_qtr + 1}')
 elif todays_date.quarter == 3:
-    the_qtr_after = 2
+    the_qtr_after = 1
 else:
     next_qtr = todays_date.quarter + 1
     the_qtr_after = todays_date.quarter + 2
