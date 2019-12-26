@@ -1,91 +1,66 @@
 """ __doc__ """
 
+import pandas as pd
 from datetime import date
-from datetime import datetime
+from dateutil.rrule import MO
+from dateutil.relativedelta import relativedelta
 
-def qtr_to_month_day(argument):
-    """ switch case statement """
-    """ assigns user choice to a list of start and """
-    """ end dates for each quarter """
-    switcher = {
-        1: ['01-01', '03-31',],
-        2: ['04-01', '06-30',],
-        3: ['07-01', '09-30',],
-        4: ['10-01', '12-31',],
-    }
-    return switcher.get(argument, 'nothing')
-
-
-def user_selected_year(argument):
-    """ switch case statement """
-    """ converts user choice into this year or next year """
-    switcher = {
-        'a': this_year,
-        'b': next_year,
-    }
-    return switcher.get(argument, 'nothing')
-
+answers = [
+    'a',
+    'b',
+]
 
 RTN = lambda: '\n'
 
 print(RTN())
 
+print('By defualt, schedules are created to start on the first Monday of the '
+      'next quarter and run for the entire quarter.\n\nEmployees are eligible '
+      'for inclusion in the on-call schedule twelve weeks after their start '
+      'date.')
+
+print(RTN())
+
 today = date.today()
-this_year = today.year
-next_year = this_year + 1
+todays_date = pd.Timestamp(today)
 
-print('By defualt, schedules created to start on the next Monday and '
-      'run for twelve weeks.\n\nEmployees are eligible for inclusion in the '
-      'on-call schedule twelve weeks after their start date.')
+mon_inc = today + relativedelta(weekday=MO(+2))
+week_from_monday = pd.Timestamp(mon_inc)
 
-qtrs = [
-    1,
-    2,
-    3,
-    4,
-]
-
-years = [
-    'a',
-    'b',
-]
-
-while True:
-    try:
-        qtr = int(input('What quarter would you like the schedule to start? '
-                        '(enter a number between 1 and 4)\n'))
-        if qtr not in qtrs:
-            print(f'please enter a number between 1 and 4')
-        else:
-            print(RTN())
-            break
-    except ValueError:
-        print('Please enter an integer.')
+print(f'today\'s date: {todays_date.date()}')
+print(f'this quarter: {todays_date.quarter}')
+if todays_date.quarter == 4:
+    next_qtr = 1
+    the_qtr_after = next_qtr + 1
+    year = today.year + 1
+    print(f'next quarter: {next_qtr}')
+    print(f'the quarter after: {next_qtr + 1}')
+elif todays_date.quarter == 3:
+    the_qtr_after = 2
+else:
+    next_qtr = todays_date.quarter + 1
+    the_qtr_after = todays_date.quarter + 2
+    print(f'next quarter: {next_qtr}')
+    print(f'the quarter afer: {the_qtr_after}')
+print(RTN())
 
 while True:
     try:
-        year = input('Would you like to make the on call schedule for\n'
-                     'a. this year or next year\n'
-                     'b. next year\n')
-        if year not in years:
-            print('Please select "a" or "b"')
+        starting_qtr = input(f'Would you like to make a schedule for\n'
+                             f'a. Q{next_qtr}/{year} or\n'
+                             f'b. Q{the_qtr_after}/{year}\n')
+        if starting_qtr not in answers:
+            print('Please enter \'a\' or \'b\'')
         else:
-            print(RTN())
             break
     except ValueError:
         print('invalid input')
 
-qtr_start_end = qtr_to_month_day(qtr)
-on_call_year = user_selected_year(year)
-qtr_start = str(on_call_year) + '-' + qtr_start_end[0]
-qtr_end = str(on_call_year) + '-' + qtr_start_end[1]
+print(RTN())
 
-qtr_start_datetime = datetime.strptime(qtr_start, '%Y-%m-%d')
-qtr_end_datetime = datetime.strptime(qtr_end, '%Y-%m-%d')
+if starting_qtr == 'a':
+    print(f'You selected Q{next_qtr}/{year}')
+else:
+    print(f'You selected Q{the_qtr_after}/{year}')
 
-qtr_start_date = qtr_start_datetime.date()
-qtr_end_date = qtr_end_datetime.date()
-print('date range selected')
-print(f'quarter start: {qtr_start_date}')
-print(f'quarter end: {qtr_end_date}')
 print(RTN())
