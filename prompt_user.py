@@ -24,25 +24,18 @@ print(RTN())
 today = date.today()
 todays_date = pd.Timestamp(today)
 
-mon_inc = today + relativedelta(weekday=MO(+2))
-week_from_monday = pd.Timestamp(mon_inc)
+# mon_inc = today + relativedelta(weekday=MO(+2))
+# week_from_monday = pd.Timestamp(mon_inc)
 
-print(f'today\'s date: {todays_date.date()}')
-print(f'this quarter: {todays_date.quarter}')
 if todays_date.quarter == 4:
     next_qtr = 1
     the_qtr_after = next_qtr + 1
     year = today.year + 1
-    print(f'next quarter: {next_qtr}')
-    print(f'the quarter after: {next_qtr + 1}')
 elif todays_date.quarter == 3:
     the_qtr_after = 1
 else:
     next_qtr = todays_date.quarter + 1
     the_qtr_after = todays_date.quarter + 2
-    print(f'next quarter: {next_qtr}')
-    print(f'the quarter afer: {the_qtr_after}')
-print(RTN())
 
 while True:
     try:
