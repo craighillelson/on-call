@@ -6,7 +6,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO, SU
 
-RTN = lambda: "\n"
+RTN = lambda: '\n'
 
 def format_date(a):
     """ formats date """
@@ -25,6 +25,8 @@ def append_shifts():
     SHIFTS.append(shift)
 
 
+print(prompt_user.starting_qtr)
+
 TODAY = date.today()
 MONDAYS = []
 # MONDAYS_TUPLES = []
@@ -32,7 +34,7 @@ SUNDAYS = []
 SHIFTS = []
 i = 1
 
-num_weeks = int(prompt_user.NUM) + 1
+# num_weeks = int(prompt_user.NUM) + 1
 
 # populate a list of mondays and a list of sundays
 # make mondays tuples?
