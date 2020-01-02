@@ -30,6 +30,7 @@ def output_date(a, b, c):
 
 
 qtr_start_end_dates = []
+mondays = []
 year = str(prompt_user.year)
 qtr_start_end = start_end_date_str(prompt_user.starting_qtr)
 
@@ -43,14 +44,24 @@ for qtr_date in qtr_start_end:
 
 qtr_start_date = qtr_start_end_dates[0]
 qtr_end_date = qtr_start_end_dates[1]
-
 output_date('first', qtr_start_date, +1)
 output_date('last', qtr_end_date, -1)
 
 # count weeks between first and last mondays of the quarter
-# make a list of all the mondays in the quarter
+date_delta = qtr_end_date - qtr_start_date
+weeks_between = round(date_delta.days / 7)
+print(f'number of weeks between dates: {weeks_between}')
 
 print(RTN())
+
+# make a list of all the mondays in the quarter
+for i in range(1, weeks_between + 1, 1):
+    mondays.append(qtr_start_date + relativedelta(weekday=MO(+i)))
+
+# for monday in mondays:
+#     print(monday)
+
+# print(RTN())
 
 # date = datetime.strptime('2019-09-27', '%Y-%m-%d') # '2019-09-27 is a placeholder'
 # print(date.date())
