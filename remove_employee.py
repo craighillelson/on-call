@@ -27,6 +27,8 @@ with open('employees.csv') as csv_file:
             if field == mem:
                 lines.remove(row)
 
+# fix - include headers
+
 with open('employees.csv', 'w') as writeFile:
     writer = csv.writer(writeFile)
     writer.writerows(lines)
