@@ -23,6 +23,7 @@ print(RTN())
 
 today = date.today()
 todays_date = pd.Timestamp(today)
+year = today.year
 
 # mon_inc = today + relativedelta(weekday=MO(+2))
 # week_from_monday = pd.Timestamp(mon_inc)
@@ -56,4 +57,4 @@ if starting_qtr == 'a':
 else:
     print(f'You selected Q{the_qtr_after}/{year}')
 
-print(RTN())
+# print(RTN())
