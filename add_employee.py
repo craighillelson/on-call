@@ -10,6 +10,8 @@ today = date.today()
 RTN = lambda: '\n'
 
 domain = input('What is your domain name?\n')
+# determine domain name from existing employees and
+# prompt user re: whether or not to use that domain when adding next employee
 
 email_prefix = input('Enter the email prefix of the employee to be added\n')
 email = email_prefix + '@' + domain
