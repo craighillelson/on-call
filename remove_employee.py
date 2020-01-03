@@ -1,38 +1,24 @@
-import csv
-from collections import namedtuple
+""" __doc__ """
 
-lines = list()
+import pandas as pd
+
 RTN = lambda: '\n'
 
-with open('employees.csv') as csv_file:
-    F_CSV = csv.reader(csv_file)
-    COLUMN_HEADINGS = next(F_CSV)
-    CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
-    for rows in F_CSV:
-        row = CSV_ROW(*rows)
-        print(f'{row.employee} {row.start_date}')
-
-employee = input('Please enter a employee\'s name to be deleted. \n')
-
-with open('employees.csv') as csv_file:
-    F_CSV = csv.reader(csv_file)
-    COLUMN_HEADINGS = next(F_CSV)
-    CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
-    for rows in F_CSV:
-        row = CSV_ROW(*rows)
-        lines.append(row)
-        for field in row:
-            if field == employee:
-                lines.remove(row)
-
-# fix - include headers
-
-with open('employees.csv', 'w') as writeFile:
-    writer = csv.writer(writeFile)
-    writer.writerows(lines)
+employees = pd.read_csv('employees.csv', index_col ='employee')
 
 print(RTN())
+print(employees)
+print(RTN())
 
-print(f'{employee} deleted successfully')
+employee_rm = input('Please enter a employee\'s name to be deleted. \n')
+
+employees.drop([employee_rm], inplace=True)
 
 print(RTN())
+print(employees)
+print(RTN())
+
+employees_updated = pd.DataFrame(employees)
+employees_updated.to_csv('employees.csv')
+
+print(f'{employee_rm} deleted successfully')
