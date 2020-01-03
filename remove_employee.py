@@ -14,7 +14,7 @@ with open('employees.csv') as csv_file:
         row = CSV_ROW(*rows)
         print(f'{row.employee} {row.start_date}')
 
-mem = input('Please enter a member\'s name to be deleted. \n')
+employee = input('Please enter a employee\'s name to be deleted. \n')
 
 with open('employees.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
@@ -24,7 +24,7 @@ with open('employees.csv') as csv_file:
         row = CSV_ROW(*rows)
         lines.append(row)
         for field in row:
-            if field == mem:
+            if field == employee:
                 lines.remove(row)
 
 # fix - include headers
@@ -35,6 +35,6 @@ with open('employees.csv', 'w') as writeFile:
 
 print(RTN())
 
-print(f'{mem} deleted successfully')
+print(f'{employee} deleted successfully')
 
 print(RTN())
