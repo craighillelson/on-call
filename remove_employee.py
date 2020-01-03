@@ -4,8 +4,6 @@ from collections import namedtuple
 lines = list()
 RTN = lambda: '\n'
 
-dct = {}
-
 with open('employees.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
     COLUMN_HEADINGS = next(F_CSV)
