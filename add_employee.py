@@ -36,15 +36,7 @@ print(RTN())
 
 HEADERS = 'employee', 'start_date'
 
-print('employee added')
-print(f'key: {email}')
-print(f'value: {date_formatted}')
-
 print(RTN())
-
-print('employees')
-for email, start_date in employees.EMPLOYEES_DCT.items():
-    print(email, start_date)
 
 with open('employees.csv', 'w') as out_file:
     out_csv = csv.writer(out_file)
@@ -52,5 +44,17 @@ with open('employees.csv', 'w') as out_file:
     for email, start_date in employees.EMPLOYEES_DCT.items():
         keys_values = (email, start_date)
         out_csv.writerow(keys_values)
+
+print(RTN())
+
+print('employees')
+for email, start_date in employees.EMPLOYEES_DCT.items():
+    print(email, start_date)
+
+print(RTN())
+
+print('employee added')
+print(f'key: {email}')
+print(f'value: {date_formatted}')
 
 print(RTN())
