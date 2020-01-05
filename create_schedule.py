@@ -36,6 +36,16 @@ for shift, employee in ASSIGNMENTS.items():
     print(shift, employee)
 
 # write to csv
+HEADERS = 'shift', 'employee'
+
+with open('shifts.csv', 'w') as out_file:
+    out_csv = csv.writer(out_file)
+    out_csv.writerow(HEADERS)
+    for shift, employee in ASSIGNMENTS.items():
+        keys_values = (shift, employee)
+        out_csv.writerow(keys_values)
+
+print('"shifts.csv" exported successfully')
 
 print(RTN())
 
