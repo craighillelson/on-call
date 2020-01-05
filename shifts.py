@@ -10,10 +10,10 @@ RTN = lambda: '\n'
 def start_end_date_str(argument):
     """ switch case statement """
     switcher = {
-        'a': ['01-01', '03-31'],
-        'b': ['04-01', '06-30'],
-        'c': ['07-01', '09-30'],
-        'd': ['10-01', '12-31'],
+        1: ['01-01', '03-31'],
+        2: ['04-01', '06-30'],
+        3: ['07-01', '09-30'],
+        4: ['10-01', '12-31'],
         }
     return switcher.get(argument, 'nothing')
 
@@ -32,6 +32,7 @@ def output_date(a, b, c):
 qtr_start_end_dates = []
 mondays = []
 year = str(prompt_user.year)
+# print(f'user selection: {prompt_user.starting_qtr}')
 qtr_start_end = start_end_date_str(prompt_user.starting_qtr)
 
 print(RTN())
@@ -58,10 +59,12 @@ print(RTN())
 for i in range(1, weeks_between + 1, 1):
     mondays.append(qtr_start_date + relativedelta(weekday=MO(+i)))
 
-# for monday in mondays:
-#     print(monday)
+print(RTN())
 
-# print(RTN())
+for monday in mondays:
+    print(monday)
+
+print(RTN())
 
 # date = datetime.strptime('2019-09-27', '%Y-%m-%d') # '2019-09-27 is a placeholder'
 # print(date.date())

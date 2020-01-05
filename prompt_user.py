@@ -54,7 +54,9 @@ print(RTN())
 
 if starting_qtr == 'a':
     print(f'You selected Q{next_qtr}/{year}')
+    starting_qtr = next_qtr
 else:
     print(f'You selected Q{the_qtr_after}/{year}')
+    starting_qtr = the_qtr_after
 
 # print(RTN())
