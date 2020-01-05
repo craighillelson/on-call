@@ -7,9 +7,11 @@ from datetime import date
 from itertools import cycle
 
 RTN = lambda: '\n'
+ELIGIBLE_EMPLOYEES = []
+ASSIGNMENTS = {}
 
 print('shift start dates')
-for monday in shifts.mondays:
+for monday in shifts.SHIFTS:
     print(monday)
 
 print(RTN())
@@ -17,9 +19,23 @@ print(RTN())
 print('eligible employees')
 for employee, date_first_eligible in employees.EMPLOYEES_FIRST_ELIGIBLE.items():
     print(employee)
+    ELIGIBLE_EMPLOYEES.append(employee)
 
 # loop through shifts, if employee is not on pto, assign a shift
 # if employee is on pto, skip to next employee
+
+print(RTN())
+
+for shift, emp in zip((shifts.SHIFTS), cycle(ELIGIBLE_EMPLOYEES)):
+    ASSIGNMENTS[shift] = emp
+
+print(RTN())
+
+print('output schedule')
+for shift, employee in ASSIGNMENTS.items():
+    print(shift, employee)
+
+# write to csv
 
 print(RTN())
 
@@ -39,12 +55,7 @@ print(RTN())
 #         pass
 #     i += 1
 
-# for shift, emp in zip((shifts.SHIFTS), cycle(ELIGIBLE_EMPLOYEES)):
-#     ASSIGNMENTS[shift] = emp
-
 # i = 1
-
-# print(RTN())
 
 # print('shift, employee')
 # for shift, emp in ASSIGNMENTS.items():
