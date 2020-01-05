@@ -32,7 +32,6 @@ def output_date(a, b, c):
 qtr_start_end_dates = []
 SHIFTS = []
 year = str(prompt_user.year)
-# print(f'user selection: {prompt_user.starting_qtr}')
 qtr_start_end = start_end_date_str(prompt_user.starting_qtr)
 
 print(RTN())
