@@ -30,7 +30,7 @@ def output_date(a, b, c):
 
 
 qtr_start_end_dates = []
-mondays = []
+SHIFTS = []
 year = str(prompt_user.year)
 # print(f'user selection: {prompt_user.starting_qtr}')
 qtr_start_end = start_end_date_str(prompt_user.starting_qtr)
@@ -57,14 +57,14 @@ print(RTN())
 
 # make a list of all the mondays in the quarter
 for i in range(1, weeks_between + 1, 1):
-    mondays.append(qtr_start_date + relativedelta(weekday=MO(+i)))
+    SHIFTS.append(qtr_start_date + relativedelta(weekday=MO(+i)))
 
 print(RTN())
 
-for monday in mondays:
-    print(monday)
+# for monday in mondays:
+    # print(monday)
 
-print(RTN())
+# print(RTN())
 
 # date = datetime.strptime('2019-09-27', '%Y-%m-%d') # '2019-09-27 is a placeholder'
 # print(date.date())
