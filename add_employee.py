@@ -12,6 +12,8 @@ RTN = lambda: '\n'
 domain = input('What is your domain name?\n')
 # determine domain name from existing employees and
 # prompt user re: whether or not to use that domain when adding next employee
+# prompt user re: how many employees they'd like to add
+# num_emp_to_add = int(input('How many employees would you like to add?\n'))
 
 email_prefix = input('Enter the email prefix of the employee to be added\n')
 email = email_prefix + '@' + domain
