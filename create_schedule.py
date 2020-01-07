@@ -24,8 +24,6 @@ for employee, date_first_eligible in employees.EMPLOYEES_FIRST_ELIGIBLE.items():
 # loop through shifts, if employee is not on pto, assign a shift
 # if employee is on pto, skip to next employee
 
-print(RTN())
-
 for shift, emp in zip((shifts.SHIFTS), cycle(ELIGIBLE_EMPLOYEES)):
     ASSIGNMENTS[shift] = emp
 
@@ -44,6 +42,8 @@ with open('assignments.csv', 'w') as out_file:
     for shift, employee in ASSIGNMENTS.items():
         keys_values = (shift, employee)
         out_csv.writerow(keys_values)
+
+print(RTN())
 
 print('"assignments.csv" exported successfully')
 
