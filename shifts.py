@@ -53,25 +53,13 @@ date_delta = qtr_end_date - qtr_start_date
 weeks_between = round(date_delta.days / 7)
 print(f'number of weeks between dates: {weeks_between}')
 
-# print(RTN())
-
 # make a list of all the mondays in the quarter
 for i in range(1, weeks_between + 1, 1):
     SHIFTS.append(qtr_start_date + relativedelta(weekday=MO(+i)))
 
-# print(RTN())
-
-# print('shifts')
-# for shift in SHIFTS:
-    # print(shift)
-
-# HEADERS = name headers
-
 with open('shifts.txt', 'w') as out_file:
     out_csv = csv.writer(out_file)
-    # out_csv.writerow(HEADERS) # define HEADERS before running function
-    for shift in SHIFTS: # rename keys and values to make to make them meaningful
-        # keys_values = (k, v)
+    for shift in SHIFTS:
         shift_str = str(shift)
         out_csv.writerow([shift_str])
 
