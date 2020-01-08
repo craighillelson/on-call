@@ -1,6 +1,8 @@
+""" __doc__ """
+
 import employees
 
-RTN = lambda: "\n"
+RTN = lambda: '\n'
 
 print(RTN())
 
