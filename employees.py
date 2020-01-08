@@ -18,8 +18,8 @@ with open('employees.csv') as csv_file:
         row = CSV_ROW(*rows)
         date_strptime = datetime.strptime(row.start_date, '%Y-%m-%d')
         first_eligible_shift = date_strptime + relativedelta(weekday=MO(+12))
-        first_eligible_shift_form = first_eligible_shift.date()
-        emp_first_eligible = row.employee, first_eligible_shift_form
+        first_eligible_shift_fmt = first_eligible_shift.date()
+        emp_first_eligible = row.employee, first_eligible_shift_fmt
         EMPLOYEES_LST.append(emp_first_eligible)
         EMPLOYEES_DCT[row.employee] = row.start_date
-        EMPLOYEES_FIRST_ELIGIBLE[row.employee] = first_eligible_shift_form
+        EMPLOYEES_FIRST_ELIGIBLE[row.employee] = first_eligible_shift_fmt
