@@ -23,7 +23,7 @@ print(RTN())
 
 today = date.today()
 todays_date = pd.Timestamp(today)
-year = today.year
+YEAR = today.year
 
 # mon_inc = today + relativedelta(weekday=MO(+2))
 # week_from_monday = pd.Timestamp(mon_inc)
@@ -31,7 +31,7 @@ year = today.year
 if todays_date.quarter == 4:
     next_qtr = 1
     the_qtr_after = next_qtr + 1
-    year = today.year + 1
+    YEAR = today.year + 1
 elif todays_date.quarter == 3:
     the_qtr_after = 1
 else:
@@ -41,8 +41,8 @@ else:
 while True:
     try:
         starting_qtr = input(f'Would you like to make a schedule for\n'
-                             f'a. Q{next_qtr}/{year} or\n'
-                             f'b. Q{the_qtr_after}/{year}\n')
+                             f'a. Q{next_qtr}/{YEAR} or\n'
+                             f'b. Q{the_qtr_after}/{YEAR}\n')
         if starting_qtr not in answers:
             print('Please enter \'a\' or \'b\'')
         else:
@@ -53,10 +53,8 @@ while True:
 print(RTN())
 
 if starting_qtr == 'a':
-    print(f'You selected Q{next_qtr}/{year}')
+    print(f'You selected Q{next_qtr}/{YEAR}')
     starting_qtr = next_qtr
 else:
-    print(f'You selected Q{the_qtr_after}/{year}')
+    print(f'You selected Q{the_qtr_after}/{YEAR}')
     starting_qtr = the_qtr_after
-
-# print(RTN())
