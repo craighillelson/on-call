@@ -21,4 +21,5 @@ Python 3.8 script to loop through a list of employees to assign them on call shi
 * list_shifts_by_emp.py - lists shifts assigned by employee
 * prompt_user.py - prompts user to select next quarter or the quarter following as the starting quarter
 * pto.csv - stores pto data
+* pto.py - populates PTO dictionary with data from "pto.csv"
 * remove_employee.py - lists employees and gives user the option to remove an employee
