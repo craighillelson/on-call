@@ -1,4 +1,4 @@
-Python 3.8 script to loop through a list of employees to assign them on call shifts that start on Mondays and run for a quarter.
+Python 3.8 script to loop through a list of employees and assign them on call shifts
 
 # Requirements
 * https://pypi.org/project/python-dateutil/
@@ -13,9 +13,10 @@ Python 3.8 script to loop through a list of employees to assign them on call shi
 * add_employee.py - add employee or employees
 * add_pto.py - add pto for a given employee to pto.csv
 * assignments.csv - stores csv of shifts and assigned employees
-* create_schedule.py - imports "employees.csv" and "shifts.txt" and assembles a schedule, matching shifts to employees
+* create_schedule.py - imports "employees.csv" and assembles a schedule, matching shifts to employees, and writes the list of shifts to a "shifts.csv"
 * employees.csv - stores employee names and start dates
 * employees.py - imports contents of "employees.csv" and populates lists and dictionaries
+* functions.py - stores functions called by other files
 * list_employees.py - lists employees and the first shift for which each is available
 * list_pto.py - prints contents of "pto.csv"
 * list_shifts_by_emp.py - lists shifts assigned by employee
