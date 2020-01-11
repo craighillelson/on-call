@@ -5,7 +5,6 @@ from datetime import date
 from datetime import datetime
 from collections import namedtuple
 from itertools import cycle
-import csv
 import employees
 import functions
 import pto
@@ -23,24 +22,11 @@ INDEXES = []
 ASSIGNMENTS = []
 QTR_START_END_DATES = []
 SHIFTS = []
-
-# functions
-def cat_date(a_a):
-    """ concatenates year with start and end dates for each quarter """
-    date_ymd = YEAR + '-' + a_a
-    return date_ymd
-
-
-def append_list():
-    """ appends var to list """
-    INDEXES.append(i)
-
-
 QTR_START_END = functions.start_end_date_str(prompt_user.starting_qtr)
 
 # append list QTR_START_END_DATES
 for qtr_date in QTR_START_END:
-    date_str = cat_date(qtr_date)
+    date_str = functions.cat_date(YEAR, qtr_date)
     date_fmt = datetime.strptime(date_str, '%Y-%m-%d')
     date = date_fmt.date()
     QTR_START_END_DATES.append(date)
@@ -57,6 +43,9 @@ WEEKS_BETWEEN = round(DATE_DELTA.days / 7) + 1
 for i in range(1, WEEKS_BETWEEN, 1):
     SHIFTS.append(QTR_START_DATE + relativedelta(weekday=MO(+i)))
 
+# write shifts to csv
+functions.write_to_csv(['shifts'], 'shifts.csv', 'shift', SHIFTS)
+
 # based on employee start dates, populate a list of employees eligible to work
 # on call shifts
 for shift, start_date in zip(SHIFTS, cycle(employees.EMP_START_DATES)):
@@ -65,12 +54,12 @@ for shift, start_date in zip(SHIFTS, cycle(employees.EMP_START_DATES)):
     if shift > first_eligible:
         if i >= len(employees.EMP_START_DATES):
             i = 0
-            append_list()
+            functions.append_list(INDEXES, i)
         else:
-            append_list()
+            functions.append_list(INDEXES, i)
     else:
         i = 0
-        append_list()
+        functions.append_list(INDEXES, i)
     i += 1
 
 # populate the assignments list
@@ -102,11 +91,8 @@ HEADERS = 'shift', 'employee'
 
 on_call_sched_qtr_year = 'Q' + str(prompt_user.starting_qtr) + '-' + YEAR
 file_name = on_call_sched_qtr_year + '_assignments.csv'
-with open(file_name, 'w') as out_file:
-    OUT_CSV = csv.writer(out_file)
-    OUT_CSV.writerow(HEADERS)
-    for shift, assignment in zip(SHIFTS, ASSIGNMENTS):
-        OUT_CSV.writerow([shift, assignment])
+functions.write_to_csv("'shift', 'employee'", file_name, 'shift, assignment',
+                       'zip(SHIFTS, ASSIGNMENTS)')
 
 # alert user
 print(f'"{file_name}" was exported successfully')
