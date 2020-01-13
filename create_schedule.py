@@ -7,7 +7,7 @@ from collections import namedtuple
 from itertools import cycle
 import employees
 import functions
-import pto
+# import pto
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO
 import prompt_user
@@ -22,7 +22,9 @@ INDEXES = []
 ASSIGNMENTS = []
 QTR_START_END_DATES = []
 SHIFTS = []
-QTR_START_END = functions.start_end_date_str(prompt_user.starting_qtr)
+
+user_selected_qtr = prompt_user.starting_qtr
+QTR_START_END = functions.start_end_date_str(user_selected_qtr)
 
 # append list QTR_START_END_DATES
 for qtr_date in QTR_START_END:
@@ -74,17 +76,6 @@ for shift, assignment in zip(SHIFTS, ASSIGNMENTS):
     print(shift, assignment)
 
 print(RTN())
-
-# print('pto')
-# print(RTN())
-# for emp, pto_start_end in pto.PTO.items():
-#     pto_start = datetime.strptime(pto_start_end[0], '%Y-%m-%d')
-#     pto_end = datetime.strptime(pto_start_end[1], '%Y-%m-%d')
-#     pto_start_fmt = pto_start + relativedelta(weekday=MO(-1))
-#     pto_end_fmt = pto_end + relativedelta(weekday=MO(+1))
-#     print(f'unavailable starting: {pto_start_fmt.date()} {emp}')
-#     print(f'first shift after returning: {pto_end_fmt.date()} {emp}')
-#     print(RTN())
 
 # write assignments to csv
 HEADERS = 'shift', 'employee'
