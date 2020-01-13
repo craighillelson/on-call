@@ -1,6 +1,10 @@
 """ __doc__ """
 
-def start_end_date_str(argument):
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MO
+
+def start_end_date_str(a):
     """ switch case statement """
     switcher = {
         1: ['01-01', '03-31'],
@@ -8,7 +12,7 @@ def start_end_date_str(argument):
         3: ['07-01', '09-30'],
         4: ['10-01', '12-31'],
         }
-    return switcher.get(argument, 'nothing')
+    return switcher.get(a, 'nothing')
 
 
 def cat_date(a_a, b_b):
@@ -18,6 +22,7 @@ def cat_date(a_a, b_b):
 
 
 def write_to_csv(a_a, b_b, c_c, d_d):
+    """ write to csv """
     import csv
 
     HEADERS = a_a
@@ -32,3 +37,23 @@ def write_to_csv(a_a, b_b, c_c, d_d):
 def append_list(a_a, b_b):
     """ appends var to list """
     a_a.append(b_b)
+
+
+def format_date(a, b):
+    """ formats dates """
+    a = datetime.strptime(b, '%Y-%m-%d').date()
+    return a
+
+
+def output_start_dates(a, b):
+    """ output start dates """
+    print(f'pto starts: {a}')
+    b = a
+    print(f'unavailable starting {b}')
+
+
+def output_rtn_dates(a, b, c):
+    """ outputs end dates """
+    print(f'pto ends - {a}')
+    b = a + relativedelta(weekday=MO(+c))
+    print(f'available starting - {b}')
