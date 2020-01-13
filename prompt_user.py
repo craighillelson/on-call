@@ -25,9 +25,6 @@ today = date.today()
 todays_date = pd.Timestamp(today)
 YEAR = today.year
 
-# mon_inc = today + relativedelta(weekday=MO(+2))
-# week_from_monday = pd.Timestamp(mon_inc)
-
 if todays_date.quarter == 4:
     next_qtr = 1
     the_qtr_after = next_qtr + 1
