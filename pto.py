@@ -4,30 +4,8 @@ import csv
 import datetime
 import functions
 from collections import namedtuple
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from dateutil.rrule import MO
 
 RTN = lambda: '\n'
-
-def format_date(a, b):
-    a = row.start_date
-    b = datetime.strptime(a, '%Y-%m-%d').date()
-    return b
-
-
-def output_start_dates(a, b):
-    """ output start dates """
-    print(f'pto starts: {a}')
-    b = a
-    print(f'unavailable starting {b}')
-
-
-def output_return_dates(a, b, c):
-    """ outputs end dates """
-    print(f'pto ends - {a}')
-    b = a + relativedelta(weekday=MO(+c))
-    print(f'available starting - {b}')
 
 
 PTO = {}
@@ -50,8 +28,10 @@ with open('pto.csv', 'r') as csv_file:
     for rows in F_CSV:
         row = CSV_ROW(*rows)
         emp = row.employee
-        pto_start_date_fmt = format_date('pto_start', 'pto_start_date')
-        pto_end_date_fmt = format_date('pto_end', 'pto_end-date')
+        start_date = row.start_date
+        end_date = row.end_date
+        pto_start_date_fmt = functions.format_date('pto_start_date', start_date)
+        pto_end_date_fmt = functions.format_date('pto_end-date', end_date)
         PTO[emp] = [pto_start_date_fmt, pto_end_date_fmt]
 
 
@@ -63,12 +43,12 @@ for emp, pto in PTO.items():
     pto_start_date = pto[0]
     pto_end_date = pto[1]
     if WEEKDAYS[pto_start_date_fmt.weekday()] == 'Monday':
-        output_start_dates(pto_start_date_fmt, 'unavailable_start')
+        functions.output_start_dates(pto_start_date_fmt, 'unavailable_start')
     else:
-        output_start_dates(pto_start_date_fmt, 'unavailable_start')
+        functions.output_start_dates(pto_start_date_fmt, 'unavailable_start')
     print(RTN())
     if WEEKDAYS[pto_end_date_fmt.weekday()] == 'Monday':
-        output_return_dates(pto_start_date_fmt, 'unavailable_start', 2)
+        functions.output_rtn_dates(pto_start_date_fmt, 'unavailable_start', 2)
     else:
-        output_return_dates(pto_start_date_fmt, 'unavailable_start', 1)
+        functions.output_rtn_dates(pto_start_date_fmt, 'unavailable_start', 1)
     print(RTN())
