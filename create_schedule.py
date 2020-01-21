@@ -9,6 +9,7 @@ from itertools import cycle
 import employees
 import functions
 # import pto
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO
 import prompt_user
@@ -49,47 +50,62 @@ for i in range(1, WEEKS_BETWEEN, 1):
 # write shifts to csv
 functions.write_to_csv(['shifts'], 'shifts.csv', 'shift', SHIFTS)
 
+print(RTN())
+
+print('shifts')
+for shift in SHIFTS:
+    print(shift)
+
+print(RTN())
+
+print('shift, employee, start date')
+for shift, emp, start in zip(SHIFTS, cycle(employees.EMPLOYEES),
+                             cycle(employees.EMP_START_DATES)):
+    start_strptime = datetime.strptime(start, '%Y-%m-%d')
+    start_fmt = start_strptime.date()
+    print(shift, emp, start_fmt)
+
 # based on employee start dates, populate a list of employees eligible to work
 # on call shifts
-for shift, start_date in zip(SHIFTS, cycle(employees.EMP_START_DATES)):
-    start_date_fmt = datetime.strptime(start_date, '%Y-%m-%d').date()
-    first_eligible = start_date_fmt + relativedelta(weekday=MO(+12))
-    if shift > first_eligible:
-        if i >= len(employees.EMP_START_DATES):
-            i = 0
-            functions.append_list(INDEXES, i)
-        else:
-            functions.append_list(INDEXES, i)
-    else:
-        i = 0
-        functions.append_list(INDEXES, i)
-    i += 1
+# for shift, start_date in zip(SHIFTS, cycle(employees.EMP_START_DATES)):
+#     start_date_fmt = datetime.strptime(start_date, '%Y-%m-%d').date()
+#     first_eligible = start_date_fmt + relativedelta(weekday=MO(+12))
+#     if shift > first_eligible:
+#         if i >= len(employees.EMP_START_DATES):
+#             i = 0
+#             functions.append_list(INDEXES, i)
+#         else:
+#             functions.append_list(INDEXES, i)
+#     else:
+#         i = 0
+#         functions.append_list(INDEXES, i)
+#     i += 1
 
 # populate the assignments list
-for ind, emp in zip(INDEXES, cycle(employees.EMPLOYEES)):
-    ASSIGNMENTS.append(employees.EMPLOYEES[ind])
+# for ind, emp in zip(INDEXES, cycle(employees.EMPLOYEES)):
+#     ASSIGNMENTS.append(employees.EMPLOYEES[ind])
 
-print(RTN())
+# print(RTN())
 
 # output assignments
-print('assignments')
-for shift, assignment in zip(SHIFTS, ASSIGNMENTS):
-    print(shift, assignment)
+# print('assignments')
+# for shift, assignment in zip(SHIFTS, ASSIGNMENTS):
+    # print(shift, assignment)
 
-print(RTN())
+# print(RTN())
 
 # write assignments to csv
-on_call_sched_qtr_year = 'Q' + str(prompt_user.starting_qtr) + '-' + YEAR
-file_name = on_call_sched_qtr_year + '_assignments.csv'
+# on_call_sched_qtr_year = 'Q' + str(prompt_user.starting_qtr) + '-' + YEAR
+# file_name = on_call_sched_qtr_year + '_assignments.csv'
 
-with open(file_name, 'w') as out_file:
-    out_csv = csv.writer(out_file)
-    out_csv.writerow(['shift','employee'])
-    for shift, employee in zip(SHIFTS, ASSIGNMENTS):
-        assignments = (shift, employee)
-        out_csv.writerow(assignments)
+# with open(file_name, 'w') as out_file:
+    # out_csv = csv.writer(out_file)
+    # out_csv.writerow(['shift','employee'])
+    # for shift, employee in zip(SHIFTS, ASSIGNMENTS):
+        # assignments = (shift, employee)
+        # out_csv.writerow(assignments)
 
 # alert user
-print(f'"{file_name}" was exported successfully')
+# print(f'"{file_name}" was exported successfully')
 
 print(RTN())
