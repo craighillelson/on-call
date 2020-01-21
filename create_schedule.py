@@ -52,18 +52,23 @@ functions.write_to_csv(['shifts'], 'shifts.csv', 'shift', SHIFTS)
 
 print(RTN())
 
+# print shifts
 print('shifts')
 for shift in SHIFTS:
     print(shift)
 
 print(RTN())
 
-print('shift, employee, start date')
+# determine eligbility
+print('shift, start date, employee, eligibility')
 for shift, emp, start in zip(SHIFTS, cycle(employees.EMPLOYEES),
                              cycle(employees.EMP_START_DATES)):
     start_strptime = datetime.strptime(start, '%Y-%m-%d')
     start_fmt = start_strptime.date()
-    print(shift, emp, start_fmt)
+    if shift > start_fmt + relativedelta(weekday=MO(+12)):
+        print(f'{shift} - {start_fmt} - {emp} - eligible')
+    else:
+        print(f'{shift} - {start_fmt} - {emp} - ineligible')
 
 # based on employee start dates, populate a list of employees eligible to work
 # on call shifts
