@@ -5,6 +5,7 @@ from collections import namedtuple
 
 EMPLOYEES = []
 EMP_START_DATES = []
+EMPLOYEES_DCT = {}
 
 with open('employees.csv', 'r') as csv_file:
     F_CSV = csv.reader(csv_file)
@@ -16,3 +17,4 @@ with open('employees.csv', 'r') as csv_file:
         start = row.start_date
         EMPLOYEES.append(emp)
         EMP_START_DATES.append(start)
+        EMPLOYEES_DCT[emp] = start
