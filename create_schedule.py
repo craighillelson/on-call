@@ -1,6 +1,7 @@
 """ __doc__ """
 
 # imports
+import csv
 from datetime import date
 from datetime import datetime
 from collections import namedtuple
@@ -78,12 +79,15 @@ for shift, assignment in zip(SHIFTS, ASSIGNMENTS):
 print(RTN())
 
 # write assignments to csv
-HEADERS = 'shift', 'employee'
-
 on_call_sched_qtr_year = 'Q' + str(prompt_user.starting_qtr) + '-' + YEAR
 file_name = on_call_sched_qtr_year + '_assignments.csv'
-functions.write_to_csv("'shift', 'employee'", file_name, 'shift, assignment',
-                       'zip(SHIFTS, ASSIGNMENTS)')
+
+with open(file_name, 'w') as out_file:
+    out_csv = csv.writer(out_file)
+    out_csv.writerow(['shift','employee'])
+    for shift, employee in zip(SHIFTS, ASSIGNMENTS):
+        assignments = (shift, employee)
+        out_csv.writerow(assignments)
 
 # alert user
 print(f'"{file_name}" was exported successfully')
