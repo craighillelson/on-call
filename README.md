@@ -10,7 +10,7 @@ Python 3.8 script to loop through a list of employees and assign them on call sh
 1. In Terminal, type "python3.8 create_schedule.py"
 
 # Files
-* add_employee.py - add employee or employees
+* add_employees.py - add one or more employees
 * add_pto.py - add pto for a given employee to pto.csv
 * assignments.csv - stores csv of shifts and assigned employees
 * create_schedule.py - imports "employees.csv" and assembles a schedule, matching shifts to employees, and writes the list of shifts to a "shifts.csv"
