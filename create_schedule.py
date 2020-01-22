@@ -17,13 +17,14 @@ import prompt_user
 # variables
 RTN = lambda: '\n'
 YEAR = str(prompt_user.YEAR)
-i = 0
+# i = 0
 
-# lists
-INDEXES = []
-ASSIGNMENTS = []
+# data stores
+ASSIGNMENTS = {}
+# INDEXES = []
 QTR_START_END_DATES = []
 SHIFTS = []
+ELIGIBLE_EMPLOYEES = []
 
 user_selected_qtr = prompt_user.starting_qtr
 QTR_START_END = functions.start_end_date_str(user_selected_qtr)
@@ -54,8 +55,8 @@ print(RTN())
 
 # print shifts
 print('shifts')
-for shift in SHIFTS:
-    print(shift)
+for i, shift in enumerate(SHIFTS, 1):
+    print(i, shift)
 
 print(RTN())
 
@@ -67,14 +68,55 @@ for shift, emp, start in zip(SHIFTS, cycle(employees.EMPLOYEES),
     start_fmt = start_strptime.date()
     emp_start = emp, start_fmt
     if shift > start_fmt + relativedelta(weekday=MO(+12)):
-        ASSIGNMENTS.append(emp_start)
+        ELIGIBLE_EMPLOYEES.append(emp)
     else:
         pass
 
-print('assignments')
-for i, assignment in enumerate(ASSIGNMENTS, 1):
-    print(i, assignment[0], assignment[1])
+print('eligible employees')
+for i, emp in enumerate(ELIGIBLE_EMPLOYEES, 1):
+    print(i, emp)
 
+print(RTN())
+
+print('assignments')
+for shift, emp in zip(SHIFTS, ELIGIBLE_EMPLOYEES):
+    print(shift, emp)
+    ASSIGNMENTS[shift] = emp
+
+on_call_sched_qtr_year = 'Q' + str(prompt_user.starting_qtr) + '-' + YEAR
+file_name = on_call_sched_qtr_year + '_assignments.csv'
+
+HEADERS = 'shift', 'employee'
+
+with open(file_name, 'w') as out_file:
+    out_csv = csv.writer(out_file)
+    out_csv.writerow(HEADERS)
+    for shift, emp in ASSIGNMENTS.items():
+        keys_values = (shift, emp)
+        out_csv.writerow(keys_values)
+
+print(RTN())
+
+# update user
+print(f'{file_name} exported successfully')
+
+# print('assignments')
+# for assignment in ASSIGNMENTS:
+#     print(assignment[1], assignment[0])
+    # process row
+# for i, assignment in enumerate(ASSIGNMENTS, 1):
+#     print(i, assignment[1], assignment[0])
+
+# HEADERS = 'shift', 'employee'
+
+# with open('assignments.csv', 'w') as out_file:
+#     out_csv = csv.writer(out_file)
+#     out_csv.writerow(HEADERS)
+#     for shift_emp in ASSIGNMENTS:
+#         shift = shift_emp[1]
+#         emp = shift_emp[0]
+#         shift_emp = shift, emp
+#         out_csv.writerow(shift_emp)
 
 # based on employee start dates, populate a list of employees eligible to work
 # on call shifts
