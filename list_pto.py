@@ -1,5 +1,6 @@
 """ __doc__ """
 
+# imports
 import csv
 from collections import namedtuple
 from datetime import datetime
@@ -7,6 +8,7 @@ from datetime import datetime
 # from dateutil.relativedelta import relativedelta
 # from dateutil.rrule import MO
 
+# function and lambda
 def format_date(a, b):
     """ format date """
     a = datetime.strptime(b, '%Y-%m-%d')
@@ -15,6 +17,7 @@ def format_date(a, b):
 
 RTN = lambda: '\n'
 
+# data store
 PTO = {}
 
 # populate the dictionary PTO with the contents of 'pto.csv'
