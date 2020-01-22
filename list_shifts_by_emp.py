@@ -3,7 +3,7 @@
 import csv
 from collections import namedtuple
 
-RTN = lambda: "\n"
+RTN = lambda: '\n'
 
 SCHED = {}
 
@@ -16,8 +16,6 @@ with open('assignments.csv') as csv_file:
         row = CSV_ROW(*rows)
         SCHED[row.shift] = row.employee
 
-print(RTN())
-
 SCHED_GROUPED_BY_EMP = {}
 
 for shift, emp in sorted(SCHED.items()):
@@ -27,6 +25,9 @@ print(RTN())
 
 # output on-call shifts by employee
 print('shifts grouped by employee')
+
+print(RTN())
+
 for emp, shifts in SCHED_GROUPED_BY_EMP.items():
     print(emp)
     for i, shift in enumerate(shifts, 1):
