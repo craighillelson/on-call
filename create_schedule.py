@@ -8,7 +8,6 @@ from collections import namedtuple
 from itertools import cycle
 import employees
 import functions
-# import pto
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO
