@@ -13,7 +13,7 @@ with open('employees.csv', 'r') as csv_file:
     CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
     for rows in F_CSV:
         row = CSV_ROW(*rows)
-        emp = row.employee
+        emp = row.email
         start = row.start_date
         EMPLOYEES.append(emp)
         EMP_START_DATES.append(start)
