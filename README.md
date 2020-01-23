@@ -14,6 +14,7 @@ Python 3.8 script to loop through a list of employees and assign them on call sh
 * add_pto.py - add pto for a given employee to pto.csv
 * assignments.csv - stores csv of shifts and assigned employees
 * create_schedule.py - imports "employees.csv" and assembles a schedule, matching shifts to employees, and writes the list of shifts to a "shifts.csv"
+* edit_assignments.py - allows user to edit existing assignments
 * employees.csv - stores employee names and start dates
 * employees.py - imports contents of "employees.csv" and populates lists and dictionaries
 * functions.py - stores functions called by other files
@@ -23,4 +24,4 @@ Python 3.8 script to loop through a list of employees and assign them on call sh
 * prompt_user.py - prompts user to select next quarter or the quarter following as the starting quarter
 * pto.csv - stores pto data
 * pto.py - populates PTO dictionary with data from "pto.csv"
-* remove_employee.py - lists employees and gives user the option to remove an employee
+* remove_employee.py - lists employees and gives user the option to remove an employee and assigns the value "empty" to any shifts previously assigned to said employee
