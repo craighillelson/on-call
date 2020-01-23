@@ -48,7 +48,7 @@ for i in range(1, WEEKS_BETWEEN, 1):
     SHIFTS.append(QTR_START_DATE + relativedelta(weekday=MO(+i)))
 
 # write shifts to csv
-functions.write_to_csv(['shifts'], 'shifts.csv', 'shift', SHIFTS)
+functions.write_list_to_csv(['shifts'], 'shifts.csv', 'shift', SHIFTS)
 
 print(RTN())
 

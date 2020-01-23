@@ -21,7 +21,7 @@ def cat_date(a_a, b_b):
     return date_ymd
 
 
-def write_to_csv(a_a, b_b, c_c, d_d):
+def write_list_to_csv(a_a, b_b, c_c, d_d):
     """ write to csv """
     import csv
 
