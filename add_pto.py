@@ -1,9 +1,11 @@
 """ __doc__ """
 
+# imports
 import csv
 import list_pto
 from datetime import datetime
 
+# function and lambda
 def format_date(a, b, c):
     a = datetime.strptime(b, '%Y-%m-%d')
     c = a.date()
@@ -12,8 +14,10 @@ def format_date(a, b, c):
 
 RTN = lambda: '\n'
 
+# data store
 NEW_PTO = {}
 
+# prompt user
 emp = input('Employee name: \n')
 
 add_start_date = input('Enter start date: \n')
@@ -26,6 +30,7 @@ NEW_PTO[emp] = start_date, end_date
 
 list_pto.PTO.update(NEW_PTO)
 
+# write to csv
 HEADERS = 'employee', 'start_date', 'end_date'
 
 with open('pto.csv', 'w') as out_file:
@@ -35,6 +40,7 @@ with open('pto.csv', 'w') as out_file:
         keys_values = (emp, start_date, end_date)
         out_csv.writerow(keys_values)
 
+# update user
 print('PTO added')
 print(f'Employee: {emp}')
 print(f'PTO start: {start_date}')
