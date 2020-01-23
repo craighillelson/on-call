@@ -1,22 +1,22 @@
 """ __doc__ """
 
+# imports
 import csv
 from collections import namedtuple
 
 RTN = lambda: '\n'
 
+# data stores
 SCHED = {}
+SCHED_GROUPED_BY_EMP = {}
 
-# open 'assignments.csv' and populate the dictionary SCHED with its contents
-with open('assignments.csv') as csv_file:
+with open('Q2-2020_assignments.csv') as csv_file: # prompt user for qtr / year
     F_CSV = csv.reader(csv_file)
     COLUMN_HEADINGS = next(F_CSV)
     CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
     for rows in F_CSV:
         row = CSV_ROW(*rows)
         SCHED[row.shift] = row.employee
-
-SCHED_GROUPED_BY_EMP = {}
 
 for shift, emp in sorted(SCHED.items()):
     SCHED_GROUPED_BY_EMP.setdefault(emp, []).append(shift)
