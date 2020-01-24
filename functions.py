@@ -48,6 +48,7 @@ def write_list_to_csv(a_a, b_b, c_c, d_d):
 
 
 def write_dct_to_csv(a, b, c, d):
+    """ write dictionary to a csv """
     import csv
 
     HEADERS = a
