@@ -34,16 +34,29 @@ def write_list_to_csv(a_a, b_b, c_c, d_d):
             OUT_CSV.writerow([c_c])
 
 
-def write_dct_to_csv(a, b, c, d, e):
+# def write_dct_to_csv(a, b, c, d, e):
+#     import csv
+
+    # HEADERS = a, b
+
+    # with open(c, 'w') as out_file:
+    #     out_csv = csv.writer(out_file)
+    #     out_csv.writerow(HEADERS)
+    #     for d in e.items():
+    #         keys_values = (d)
+    #         out_csv.writerow(keys_values)
+
+
+def write_dct_to_csv(a, b, c, d):
     import csv
 
-    HEADERS = a, b
+    HEADERS = a
 
-    with open(c, 'w') as out_file:
+    with open(b, 'w') as out_file:
         out_csv = csv.writer(out_file)
         out_csv.writerow(HEADERS)
-        for d in e.items():
-            keys_values = (d)
+        for c in d.items():
+            keys_values = (c)
             out_csv.writerow(keys_values)
 
 
