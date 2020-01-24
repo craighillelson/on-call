@@ -34,5 +34,5 @@ for i, (shift, emp) in enumerate(ASSIGNMENTS.items(), 1):
     print(i, shift, emp)
 
 # write to csv
-functions.write_dct_to_csv('shift', 'employee', 'Q2-2020_assignments.csv',
+functions.write_dct_to_csv(['shift', 'employee'], 'Q2-2020_assignments.csv',
                            'shift, emp', ASSIGNMENTS)
