@@ -2,6 +2,7 @@
 
 # imports
 import csv
+import functions
 from collections import namedtuple
 import pandas as pd
 
@@ -54,15 +55,22 @@ print('shift,employee')
 for shift, employee in ASSIGNMENTS.items():
     print(shift, employee)
 
-import csv
+f = open('quarter.txt', 'r')
+file_name = f.read()
 
-HEADERS = 'shift', 'employee'
-
-with open('Q2-2020_assignments.csv', 'w') as out_file:
-    out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS)
-    for shift, employee in ASSIGNMENTS.items():
-        keys_values = (shift, employee)
-        out_csv.writerow(keys_values)
+# write dictionary to csv
+functions.write_dct_to_csv(['shift', 'employee'], file_name, 'shift, emp',
+                           ASSIGNMENTS)
 
 print(RTN())
+
+# import csv
+
+# HEADERS = 'shift', 'employee'
+
+# with open('Q2-2020_assignments.csv', 'w') as out_file:
+#     out_csv = csv.writer(out_file)
+#     out_csv.writerow(HEADERS)
+#     for shift, employee in ASSIGNMENTS.items():
+#         keys_values = (shift, employee)
+#         out_csv.writerow(keys_values)
