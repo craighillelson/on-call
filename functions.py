@@ -4,6 +4,8 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MO
 
+RTN = lambda: '\n'
+
 def start_end_date_str(a):
     """ switch case statement """
     switcher = {
@@ -32,19 +34,6 @@ def write_list_to_csv(a_a, b_b, c_c, d_d):
         OUT_CSV.writerow(HEADERS)
         for c_c in d_d:
             OUT_CSV.writerow([c_c])
-
-
-# def write_dct_to_csv(a, b, c, d, e):
-#     import csv
-
-    # HEADERS = a, b
-
-    # with open(c, 'w') as out_file:
-    #     out_csv = csv.writer(out_file)
-    #     out_csv.writerow(HEADERS)
-    #     for d in e.items():
-    #         keys_values = (d)
-    #         out_csv.writerow(keys_values)
 
 
 def write_dct_to_csv(a, b, c, d):
