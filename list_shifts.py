@@ -3,7 +3,7 @@
 import csv
 from collections import namedtuple
 
-RTN = lambda: "\n"
+RTN = lambda: '\n'
 
 SCHED = {}
 

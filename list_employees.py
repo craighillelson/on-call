@@ -1,13 +1,19 @@
 """ __doc__ """
 
 import employees
+import functions
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MO
 
 RTN = lambda: '\n'
 
-print(RTN())
+print(functions.RTN())
 
 print('name, first eligible shift')
-for emp, first_eligible_shift in employees.EMPLOYEES_FIRST_ELIGIBLE.items():
-    print(f'{emp}, {first_eligible_shift}')
+for emp, start_date in employees.EMPLOYEES_DCT.items():
+    date = datetime.strptime(start_date, '%Y-%m-%d')
+    first_eligible = date.date() + relativedelta(weekday=MO(+12))
+    print(f'{emp}, {first_eligible}')
 
-print(RTN())
+print(functions.RTN())

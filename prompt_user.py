@@ -55,3 +55,11 @@ if starting_qtr == 'a':
 else:
     print(f'You selected Q{the_qtr_after}/{YEAR}')
     starting_qtr = the_qtr_after
+
+on_call_sched_qtr_year = 'Q' + str(starting_qtr) + '-' + str(YEAR)
+file_name = on_call_sched_qtr_year + '_assignments.csv'
+
+FILE = open('quarter.txt', 'w')
+
+# for item in lst:
+FILE.write(str(file_name))

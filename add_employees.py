@@ -2,14 +2,15 @@
 
 # imports
 import csv
+import functions
 import employees
 
 # prompt user
 domain = input('What is your domain name?\n')
 
 while True:
-    print('Enter the employee\'s name ' + str(len(employees.EMPLOYEES_DCT) + 1) +
-        ' (Or enter nothing to stop.):')
+    print('Enter the employee\'s name ' + str(len(employees.EMPLOYEES_DCT) + 1)
+          + ' (Or enter nothing to stop.):')
     email_prefix = input()
     email = email_prefix + '@' + domain
     if email_prefix == '':
@@ -18,15 +19,9 @@ while True:
     start_date = input()
     employees.EMPLOYEES_DCT[email] = start_date
 
-# write to csv
-HEADERS = 'email', 'start_date'
-
-with open('employees.csv', 'w') as out_file:
-    out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS)
-    for email, start_date in employees.EMPLOYEES_DCT.items():
-        keys_values = email, start_date
-        out_csv.writerow(keys_values)
+# write dictionary to csv
+functions.write_dct_to_csv(['email', 'start_date'], 'employees.csv',
+                           'email, start_date', employees.EMPLOYEES_DCT)
 
 # update user
 print('email, start date')
