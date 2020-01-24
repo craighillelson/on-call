@@ -14,7 +14,7 @@ from dateutil.rrule import MO
 import prompt_user
 
 # variables
-RTN = lambda: '\n'
+# RTN = lambda: '\n'
 YEAR = str(prompt_user.YEAR)
 # i = 0
 
@@ -50,14 +50,14 @@ for i in range(1, WEEKS_BETWEEN, 1):
 # write shifts to csv
 functions.write_list_to_csv(['shifts'], 'shifts.csv', 'shift', SHIFTS)
 
-print(RTN())
+print(functions.RTN())
 
 # print shifts
 print('shifts')
 for i, shift in enumerate(SHIFTS, 1):
     print(i, shift)
 
-print(RTN())
+print(functions.RTN())
 
 # determine eligbility
 # print('shift, start date, employee, eligibility')
@@ -75,8 +75,9 @@ print('eligible employees')
 for i, emp in enumerate(ELIGIBLE_EMPLOYEES, 1):
     print(i, emp)
 
-print(RTN())
+print(functions.RTN())
 
+# output assignments
 print('assignments')
 for shift, emp in zip(SHIFTS, ELIGIBLE_EMPLOYEES):
     print(shift, emp)
@@ -85,19 +86,16 @@ for shift, emp in zip(SHIFTS, ELIGIBLE_EMPLOYEES):
 on_call_sched_qtr_year = 'Q' + str(prompt_user.starting_qtr) + '-' + YEAR
 file_name = on_call_sched_qtr_year + '_assignments.csv'
 
-HEADERS = 'shift', 'employee'
+# write dictionary to csv
+functions.write_dct_to_csv(['shift', 'employee'], file_name, 'shift, emp',
+                           ASSIGNMENTS)
 
-with open(file_name, 'w') as out_file:
-    out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS)
-    for shift, emp in ASSIGNMENTS.items():
-        keys_values = (shift, emp)
-        out_csv.writerow(keys_values)
-
-print(RTN())
+print(functions.RTN())
 
 # update user
 print(f'{file_name} exported successfully')
+
+print(functions.RTN())
 
 # print('assignments')
 # for assignment in ASSIGNMENTS:
@@ -159,5 +157,3 @@ print(f'{file_name} exported successfully')
 
 # alert user
 # print(f'"{file_name}" was exported successfully')
-
-print(RTN())
