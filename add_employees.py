@@ -9,7 +9,7 @@ import employees
 domain = input('What is your domain name?\n')
 
 while True:
-    print('Enter the employee\'s name ' + str(len(employees.EMPLOYEES_DCT) + 1)
+    print('Enter the employee\'s name '
           + ' (Or enter nothing to stop.):')
     email_prefix = input()
     email = email_prefix + '@' + domain
