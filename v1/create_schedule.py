@@ -18,6 +18,10 @@ INELIG_EMP = []
 
 RTN = lambda: '\n'
 
+def find_day(a):
+    usr_start_day = datetime.datetime.strptime(a, '%Y-%m-%d').weekday()
+    return (calendar.day_name[usr_start_day])
+
 today = date.today()
 this_monday = today + datetime.timedelta(days=-today.weekday(), weeks=1)
 
@@ -39,13 +43,17 @@ while True:
 if user_choice == 'y':
     print(RTN())
     print(f'start date: {this_monday}')
+    for i in range(0, 14, 1):
+        monday = this_monday + datetime.timedelta(days=-this_monday.weekday(), weeks=i)
+        SHIFTS.append(monday)
 else:
     print('please specify a start date for the schedule (YYYY-MM-DD)')
-    user_spec_start_date = input()
-
-for i in range(1, 14, 1):
-    monday = today + datetime.timedelta(days=-today.weekday(), weeks=i)
-    SHIFTS.append(monday)
+    usr_start_date = input()
+    print(find_day(usr_start_date))
+    usr_start_date_fmt = datetime.datetime.strptime(usr_start_date, '%Y-%m-%d').date()
+    for i in range(0, 14, 1):
+        monday = usr_start_date_fmt + datetime.timedelta(days=-usr_start_date_fmt.weekday(), weeks=i)
+        SHIFTS.append(monday)
 
 for email, start_date in employees.EMPLOYEES_DCT.items():
     start_date_fmt = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
