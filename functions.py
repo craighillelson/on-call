@@ -40,6 +40,24 @@ def open_csv(a):
             a[row.shift] = [row.email]
 
 
+def output_pto_sched(a):
+    print('pto scheduled ')
+    for shift, email in a.items():
+        for emp in email:
+            if email == ['']:
+                print(f'{shift} - no pto booked')
+            else:
+                print(f'{shift} - {emp}')
+        else:
+            pass
+
+
+def switch_case(a, b):
+    """ switch case statement """
+    b
+    return b.get(a, "nothing")
+
+
 def write_dct_to_csv(a, b, c, d):
     """ write dictionary to a csv """
     import csv
