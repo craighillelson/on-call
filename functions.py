@@ -31,9 +31,13 @@ def find_closest_mon(a, b, c):
     """ based on input from user, find monday before pto start date and """
     """ monday after pto end date """
     if a.weekday() == 0:
-        print(f'{b} for shift starting: {a}')
+        # print(f'{b} for shift starting: {a}')
+        c = a
     else:
-        print(f'{b} for shift starting: {a + relativedelta(weekday=MO(c))}')
+        # print(f'{b} for shift starting: {a + relativedelta(weekday=MO(c))}')
+        c = a + relativedelta(weekday=MO(b))
+
+    return c
 
 
 def fmt_date(a, b):
