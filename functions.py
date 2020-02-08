@@ -28,6 +28,8 @@ def append_shifts(a, b):
 
 
 def find_closest_mon(a, b, c):
+    """ based on input from user, find monday before pto start date and """
+    """ monday after pto end date """
     if a.weekday() == 0:
         print(f'{b} for shift starting: {a}')
     else:
@@ -40,6 +42,7 @@ def fmt_date(a, b):
     return a
 
 def open_csv(a):
+    """ open csv and populate dictionary with its contents """
     with open('pto.csv') as csv_file:
         F_CSV = csv.reader(csv_file)
         COLUMN_HEADINGS = next(F_CSV)
