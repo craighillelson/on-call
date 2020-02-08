@@ -1,29 +1,21 @@
 """ __doc__ """
 
-import calendar
-import csv
-from collections import namedtuple
-import datetime
 import employees
+import functions
 from datetime import date
-from itertools import cycle
 
 EMP_FIRST_ELIG = {}
 SHIFTS_INELIG_EMP = {}
 ASSIGNMENTS = {}
 PTO = {}
+PTO_SCHED = {}
 SHIFTS = []
 ELIG_EMP = []
 INELIG_EMP = []
 
-RTN = lambda: '\n'
-
-def find_day(a):
-    usr_start_day = datetime.datetime.strptime(a, '%Y-%m-%d').weekday()
-    return (calendar.day_name[usr_start_day])
-
+i = 0
 today = date.today()
-this_monday = today + datetime.timedelta(days=-today.weekday(), weeks=1)
+this_monday = functions.calc_dates('this_monday', today, 1)
 
 print(f'Would you like the on-call schedule to start on {this_monday} (y/n)? ')
 
@@ -41,24 +33,20 @@ while True:
         break
 
 if user_choice == 'y':
-    print(RTN())
+    print(functions.RTN())
     print(f'start date: {this_monday}')
-    for i in range(0, 14, 1):
-        monday = this_monday + datetime.timedelta(days=-this_monday.weekday(), weeks=i)
-        SHIFTS.append(monday)
+    print(functions.RTN())
+    functions.append_shifts(this_monday, SHIFTS)
 else:
     print('please specify a start date for the schedule (YYYY-MM-DD)')
     usr_start_date = input()
-    print(find_day(usr_start_date))
-    usr_start_date_fmt = datetime.datetime.strptime(usr_start_date, '%Y-%m-%d').date()
-    for i in range(0, 14, 1):
-        monday = usr_start_date_fmt + datetime.timedelta(days=-usr_start_date_fmt.weekday(), weeks=i)
-        SHIFTS.append(monday)
+    print(functions.RTN())
+    usr_start_date_fmt = functions.fmt_date('usr_start_date', usr_start_date)
+    functions.append_shifts(usr_start_date_fmt, SHIFTS)
 
 for email, start_date in employees.EMPLOYEES_DCT.items():
-    start_date_fmt = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
-    first_eligible = start_date_fmt + datetime.timedelta(days=-today.weekday(),
-                                                         weeks=12)
+    start_date_fmt = functions.fmt_date('start_date_fmt', start_date)
+    first_eligible = functions.calc_dates('first_eligible', start_date_fmt, 12)
     EMP_FIRST_ELIG[email] = first_eligible
 
 for shift in SHIFTS:
@@ -72,32 +60,14 @@ for shift in SHIFTS:
             shift_ineligibles.append(email)
             SHIFTS_INELIG_EMP[shift] = shift_ineligibles
 
-PTO_SCHED = {}
-
-with open('pto.csv') as csv_file:
-    F_CSV = csv.reader(csv_file)
-    COLUMN_HEADINGS = next(F_CSV)
-    CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
-    for rows in F_CSV:
-        row = CSV_ROW(*rows)
-        PTO_SCHED[row.shift] = [row.email]
-
-print(RTN())
-
-i = 0
+functions.open_csv(PTO_SCHED)
 
 for (shift1, email_lst1), (shift2, email_lst2) in zip(SHIFTS_INELIG_EMP.items(),
-                              PTO_SCHED.items()):
-    # print(shift1)
-    # print(f'all employees: {employees.EMPLOYEES}')
-    # print(f'ineligible employee(s): {email_lst1}')
-    # print(f'pto scheduled: {email_lst2}')
+                                                      PTO_SCHED.items()):
     combined = email_lst1 + email_lst2
-    # print(f'combined {combined}')
     for email in employees.EMPLOYEES:
         if email not in combined:
             ELIG_EMP.append(email)
-    # print(f'eligible employees: {set(ELIGIBLE_EMPLOYEES)}')
     ASSIGNMENTS[shift1] = ELIG_EMP[i]
     i += 1
     if i > len(ELIG_EMP):
@@ -107,22 +77,14 @@ print('assignments')
 for shift, email in ASSIGNMENTS.items():
     print(shift, email)
 
-import csv
-
+# write to csv
 HEADERS = 'shift','email'
-
 file_name = str(today) + '_assignments.csv'
+functions.write_dct_to_csv(HEADERS, file_name, 'shift, email', ASSIGNMENTS)
 
-with open(file_name, 'w') as out_file:
-    out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS)
-    for shift, email in ASSIGNMENTS.items():
-        keys_values = (shift, email)
-        out_csv.writerow(keys_values)
-
-print(RTN())
+print(functions.RTN())
 
 # update user
 print(f'"{file_name}" exported successfully')
 
-print(RTN())
+print(functions.RTN())
