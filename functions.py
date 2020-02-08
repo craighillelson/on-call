@@ -41,6 +41,7 @@ def fmt_date(a, b):
     a = datetime.datetime.strptime(b, '%Y-%m-%d').date()
     return a
 
+
 def open_csv(a):
     """ open csv and populate dictionary with its contents """
     with open('pto.csv') as csv_file:
