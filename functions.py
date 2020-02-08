@@ -41,6 +41,7 @@ def open_csv(a):
 
 
 def output_pto_sched(a):
+    """ oututs current pto schedule """
     print('pto scheduled ')
     for shift, email in a.items():
         for emp in email:
