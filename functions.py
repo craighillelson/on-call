@@ -4,6 +4,8 @@ import csv
 from collections import namedtuple
 import calendar
 import datetime
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MO
 
 RTN = lambda: '\n'
 
@@ -23,6 +25,13 @@ def append_shifts(a, b):
     for i in range(0, 14, 1):
         monday = a + datetime.timedelta(days=-a.weekday(), weeks=i)
         b.append(monday)
+
+
+def find_closest_mon(a, b, c):
+    if a.weekday() == 0:
+        print(f'{b} for shift starting: {a}')
+    else:
+        print(f'{b} for shift starting: {a + relativedelta(weekday=MO(c))}')
 
 
 def fmt_date(a, b):
