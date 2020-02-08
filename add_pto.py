@@ -18,11 +18,9 @@ for i, email in enumerate(employees.EMPLOYEES, 1):
     nums.append(i)
     EMP_DCT[i] = email
 
-print('employees')
+print(f'Please select an employee.')
 for num, email in EMP_DCT.items():
     print(num, email)
-
-print(f'Please select an employee. ')
 
 while True:
     user_choice = int(input())
@@ -47,15 +45,14 @@ for email, pto in PTO.items():
     end_fmt = functions.fmt_date('end_fmt', end)
     unavail = functions.find_closest_mon(start_fmt, -1, 'unavail')
     avail = functions.find_closest_mon(end_fmt, +1, 'avail')
+    date_delta = avail - unavail
+    weeks_between = round(date_delta.days / 7) + 1
     PTO[email] = [unavail, avail]
 
-print(functions.RTN())
-
-print('pto to schedule')
-for email, pto in PTO.items():
-    start = pto[0]
-    end = pto[1]
-    print(email, start, end)
+print('unavailable')
+for i in range(0, weeks_between - 1, 1):
+    print(unavail + datetime.timedelta(days=-unavail.weekday(), weeks=i), email)
+    i += 1
 
 print(functions.RTN())
 
