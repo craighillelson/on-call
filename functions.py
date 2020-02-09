@@ -27,17 +27,24 @@ def append_shifts(a, b):
         b.append(monday)
 
 
-def find_closest_mon(a, b, c):
-    """ based on input from user, find monday before pto start date and """
-    """ monday after pto end date """
+def find_closest_start_mon(a, b):
+    """ based on input from user, find monday before pto start date """
     if a.weekday() == 0:
-        # print(f'{b} for shift starting: {a}')
-        c = a
+        b = a
     else:
-        # print(f'{b} for shift starting: {a + relativedelta(weekday=MO(c))}')
-        c = a + relativedelta(weekday=MO(b))
+        b = a + relativedelta(weekday=MO(-1))
 
-    return c
+    return b
+
+
+def find_closest_end_mon(a, b):
+    """ based on input from user, find monday after pto end date  """
+    if a.weekday() == 0:
+        b = a + relativedelta(weekday=MO(+2))
+    else:
+        b = a + relativedelta(weekday=MO(+1))
+
+    return b
 
 
 def fmt_date(a, b):
@@ -59,7 +66,6 @@ def open_csv(a):
 
 def output_pto_sched(a):
     """ oututs current pto schedule """
-    print('pto scheduled ')
     for shift, email in a.items():
         for emp in email:
             if email == ['']:
@@ -68,6 +74,19 @@ def output_pto_sched(a):
                 print(f'{shift} - {emp}')
         else:
             pass
+
+
+def output_unavails(a, b):
+    print(a)
+    for shift in b:
+        print(shift)
+
+
+def prompt_user_for_pto_start_end(a, b):
+    """ """
+    print(a)
+    b = input()
+    return b
 
 
 def switch_case(a, b):
