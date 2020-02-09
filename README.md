@@ -1,5 +1,8 @@
 Python 3.8 script to loop through a list of employees and assign them on call shifts
 
+# Requirement
+* https://pypi.org/project/python-dateutil/
+
 # Instructions
 1. Save all files to a directory
 1. Upload a csv of employees with the following headers: employee,start_date or navigate to the directory containing the downloaded files and type "pyton3.8 add_employees.py" to add employees one at a time.
@@ -14,3 +17,4 @@ Python 3.8 script to loop through a list of employees and assign them on call sh
 * list_pto.py - lists shifts and the employees for each shift who will be on pto
 * pto.csv - stores pto data
 * pto.py - populates PTO dictionary with data from "pto.csv"
+* remove_employee.py - removes employee from "employees.csv," unassigns pto shifts assigned to that employee, and updates the on-call schedule
