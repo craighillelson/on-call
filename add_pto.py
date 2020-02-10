@@ -1,23 +1,23 @@
 # imports
 import csv
+from collections import namedtuple
 import datetime
 import employees
 import functions
-from collections import namedtuple
-from datetime import date
 
-PTO = {}
-PTO_SCHED = {}
+# data stores
+BOOKED_PTO = {}
 EMP_DCT = {}
-nums = []
-functions.open_csv(PTO_SCHED)
+PTO = {}
+NUMS = []
 
 print(functions.RTN())
 
 for i, email in enumerate(employees.EMPLOYEES, 1):
-    nums.append(i)
+    NUMS.append(i)
     EMP_DCT[i] = email
 
+# prompt user to enter start employee's pto start and end dates
 print(f'Please select an employee.')
 for num, email in EMP_DCT.items():
     print(num, email)
@@ -27,37 +27,54 @@ while True:
     print(functions.RTN())
     email = functions.switch_case(user_choice, EMP_DCT)
     print(email)
-    print('start date')
-    pto_start = input()
-    print('end date')
-    pto_end = input()
+    pto_start = functions.prompt_user_for_pto_start_end('pto start date',
+                                                        'pto_start')
+    pto_end = functions.prompt_user_for_pto_start_end('pto end date', 'pto_end')
     print(functions.RTN())
-    if user_choice not in nums:
+    PTO[email] = [pto_start,pto_end]
+    if user_choice not in NUMS:
         print('not an option ')
     else:
         break
 
-PTO[email] = [pto_start,pto_end]
 for email, pto in PTO.items():
-    start = pto[0]
-    start_fmt = functions.fmt_date('start_fmt', start)
-    end = pto[1]
-    end_fmt = functions.fmt_date('end_fmt', end)
-    unavail = functions.find_closest_mon(start_fmt, -1, 'unavail')
-    avail = functions.find_closest_mon(end_fmt, +1, 'avail')
-    date_delta = avail - unavail
-    weeks_between = round(date_delta.days / 7) + 1
-    PTO[email] = [unavail, avail]
+    pto_start = pto[0]
+    pto_end = pto[1]
 
-print('unavailable')
-for i in range(0, weeks_between - 1, 1):
-    print(unavail + datetime.timedelta(days=-unavail.weekday(), weeks=i), email)
-    i += 1
+print(f'{email} will be taking pto from {pto_start} to {pto_end}')
 
 print(functions.RTN())
 
-functions.output_pto_sched(PTO_SCHED)
+print('booked pto')
+with open('pto.csv') as csv_file:
+    F_CSV = csv.reader(csv_file)
+    COLUMN_HEADINGS = next(F_CSV)
+    CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
+    for rows in F_CSV:
+        row = CSV_ROW(*rows)
+        shift_fmt = functions.fmt_date('shift_fmt', row.shift)
+        BOOKED_PTO[shift_fmt] = row.email
+        print(shift_fmt, row.email)
 
 print(functions.RTN())
 
-today = date.today()
+pto_start_fmt = functions.fmt_date('pto_start_fmt', pto_start)
+BOOKED_PTO[pto_start_fmt] = email
+
+HEADERS = 'shift','email'
+
+print('updated pto')
+with open('pto.csv', 'w') as out_file:
+    out_csv = csv.writer(out_file)
+    out_csv.writerow(HEADERS)
+    for shift, email in sorted(BOOKED_PTO.items()):
+        keys_values = (shift, email)
+        out_csv.writerow(keys_values)
+        print(shift, email)
+
+print(functions.RTN())
+
+# update user
+print('"pto.csv" exported successfully')
+
+print(functions.RTN())
