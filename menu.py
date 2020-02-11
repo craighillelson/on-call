@@ -1,6 +1,7 @@
 """ __doc__ """
 
 def open_file(a):
+    """ based on user choice, open file """
     exec(open(a).read())
 
 
