@@ -74,8 +74,8 @@ for (shift1, email_lst1), (shift2, email_lst2) in zip(SHIFTS_INELIG_EMP.items(),
         i = 0
 
 print('assignments')
-for shift, email in ASSIGNMENTS.items():
-    print(shift, email)
+for i, (shift, email) in enumerate(ASSIGNMENTS.items(), 1):
+    print(i, shift, email)
 
 # write to csv
 HEADERS = 'shift','email'
