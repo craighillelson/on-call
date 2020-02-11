@@ -5,6 +5,7 @@ def open_file(a):
     exec(open(a).read())
 
 
+# prompt user to select one of the options provided
 while True:
     print('please make a selection')
     print('a - add employees')
