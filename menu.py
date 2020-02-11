@@ -10,7 +10,8 @@ while True:
     print('a - add employees')
     print('b - create schedule')
     print('c - list pto')
-    print('d - quit')
+    print('d - remove employee')
+    print('e - quit')
     user_choice = input()
     if user_choice == 'a':
         open_file('add_employees.py')
@@ -18,5 +19,7 @@ while True:
         open_file('create_schedule.py')
     elif user_choice == 'c':
         open_file('list_pto.py')
+    elif user_choice == 'd':
+        open_file('remove_employee.py')
     else:
         break
