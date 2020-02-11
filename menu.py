@@ -1,5 +1,9 @@
 """ __doc__ """
 
+def open_file(a):
+    exec(open(a).read())
+
+
 while True:
     print('please make a selection')
     print('a - add employees')
@@ -8,10 +12,10 @@ while True:
     print('d - quit')
     user_choice = input()
     if user_choice == 'a':
-        exec(open('add_employees.py').read())
+        open_file('add_employees.py')
     elif user_choice == 'b':
-        exec(open('create_schedule.py').read())
+        open_file('create_schedule.py')
     elif user_choice == 'c':
-        exec(open('list_pto.py').read())
+        open_file('list_pto.py')
     else:
         break
