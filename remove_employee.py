@@ -43,3 +43,5 @@ functions.write_dct_to_csv(['email','start_date'], 'employees.csv', 'k, v',
 
 # update user
 print('"employees.csv" exported successfully')
+
+print(functions.RTN())
