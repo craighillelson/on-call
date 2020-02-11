@@ -22,15 +22,17 @@ while True:
     user_choice = int(input())
     email = functions.switch_case(user_choice, EMP_DCT)
     if user_choice not in nums:
-        print('not an option ')
+        print('Not an option. Please select one of the options above. ')
     else:
         print(functions.RTN())
         break
 
 print(f'You selected {email}')
 
+print(functions.RTN())
 del employees.EMPLOYEES_DCT[email]
 
+print('updated list of employees')
 for k, v in employees.EMPLOYEES_DCT.items():
     print(k, v)
 
