@@ -10,11 +10,13 @@ Python 3.8 script to loop through a list of employees and assign them on call sh
 
 # Files
 * add_employees.py - add one or more employees
-* create_schedule.py - imports "employees.csv" and assembles a schedule, matching shifts to employees, and writes the list of shifts to a "shifts.csv"
+* build_sched.py - imports "employees.csv" and assembles a schedule, matching shifts to employees, and writes the list of shifts to a csv including today's date in the file name
 * employees.csv - stores employee names and start dates
 * employees.py - imports contents of "employees.csv" and populates lists and dictionaries
 * functions.py - stores functions called by other files
 * list_pto.py - lists shifts and the employees for each shift who will be on pto
+* list_employees.py - lists employees
+* menu.py - presents user with a list of actions to take, calling
 * pto.csv - stores pto data
 * pto.py - populates PTO dictionary with data from "pto.csv"
-* remove_employee.py - removes employee from "employees.csv," unassigns pto shifts assigned to that employee, and updates the on-call schedule
+* remove_employee.py - removes employee from "employees.csv," identifies shifts previously assigned to the deleted employee, and encourages the user to edit or rebuild the schedule
