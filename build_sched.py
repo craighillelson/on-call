@@ -9,12 +9,7 @@ import pto
 from datetime import date
 from itertools import cycle
 
-def calc_date(a, b):
-    """ calculate first eligible shift """
-    a = b + datetime.timedelta(days=-b.weekday(), weeks=12)
-    return a
-
-
+# data stores
 ASSIGNED_EMPS = []
 CONFLICTS = []
 ELIG_EMPS = []
@@ -32,7 +27,7 @@ last_shift = create_shifts.SHIFTS[-1]
 
 for email, start_date in employees.EMPLOYEES_DCT.items():
     start_date_fmt = functions.fmt_date('start_date', start_date)
-    first_elig_shift = calc_date('first_elig', start_date_fmt)
+    first_elig_shift = functions.calc_dates('first_elig', start_date_fmt, 12)
     if first_elig_shift < last_shift:
         ELIG_EMPS.append(email)
 
