@@ -7,7 +7,7 @@ def open_file(a):
 
 # prompt user to select one of the options provided
 while True:
-    print('please make a selection')
+    print('please make a selection\n')
     print('a - add employees')
     print('b - build schedule')
     print('c - list employees')
