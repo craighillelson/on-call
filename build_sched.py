@@ -1,8 +1,6 @@
 """ __doc__ """
 
 import create_shifts
-import csv
-import datetime
 import employees
 import functions
 import pto
