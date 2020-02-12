@@ -9,7 +9,7 @@ def open_file(a):
 while True:
     print('please make a selection')
     print('a - add employees')
-    print('b - create schedule')
+    print('b - build schedule')
     print('c - list employees')
     print('d - list pto')
     print('e - remove employee')
@@ -18,7 +18,7 @@ while True:
     if user_choice == 'a':
         open_file('add_employees.py')
     elif user_choice == 'b':
-        open_file('create_schedule.py')
+        open_file('build_sched.py')
     elif user_choice == 'c':
         open_file('list_employees.py')
     elif user_choice == 'd':
