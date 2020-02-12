@@ -55,6 +55,7 @@ if remainder == 0:
     print('schedule - no conflicts')
     for i, (shift, email) in enumerate(ASSIGNMENTS.items(), 1):
         print(i, shift, email)
+        SCHED[shift] = email
     print(functions.RTN())
 else:
     print(f'index of resolution: {res}')
