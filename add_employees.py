@@ -23,6 +23,7 @@ functions.write_dct_to_csv(['email', 'start_date'], 'employees.csv',
                            'email, start_date', employees.EMPLOYEES_DCT)
 
 # update user
+print('updated list of employees')
 print('email, start date')
 for email, start_date in employees.EMPLOYEES_DCT.items():
     print(email, start_date)
