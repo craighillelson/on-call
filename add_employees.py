@@ -6,6 +6,7 @@ import functions
 import employees
 
 # prompt user
+# get domain name from existing employees
 domain = input('What is your domain name?\n')
 
 while True:
