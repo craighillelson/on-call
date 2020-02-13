@@ -1,123 +1,107 @@
 """ __doc__ """
 
 import create_shifts
+import datetime
 import employees
+import eligible_emps
 import functions
 import pto
 from datetime import date
 from itertools import cycle
 
 # data stores
-ASSIGNED_EMPS = []
-CONFLICTS = []
+AVAILS = {}
+CONFLICTS = {}
 ELIG_EMPS = []
 EMPS_RES =[]
-REMAINING_EMPS = []
-REMAINING_SHIFTS = []
-ASSIGNMENTS = {}
-RESOLVED_ASSIGNMENTS = {}
-SCHED = {}
 UNFILTERED_ASSIGNMENTS = {}
 
 today = date.today()
 
-last_shift = create_shifts.SHIFTS[-1]
-
-# populate EMPLOYEES_DCT with employees whose start date is twelve or more weeks
-# in the past
-for email, start_date in employees.EMPLOYEES_DCT.items():
-    start_date_fmt = functions.fmt_date('start_date', start_date)
-    first_elig_shift = functions.calc_dates('first_elig', start_date_fmt, 12)
-    if first_elig_shift < last_shift:
-        ELIG_EMPS.append(email)
-
-# zip SHIFTS and ELIG_EMPS to create UNFILTERED_ASSIGNMENTS
-for shift, email in zip(create_shifts.SHIFTS, cycle(ELIG_EMPS)):
+print('unfiltered assignments')
+for i, (shift, email) in enumerate(zip(create_shifts.SHIFTS,
+                                       cycle(eligible_emps.ELIG_EMPS)), 1):
     UNFILTERED_ASSIGNMENTS[shift] = email
+    print(i, shift, email)
 
-# find pto conflicts
-for i, ((k, v), (k2, v2)) in enumerate(zip(UNFILTERED_ASSIGNMENTS.items(),
-                                           pto.PTO.items()), 1):
-    pto_shift = functions.fmt_date('pto_shift', k2)
-    if k == pto_shift and v != v2:
-        ASSIGNMENTS[k] = v
-        ASSIGNED_EMPS.append(v)
+print(functions.RTN())
+
+# find conflicts
+for (k, v), (k2, v2) in zip(UNFILTERED_ASSIGNMENTS.items(), pto.PTO.items()):
+    if v != v2:
+        AVAILS[k] = v
     else:
-        res = ELIG_EMPS.index(v) + 1
-        print(f'{i} {k} {v} - CONFLICT - resolution: {ELIG_EMPS[res]}')
-        ASSIGNMENTS[k] = ELIG_EMPS[res]
-        break
+        CONFLICTS[k] = v
 
-remainder = 13 - i
-
-# output shifts and assignments
-if remainder == 0:
-    print('schedule - no conflicts')
-    for i, (shift, email) in enumerate(ASSIGNMENTS.items(), 1):
-        print(i, shift, email)
-        SCHED[shift] = email
-    print(functions.RTN())
-else:
-    print(f'index of resolution: {res}')
-
-    print(functions.RTN())
-
-    next_emp = res + 1
-
-    for i in range(0, remainder, 1):
-        EMPS_RES.append(ELIG_EMPS[next_emp])
-        next_emp += 1
-        if next_emp == len(ELIG_EMPS):
-            next_emp = 0
+# resolve conflicts
+if CONFLICTS:
+    AVAILABLE_EMPS = eligible_emps.ELIG_EMPS
+    if len(CONFLICTS) > 1:
+        print('multiple conflicts')
+        for i, (k, v) in enumerate(CONFLICTS.items(), 1):
+            print(f'{i} {k} {v}')
+            conflict_index = AVAILABLE_EMPS.index(v)
+        del AVAILABLE_EMPS[conflict_index]
+        print(functions.RTN())
+        if AVAILABLE_EMPS:
+            if len(AVAILABLE_EMPS) > 1:
+                print('options')
+                for i, emp in enumerate(AVAILABLE_EMPS, 1):
+                    print(i, emp)
+                print(functions.RTN())
+            else:
+                print('option')
+                for emp in AVAILABLE_EMPS:
+                    print(emp)
+                print(functions.RTN())
         else:
-            pass
-
-    # iterate through employees for the number of shifts not yet assigned
-    print('pick up from resolution')
-    for i, email in enumerate(EMPS_RES, 1):
-        print(i, email)
-        REMAINING_EMPS.append(email)
-
+            print(f'there are no employees available to cover the shift '
+                  f'starting on {k}')
+    else:
+        print('one conflict')
+        for k, v in CONFLICTS.items():
+            print(k, v)
+            next_week = k + datetime.timedelta(days=-today.weekday(), weeks=1)
+            conflict_index = AVAILABLE_EMPS.index(v)
+        del AVAILABLE_EMPS[conflict_index]
+        print(functions.RTN())
+        if AVAILABLE_EMPS:
+            if len(AVAILABLE_EMPS) > 1:
+                print('all options')
+                for i, emp in enumerate(AVAILABLE_EMPS, 1):
+                    print(i, emp)
+                print(functions.RTN())
+                # find next shift assignment
+                print('next shift assignment')
+                next_shift_assign = k + datetime.timedelta(days=-k.weekday(),
+                                                    weeks=1)
+                emp = UNFILTERED_ASSIGNMENTS[next_shift_assign]
+                print(emp)
+                conflict_index = AVAILABLE_EMPS.index(emp)
+                del AVAILABLE_EMPS[conflict_index]
+                print(functions.RTN())
+                if AVAILABLE_EMPS:
+                    if len(AVAILABLE_EMPS) > 1:
+                        print('updated options')
+                        for emp in AVAILABLE_EMPS:
+                            print(emp)
+                        print(functions.RTN())
+                    else:
+                        print('updated option')
+                        for emp in AVAILABLE_EMPS:
+                            print(emp)
+                        print(functions.RTN())
+                else:
+                    print(f'there are no employees available to cover the '
+                          f'shift starting on {k}')
+            else:
+                print('option')
+                for emp in AVAILABLE_EMPS:
+                    print(emp)
+                print(functions.RTN())
+        else:
+            print(f'there are no employees available to cover the shift '
+                  f'starting on {k}')
+else:
+    print('no conflicts')
     print(functions.RTN())
-
-    print('remaining shifts')
-    len_emps_res = len(EMPS_RES) * -1
-
-    for i in range(len_emps_res, 0, 1):
-        REMAINING_SHIFTS.append(create_shifts.SHIFTS[i])
-
-    for i, shift in enumerate(REMAINING_SHIFTS, 1):
-        print(i, shift)
-
-    print(functions.RTN())
-
-    # output assignments through resolved conflict
-    print('assignments ending in resolution')
-    for i, (shift, email) in enumerate(ASSIGNMENTS.items(), 1):
-        print(i, shift, email)
-
-    print(functions.RTN())
-
-    for shift, email in zip(REMAINING_SHIFTS, REMAINING_EMPS):
-        RESOLVED_ASSIGNMENTS[shift] = email
-
-    # concatenate dictionaries
-    SCHED = dict(ASSIGNMENTS)
-    SCHED.update(RESOLVED_ASSIGNMENTS)
-
-    # output resolved assignments
-    print('resolved assignments')
-    for i, (shift, email) in enumerate(SCHED.items(), 1):
-        print(i, shift, email)
-
-# write SCHED to csv
-file_name = str(today) + '_assignments.csv'
-
-functions.write_dct_to_csv(['shift','email'], file_name, 'shift, email', SCHED)
-
-# update user
-print(functions.RTN())
-
-print(f'"{file_name}" exported successfully')
-
-print(functions.RTN())
