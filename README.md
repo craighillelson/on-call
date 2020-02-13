@@ -11,6 +11,7 @@ Python 3.8 script to loop through a list of employees and assign them on call sh
 # Files
 * add_employees.py - add one or more employees
 * build_sched.py - imports "employees.csv" and assembles a schedule, matching shifts to employees, and writes the list of shifts to a csv including today's date in the file name
+* create_shifts.py - creates thirteen (equivalent to one quarter) on call shifts
 * employees.csv - stores employee names and start dates
 * employees.py - imports contents of "employees.csv" and populates lists and dictionaries
 * functions.py - stores functions called by other files
