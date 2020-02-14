@@ -170,17 +170,17 @@ if usr_choice not in selections:
     print('enter "y" to accept this schedule or "no" to make edits')
     usr_choice = input()
 
-HEADERS = 'shift','email'
-
-with open('assignments.csv', 'w') as out_file:
-    out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS)
-    for shift, email in MERGED_ASSIGNMENTS.items():
-        keys_values = (shift, email)
-        out_csv.writerow(keys_values)
-
-print(functions.RTN())
-
-print('"assignments.csv" exported successfully')
+if usr_choice == 'y':
+    HEADERS = 'shift','email'
+    with open('assignments.csv', 'w') as out_file:
+        out_csv = csv.writer(out_file)
+        out_csv.writerow(HEADERS)
+        for shift, email in MERGED_ASSIGNMENTS.items():
+            keys_values = (shift, email)
+            out_csv.writerow(keys_values)
+    print(functions.RTN())
+    print('"assignments.csv" exported successfully')
+else:
+    print('please select a shift to edit')
 
 print(functions.RTN())
