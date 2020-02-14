@@ -174,9 +174,9 @@ HEADERS = 'shift','email'
 
 with open('assignments.csv', 'w') as out_file:
     out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS) # define HEADERS before running function
-    for k, v in MERGED_ASSIGNMENTS.items(): # rename keys and values to make to make them meaningful
-        keys_values = (k, v)
+    out_csv.writerow(HEADERS)
+    for shift, email in MERGED_ASSIGNMENTS.items():
+        keys_values = (shift, email)
         out_csv.writerow(keys_values)
 
 print(functions.RTN())
