@@ -221,7 +221,7 @@ print('shifts grouped by employee')
 print(functions.RTN())
 
 for email, shifts in SCHED_GROUPED_BY_EMP.items():
-    print(email)
+    print(f'{email} is scheduled for {len(shifts)} shifts')
     for i, shift in enumerate(shifts, 1):
         print(i, shift)
     print(functions.RTN())
