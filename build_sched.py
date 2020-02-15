@@ -86,7 +86,7 @@ MERGED_ASSIGNMENTS.update(UPDATED_ASSIGNMENTS)
 #     else:
 #         CONFLICTS[k] = v
 
-# resolve conflicts
+# resolve pto conflicts
 if CONFLICTS:
     AVAILABLE_EMPS = eligible_emps.ELIG_EMPS
     if len(CONFLICTS) > 1:
@@ -171,6 +171,7 @@ selections = [
     'n',
 ]
 
+# prompt user to accept schedule as is or make edits
 print('enter "y" to accept this schedule or "no" to make edits')
 usr_choice = input()
 if usr_choice not in selections:
