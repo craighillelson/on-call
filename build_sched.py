@@ -32,6 +32,7 @@ for shift, email in zip(create_shifts.SHIFTS,
                         cycle(eligible_emps.ELIG_EMPS)):
     UNFILT_ASSIGNS[shift] = email
 
+# find pto conflicts
 if UNFILT_ASSIGNS:
     if len(UNFILT_ASSIGNS) > 1:
         print('assignments - break on conflict')
