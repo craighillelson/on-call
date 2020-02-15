@@ -15,7 +15,7 @@ AVAILS = {}
 ASSIGNMENTS = {}
 CONFLICTS = {}
 EDIT_MERGED_ASSIGNMENTS = {}
-ELIG_EMPS = []
+# ELIG_EMPS = eligible_emps.ELIG_EMPS
 EMPS_RES =[]
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
@@ -27,7 +27,7 @@ def switch_case(argument):
 
 today = date.today()
 
-# print('unfiltered assignments')
+# build unfiltered assignments
 for shift, email in zip(create_shifts.SHIFTS,
                         cycle(eligible_emps.ELIG_EMPS)):
     UNFILT_ASSIGNS[shift] = email
@@ -187,8 +187,8 @@ if usr_choice == 'y':
     print(functions.RTN())
     print('"assignments.csv" exported successfully')
 else:
-    print('please select a shift to edit')
     print(functions.RTN())
+    print('please select a shift to edit')
     for i, (k, v) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
         EDIT_MERGED_ASSIGNMENTS[i] = [k, v]
     for k, v in EDIT_MERGED_ASSIGNMENTS.items():
@@ -196,6 +196,6 @@ else:
     usr_choice = int(input())
     print(functions.RTN())
     usr_choice_lst = switch_case(usr_choice)
-    print(f'you selected {usr_choice_lst[0]} {usr_choice_lst[1]}')
+    print(f'you selected\n{usr_choice_lst[0]} {usr_choice_lst[1]}')
 
 print(functions.RTN())
