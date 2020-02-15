@@ -80,11 +80,11 @@ MERGED_ASSIGNMENTS.update(ASSIGNMENTS)
 MERGED_ASSIGNMENTS.update(UPDATED_ASSIGNMENTS)
 
 # find conflicts
-for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), pto.PTO.items()):
-    if v != v2:
-        AVAILS[k] = v
-    else:
-        CONFLICTS[k] = v
+# for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), pto.PTO.items()):
+#     if v != v2:
+#         AVAILS[k] = v
+#     else:
+#         CONFLICTS[k] = v
 
 # resolve conflicts
 if CONFLICTS:
