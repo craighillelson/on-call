@@ -19,7 +19,9 @@ UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
 ALL_EMPS = list(eligible_emps.ELIG_EMPS)
 REM_EMPS = {}
+SCHED_GROUPED_BY_EMP = {}
 
+# functions
 def switch_case(argument):
     """ switch case statement """
     EDIT_MERGED_ASSIGNMENTS
@@ -207,4 +209,19 @@ else:
     for k, v in REM_EMPS.items():
         print(k, v)
 
+for shift, email in sorted(MERGED_ASSIGNMENTS.items()):
+    SCHED_GROUPED_BY_EMP.setdefault(email, []).append(shift)
+
 print(functions.RTN())
+
+# output on-call shifts by employee
+print('summary')
+print('shifts grouped by employee')
+
+print(functions.RTN())
+
+for email, shifts in SCHED_GROUPED_BY_EMP.items():
+    print(email)
+    for i, shift in enumerate(shifts, 1):
+        print(i, shift)
+    print(functions.RTN())
