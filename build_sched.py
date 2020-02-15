@@ -17,6 +17,8 @@ CONFLICTS = {}
 EDIT_MERGED_ASSIGNMENTS = {}
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
+ALL_EMPS = list(eligible_emps.ELIG_EMPS)
+REM_EMPS = {}
 
 def switch_case(argument):
     """ switch case statement """
@@ -197,5 +199,12 @@ else:
     print(functions.RTN())
     usr_choice_lst = switch_case(usr_choice)
     print(f'you selected\n{usr_choice_lst[0]} {usr_choice_lst[1]}')
+    print(functions.RTN())
+    for i, emp in enumerate(ALL_EMPS, 1):
+        if emp != usr_choice_lst[1]:
+            REM_EMPS[i] = emp
+    print('remaining options')
+    for k, v in REM_EMPS.items():
+        print(k, v)
 
 print(functions.RTN())
