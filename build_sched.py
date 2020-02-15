@@ -23,7 +23,7 @@ today = date.today()
 
 # print('unfiltered assignments')
 for shift, email in zip(create_shifts.SHIFTS,
-                                       cycle(eligible_emps.ELIG_EMPS)):
+                        cycle(eligible_emps.ELIG_EMPS)):
     UNFILT_ASSIGNS[shift] = email
 
 if UNFILT_ASSIGNS:
