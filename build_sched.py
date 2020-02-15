@@ -14,10 +14,16 @@ from itertools import cycle
 AVAILS = {}
 ASSIGNMENTS = {}
 CONFLICTS = {}
+EDIT_MERGED_ASSIGNMENTS = {}
 ELIG_EMPS = []
 EMPS_RES =[]
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
+
+def switch_case(argument):
+    """ switch case statement """
+    EDIT_MERGED_ASSIGNMENTS
+    return EDIT_MERGED_ASSIGNMENTS.get(argument, 'nothing')
 
 today = date.today()
 
@@ -182,5 +188,14 @@ if usr_choice == 'y':
     print('"assignments.csv" exported successfully')
 else:
     print('please select a shift to edit')
+    print(functions.RTN())
+    for i, (k, v) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
+        EDIT_MERGED_ASSIGNMENTS[i] = [k, v]
+    for k, v in EDIT_MERGED_ASSIGNMENTS.items():
+        print(k, v[0], v[1])
+    usr_choice = int(input())
+    print(functions.RTN())
+    usr_choice_lst = switch_case(usr_choice)
+    print(f'you selected {usr_choice_lst[0]} {usr_choice_lst[1]}')
 
 print(functions.RTN())
