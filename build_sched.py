@@ -18,7 +18,7 @@ EDIT_MERGED_ASSIGNMENTS = {}
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
 ALL_EMPS = list(eligible_emps.ELIG_EMPS)
-REM_EMPS = {}
+REM_EMPS = []
 SCHED_GROUPED_BY_EMP = {}
 
 # functions
@@ -82,11 +82,11 @@ MERGED_ASSIGNMENTS.update(ASSIGNMENTS)
 MERGED_ASSIGNMENTS.update(UPDATED_ASSIGNMENTS)
 
 # find conflicts
-# for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), pto.PTO.items()):
-#     if v != v2:
-#         AVAILS[k] = v
-#     else:
-#         CONFLICTS[k] = v
+for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), pto.PTO.items()):
+    if v != v2:
+        AVAILS[k] = v
+    else:
+        CONFLICTS[k] = v
 
 # resolve pto conflicts
 if CONFLICTS:
@@ -122,10 +122,10 @@ if CONFLICTS:
         print(functions.RTN())
         if AVAILABLE_EMPS:
             if len(AVAILABLE_EMPS) > 1:
-                print('all options')
-                for i, emp in enumerate(AVAILABLE_EMPS, 1):
-                    print(i, emp)
-                print(functions.RTN())
+                # print('all options')
+                # for i, emp in enumerate(AVAILABLE_EMPS, 1):
+                #     print(i, emp)
+                # print(functions.RTN())
                 prev_shift_assign = k + datetime.timedelta(days=-k.weekday(),
                                                            weeks=-1)
                 emp = MERGED_ASSIGNMENTS[prev_shift_assign]
@@ -139,12 +139,12 @@ if CONFLICTS:
                 print(functions.RTN())
                 if AVAILABLE_EMPS:
                     if len(AVAILABLE_EMPS) > 1:
-                        print('updated options')
+                        print('best options')
                         for emp in AVAILABLE_EMPS:
                             print(emp)
                         print(functions.RTN())
                     else:
-                        print('updated option')
+                        print('best option')
                         for emp in AVAILABLE_EMPS:
                             print(emp)
                         print(functions.RTN())
@@ -204,10 +204,10 @@ else:
     print(functions.RTN())
     for i, emp in enumerate(ALL_EMPS, 1):
         if emp != usr_choice_lst[1]:
-            REM_EMPS[i] = emp
+            REM_EMPS.append(emp)
     print('remaining options')
-    for k, v in REM_EMPS.items():
-        print(k, v)
+    for i, emp in enumerate(REM_EMPS, 1):
+        print(i, emp)
 
 for shift, email in sorted(MERGED_ASSIGNMENTS.items()):
     SCHED_GROUPED_BY_EMP.setdefault(email, []).append(shift)
@@ -216,9 +216,8 @@ print(functions.RTN())
 
 # output on-call shifts by employee
 print('summary')
-print('shifts grouped by employee')
-
 print(functions.RTN())
+print('shifts grouped by employee')
 
 for email, shifts in SCHED_GROUPED_BY_EMP.items():
     print(f'{email} is scheduled for {len(shifts)} shifts')
