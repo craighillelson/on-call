@@ -129,11 +129,14 @@ if CONFLICTS:
                 prev_shift_assign = k + datetime.timedelta(days=-k.weekday(),
                                                            weeks=-1)
                 emp = MERGED_ASSIGNMENTS[prev_shift_assign]
-                print(f'previous shift assignment: {emp}')
+                print('previous shift assignment')
+                print(f'{prev_shift_assign} {emp}')
+                print(functions.RTN())
                 next_shift_assign = k + datetime.timedelta(days=-k.weekday(),
                                                            weeks=1)
                 emp = MERGED_ASSIGNMENTS[next_shift_assign]
-                print(f'next shift assignment: {emp}')
+                print('next shift assignment')
+                print(f'{next_shift_assign} {emp}')
                 conflict_index = AVAILABLE_EMPS.index(emp)
                 del AVAILABLE_EMPS[conflict_index]
                 print(functions.RTN())
@@ -191,6 +194,7 @@ if usr_choice == 'y':
     print(functions.RTN())
     print('"assignments.csv" exported successfully')
 else:
+    # mavybe move this to edit_sched.py
     print(functions.RTN())
     print('please select a shift to edit')
     for i, (k, v) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
@@ -224,3 +228,5 @@ for email, shifts in SCHED_GROUPED_BY_EMP.items():
     for i, shift in enumerate(shifts, 1):
         print(i, shift)
     print(functions.RTN())
+
+# text each employee a list of shifts assigned to them
