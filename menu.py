@@ -10,20 +10,27 @@ while True:
     print('please make a selection\n')
     print('a - add employees')
     print('b - build schedule')
-    print('c - list employees')
-    print('d - list pto')
-    print('e - remove employee')
-    print('f - quit')
+    print('c - edit schedule')
+    print('d - list employees')
+    print('e - list pto')
+    print('f - remove employee')
+    # print('f - review schedule')
+    print('g - quit')
     user_choice = input()
     if user_choice == 'a':
         open_file('add_employees.py')
     elif user_choice == 'b':
         open_file('build_sched.py')
     elif user_choice == 'c':
-        open_file('list_employees.py')
+        open_file('edit_sched.py')
     elif user_choice == 'd':
-        open_file('list_pto.py')
+        open_file('list_employees.py')
     elif user_choice == 'e':
+        open_file('list_pto.py')
+    elif user_choice == 'f':
         open_file('remove_employee.py')
+    # elif user_choice == 'f':
+    #     cat assignments.csv
+    #     open_file('2020-02-12_assignments.csv')
     else:
         break
