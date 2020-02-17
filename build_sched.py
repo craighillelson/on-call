@@ -15,6 +15,7 @@ AVAILS = {}
 ASSIGNMENTS = {}
 CONFLICTS = {}
 EDIT_MERGED_ASSIGNMENTS = {}
+REM_EMPS_DCT = {}
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
 ALL_EMPS = list(eligible_emps.ELIG_EMPS)
@@ -22,10 +23,10 @@ REM_EMPS = []
 SCHED_GROUPED_BY_EMP = {}
 
 # functions
-def switch_case(argument):
+def switch_case(a, b):
     """ switch case statement """
-    EDIT_MERGED_ASSIGNMENTS
-    return EDIT_MERGED_ASSIGNMENTS.get(argument, 'nothing')
+    a
+    return a.get(b, 'nothing')
 
 today = date.today()
 
@@ -177,10 +178,10 @@ selections = [
 ]
 
 # prompt user to accept schedule as is or make edits
-print('enter "y" to accept this schedule or "no" to make edits')
+print('enter "y" to accept this schedule or "n" to make edits')
 usr_choice = input()
 if usr_choice not in selections:
-    print('enter "y" to accept this schedule or "no" to make edits')
+    print('enter "y" to accept this schedule or "n" to make edits')
     usr_choice = input()
 
 if usr_choice == 'y':
@@ -208,15 +209,54 @@ else:
         print(k, v[0], v[1])
     usr_choice = int(input())
     print(functions.RTN())
-    usr_choice_lst = switch_case(usr_choice)
-    print(f'you selected\n{usr_choice_lst[0]} {usr_choice_lst[1]}')
+    usr_choice_lst = switch_case(EDIT_MERGED_ASSIGNMENTS, usr_choice)
+    print(f'you selected')
+    print(f'{usr_choice_lst[0]} {usr_choice_lst[1]}')
     print(functions.RTN())
-    for i, emp in enumerate(ALL_EMPS, 1):
-        if emp != usr_choice_lst[1]:
-            REM_EMPS.append(emp)
+    prec_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice - 1]
+    prec_emp = prec_lst[1]
+    # subs_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice + 1]
+    # subs_emp = subs_lst[1]
+    if usr_choice - 1 <= 0:
+        print('succeeding shift')
+        print(next_lst[0], next_lst[1])
+        subs_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice + 1]
+        for i, emp in enumerate(ALL_EMPS, 1):
+            if emp != usr_choice_lst[1] and emp != subs_emp:
+                REM_EMPS.append(emp)
+    elif (usr_choice + 1) >= (len(EDIT_MERGED_ASSIGNMENTS) + 1):
+        print('preceding shift')
+        print(prec_lst[0], prec_lst[1])
+        print(functions.RTN())
+        for i, emp in enumerate(ALL_EMPS, 1):
+            if emp != usr_choice_lst[1] and emp != prec_emp:
+                REM_EMPS.append(emp)
+    else:
+        subs_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice + 1]
+        subs_emp = subs_lst[1]
+        print('preceding shift')
+        print(prec_lst[0], prec_lst[1])
+        print(functions.RTN())
+        print('subsequent shift')
+        print(subs_lst[0], subs_lst[1])
+        print(functions.RTN())
+        for i, emp in enumerate(ALL_EMPS, 1):
+            if emp != usr_choice_lst[1] and emp != prec_emp and emp != subs_emp:
+                REM_EMPS.append(emp)
     print('remaining options')
     for i, emp in enumerate(REM_EMPS, 1):
+        REM_EMPS_DCT[i] = emp
         print(i, emp)
+    print(functions.RTN())
+    print('please select an employee')
+    usr_sel_emp = int(input())
+    usr_sel = switch_case(REM_EMPS_DCT, usr_sel_emp)
+    print(functions.RTN())
+    print(f'you selected {usr_sel}')
+
+EDIT_MERGED_ASSIGNMENTS[usr_choice] = [usr_choice_lst[0], usr_sel]
+for k, v in EDIT_MERGED_ASSIGNMENTS.items():
+    print(k, v[0], v[1])
 
 for shift, email in sorted(MERGED_ASSIGNMENTS.items()):
     SCHED_GROUPED_BY_EMP.setdefault(email, []).append(shift)
@@ -233,5 +273,17 @@ for email, shifts in SCHED_GROUPED_BY_EMP.items():
     for i, shift in enumerate(shifts, 1):
         print(i, shift)
     print(functions.RTN())
+
+HEADERS = 'shift','email'
+
+with open('updated_assignments.csv', 'w') as out_file:
+    out_csv = csv.writer(out_file)
+    out_csv.writerow(HEADERS) # define HEADERS before running function
+    for k, v in EDIT_MERGED_ASSIGNMENTS.items(): # rename keys and values to make to make them meaningful
+        keys_values = (v[0], v[1])
+        out_csv.writerow(keys_values)
+
+# update user
+print('"updated_assignments.csv" exported successfully')
 
 # text each employee a list of shifts assigned to them
