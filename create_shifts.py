@@ -46,7 +46,7 @@ else:
                            datetime.timedelta(days=-sched_start.weekday(),
                                               weeks=1)
                 print(functions.RTN())
-                print(f'Schedule will start on Monday, {next_mon}')
+                print(f'start date: {next_mon}')
             break
 
 print(functions.RTN())
