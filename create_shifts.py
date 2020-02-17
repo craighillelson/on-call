@@ -1,5 +1,6 @@
 """ __doc__ """
 
+import csv
 import datetime
 import functions
 from datetime import date
@@ -26,6 +27,7 @@ while True:
 
 if usr_choice == 'y':
     sched_start = this_monday
+    print(functions.RTN())
     print(f'schedule will start on {sched_start}')
 else:
     print('please specify a start date for the schedule (YYYY-MM-DD)')
@@ -40,3 +42,12 @@ for i in range(0, 13, 1):
                                               weeks=i)
     SHIFTS.append(shift)
     i += 1
+
+HEADER = 'shift'
+
+with open('shifts.csv', 'w') as out_file:
+    out_csv = csv.writer(out_file)
+    out_csv.writerow([HEADER])
+    for shift in SHIFTS:
+        shift_fmt = shift.strftime('%Y-%m-%d')
+        out_csv.writerow([shift_fmt])
