@@ -8,9 +8,9 @@ from datetime import date
 SHIFTS = []
 
 today = date.today()
-this_monday = today + datetime.timedelta(days=-today.weekday(), weeks=1)
+day = today + datetime.timedelta(days=-today.weekday(), weeks=1)
 
-print(f'Would you like the on-call schedule to start on {this_monday} (y/n)? ')
+print(f'Would you like the on-call schedule to start on {day} (y/n)? ')
 
 answers = [
     'y',
@@ -20,20 +20,34 @@ answers = [
 while True:
     usr_choice = input()
     if usr_choice not in answers:
-        print(f'Would you like the on-call schedule to start on {this_monday} '
+        print(f'Would you like the on-call schedule to start on {day} '
               f'(y/n)? ')
     else:
         break
 
 if usr_choice == 'y':
-    sched_start = this_monday
+    sched_start = day
     print(functions.RTN())
     print(f'schedule will start on {sched_start}')
 else:
-    print('please specify a start date for the schedule (YYYY-MM-DD)')
-    usr_spec_date = input()
-    usr_spec_start = usr_spec_date
-    sched_start = functions.fmt_date('sched_start', usr_spec_start)
+    while True:
+        print('please specify a start date for the schedule (YYYY-MM-DD)')
+        usr_spec_date = input()
+        usr_spec_start = usr_spec_date
+        sched_start = functions.fmt_date('sched_start', usr_spec_start)
+        if today >= sched_start:
+            print('please specify a date in the future')
+        else:
+            sched_start_day = functions.find_day(str(sched_start))
+            if sched_start_day == 'Monday':
+                print(sched_start_day)
+            else:
+                next_mon = sched_start + \
+                           datetime.timedelta(days=-sched_start.weekday(),
+                                              weeks=1)
+                print(functions.RTN())
+                print(f'Schedule will start on Monday, {next_mon}')
+            break
 
 print(functions.RTN())
 
