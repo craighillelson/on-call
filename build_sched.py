@@ -186,8 +186,6 @@ if usr_choice not in selections:
 
 if usr_choice == 'y':
     HEADERS = 'shift','email'
-    # name file in the following way: assignments_2020-02-17-2020-05-11.csv
-    # MERGED_ASSIGNMENTS - keys [0] and [-1]
     first_shift = str(create_shifts.SHIFTS[0])
     last_shift = str(create_shifts.SHIFTS[-1])
     file_name = 'assignments' + '_' + first_shift + '-' + last_shift + '.csv'
@@ -200,63 +198,7 @@ if usr_choice == 'y':
     print(functions.RTN())
     print(f'"{file_name}" exported successfully')
 else:
-    # maybe move this to edit_sched.py
-    print(functions.RTN())
-    print('please select a shift to edit')
-    for i, (k, v) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
-        EDIT_MERGED_ASSIGNMENTS[i] = [k, v]
-    for k, v in EDIT_MERGED_ASSIGNMENTS.items():
-        print(k, v[0], v[1])
-    usr_choice = int(input())
-    print(functions.RTN())
-    usr_choice_lst = switch_case(EDIT_MERGED_ASSIGNMENTS, usr_choice)
-    print(f'you selected')
-    print(f'{usr_choice_lst[0]} {usr_choice_lst[1]}')
-    print(functions.RTN())
-    prec_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice - 1]
-    prec_emp = prec_lst[1]
-    # subs_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice + 1]
-    # subs_emp = subs_lst[1]
-    if usr_choice - 1 <= 0:
-        print('succeeding shift')
-        print(next_lst[0], next_lst[1])
-        subs_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice + 1]
-        for i, emp in enumerate(ALL_EMPS, 1):
-            if emp != usr_choice_lst[1] and emp != subs_emp:
-                REM_EMPS.append(emp)
-    elif (usr_choice + 1) >= (len(EDIT_MERGED_ASSIGNMENTS) + 1):
-        print('preceding shift')
-        print(prec_lst[0], prec_lst[1])
-        print(functions.RTN())
-        for i, emp in enumerate(ALL_EMPS, 1):
-            if emp != usr_choice_lst[1] and emp != prec_emp:
-                REM_EMPS.append(emp)
-    else:
-        subs_lst = EDIT_MERGED_ASSIGNMENTS[usr_choice + 1]
-        subs_emp = subs_lst[1]
-        print('preceding shift')
-        print(prec_lst[0], prec_lst[1])
-        print(functions.RTN())
-        print('subsequent shift')
-        print(subs_lst[0], subs_lst[1])
-        print(functions.RTN())
-        for i, emp in enumerate(ALL_EMPS, 1):
-            if emp != usr_choice_lst[1] and emp != prec_emp and emp != subs_emp:
-                REM_EMPS.append(emp)
-    print('remaining options')
-    for i, emp in enumerate(REM_EMPS, 1):
-        REM_EMPS_DCT[i] = emp
-        print(i, emp)
-    print(functions.RTN())
-    print('please select an employee')
-    usr_sel_emp = int(input())
-    usr_sel = switch_case(REM_EMPS_DCT, usr_sel_emp)
-    print(functions.RTN())
-    print(f'you selected {usr_sel}')
-
-EDIT_MERGED_ASSIGNMENTS[usr_choice] = [usr_choice_lst[0], usr_sel]
-for k, v in EDIT_MERGED_ASSIGNMENTS.items():
-    print(k, v[0], v[1])
+    exec(open('edit_sched.py').read())
 
 for shift, email in sorted(MERGED_ASSIGNMENTS.items()):
     SCHED_GROUPED_BY_EMP.setdefault(email, []).append(shift)
@@ -276,10 +218,11 @@ for email, shifts in SCHED_GROUPED_BY_EMP.items():
 
 HEADERS = 'shift','email'
 
-with open('updated_assignments.csv', 'w') as out_file:
+with open('assignments.csv', 'w') as out_file:
     out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS) # define HEADERS before running function
-    for k, v in EDIT_MERGED_ASSIGNMENTS.items(): # rename keys and values to make to make them meaningful
+    out_csv.writerow(HEADERS)
+    for k, v in MERGED_ASSIGNMENTS.items():
+    # for k, v in EDIT_MERGED_ASSIGNMENTS.items():
         keys_values = (v[0], v[1])
         out_csv.writerow(keys_values)
 
