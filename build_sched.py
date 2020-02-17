@@ -185,6 +185,8 @@ if usr_choice not in selections:
 
 if usr_choice == 'y':
     HEADERS = 'shift','email'
+    # name file in the following way: assignments_2020-02-17-2020-05-11.csv
+    # MERGED_ASSIGNMENTS - keys [0] and [-1]
     with open('assignments.csv', 'w') as out_file:
         out_csv = csv.writer(out_file)
         out_csv.writerow(HEADERS)
@@ -194,7 +196,7 @@ if usr_choice == 'y':
     print(functions.RTN())
     print('"assignments.csv" exported successfully')
 else:
-    # mavybe move this to edit_sched.py
+    # maybe move this to edit_sched.py
     print(functions.RTN())
     print('please select a shift to edit')
     for i, (k, v) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
