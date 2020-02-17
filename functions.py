@@ -112,10 +112,7 @@ def reset_next_emp(a, b):
         a = 0
     else:
         pass
-
     return a
-    # else:
-    #     pass
 
 
 def switch_case(a, b):
