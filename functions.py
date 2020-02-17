@@ -14,6 +14,7 @@ def calc_dates(a, b, c):
     a = b + datetime.timedelta(days=-b.weekday(), weeks=c)
     return a
 
+
 def find_day(a):
     """ determine if the start """
     usr_start_day = datetime.datetime.strptime(a, '%Y-%m-%d').weekday()
@@ -32,7 +33,7 @@ def find_closest_start_mon(a, b):
     if a.weekday() == 0:
         b = a
     else:
-        b = a + relativedelta(weekday=MO(-1))
+        b = a + relativedelta(weekday=MO(1))
 
     return b
 
@@ -62,13 +63,14 @@ def open_csv(a):
         for rows in F_CSV:
             row = CSV_ROW(*rows)
             a[row.shift] = [row.email]
+            # a[row.shift] = row.email
 
 
 def output_pto_sched(a):
     """ oututs current pto schedule """
     for shift, email in a.items():
         for emp in email:
-            if email == ['']:
+            if email == '':
                 print(f'{shift} - no pto booked')
             else:
                 print(f'{shift} - {emp}')
@@ -76,10 +78,25 @@ def output_pto_sched(a):
             pass
 
 
-def output_unavails(a, b):
+def output_enum_dct(a):
+    """ """
+    for i, (shift, email) in enumerate(a.items(), 1):
+        print(i, shift, email)
+
+
+def output_enum_lst(a, b):
+    """ """
+    for i, a in enumerate(b, 1):
+        print(i, a)
+
+
+def output_unavails(a, b, c, d):
+    """ output shifts for which an employee is unavailable """
     print(a)
     for shift in b:
-        print(shift)
+        # k_fmt = fmt_date('k_fmt', k)
+        d[shift] = [c]
+        # print(shift, c)
 
 
 def prompt_user_for_pto_start_end(a, b):
@@ -87,6 +104,18 @@ def prompt_user_for_pto_start_end(a, b):
     print(a)
     b = input()
     return b
+
+
+def reset_next_emp(a, b):
+    """ """
+    if a == len(b):
+        a = 0
+    else:
+        pass
+
+    return a
+    # else:
+    #     pass
 
 
 def switch_case(a, b):
