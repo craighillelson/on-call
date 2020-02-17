@@ -187,14 +187,17 @@ if usr_choice == 'y':
     HEADERS = 'shift','email'
     # name file in the following way: assignments_2020-02-17-2020-05-11.csv
     # MERGED_ASSIGNMENTS - keys [0] and [-1]
-    with open('assignments.csv', 'w') as out_file:
+    first_shift = str(create_shifts.SHIFTS[0])
+    last_shift = str(create_shifts.SHIFTS[-1])
+    file_name = 'assignments' + '_' + first_shift + '-' + last_shift + '.csv'
+    with open(file_name, 'w') as out_file:
         out_csv = csv.writer(out_file)
         out_csv.writerow(HEADERS)
         for shift, email in MERGED_ASSIGNMENTS.items():
             keys_values = (shift, email)
             out_csv.writerow(keys_values)
     print(functions.RTN())
-    print('"assignments.csv" exported successfully')
+    print(f'"{file_name}" exported successfully')
 else:
     # maybe move this to edit_sched.py
     print(functions.RTN())
