@@ -19,7 +19,7 @@ AVAILABLE_EMPS = []
 AVAILABLE_EMPS_OPTIONS = []
 
 # populate DCT with the contents of 'assignments.csv'
-with open('assignments_2020-02-17-2020-05-11.csv') as csv_file:
+with open('assignments_2020-02-24-2020-05-18.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
     COLUMN_HEADINGS = next(F_CSV)
     CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
@@ -78,9 +78,6 @@ for emp in EMPS:
 
 if AVAILABLE_EMPS:
     if len(AVAILABLE_EMPS) > 1:
-        # for i, emp in enumerate(AVAILABLE_EMPS, 1):
-        #     AVAILABLE_EMPS_DCT[i] = emp
-        # AVAILABLE_EMPS_OPTIONS = list(AVAILABLE_EMPS_DCT.keys())
         while True:
             print(f'please select an employee to substitute for shift '
                   f'{usr_choice_lst[0]}')
