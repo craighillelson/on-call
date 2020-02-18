@@ -6,7 +6,7 @@ USER_OPTIONS = {
     'a': 'add_employees.py',
     'b': 'build_sched.py',
     'c': 'edit_sched.py',
-    'd': 'list_employees.py',
+    'd': 'list_emps.py',
     'e': 'list_pto.py',
     'f': 'remove_employee.py',
     'g': 'quit',
