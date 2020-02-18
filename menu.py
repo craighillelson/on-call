@@ -3,7 +3,7 @@
 import functions
 
 USER_OPTIONS = {
-    'a': 'add_employees.py',
+    'a': 'add_emps.py',
     'b': 'build_sched.py',
     'c': 'edit_sched.py',
     'd': 'list_emps.py',
