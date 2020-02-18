@@ -32,8 +32,7 @@ if usr_choice == 'y':
 else:
     while True:
         print('please specify a start date for the schedule (YYYY-MM-DD)')
-        usr_spec_date = input()
-        usr_spec_start = usr_spec_date
+        usr_spec_start = input()
         sched_start = functions.fmt_date('sched_start', usr_spec_start)
         if today >= sched_start:
             print('please specify a date in the future')
