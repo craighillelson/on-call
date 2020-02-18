@@ -94,9 +94,14 @@ def output_unavails(a, b, c, d):
     """ output shifts for which an employee is unavailable """
     print(a)
     for shift in b:
-        # k_fmt = fmt_date('k_fmt', k)
         d[shift] = [c]
-        # print(shift, c)
+
+
+def output_emps(a, b):
+    """ """
+    for a in b:
+        print(a)
+    print(RTN())
 
 
 def prompt_user_for_pto_start_end(a, b):
@@ -118,7 +123,7 @@ def reset_next_emp(a, b):
 def switch_case(a, b):
     """ switch case statement """
     b
-    return b.get(a, "nothing")
+    return b.get(a, 'nothing')
 
 
 def write_dct_to_csv(a, b, c, d):
