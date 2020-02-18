@@ -50,24 +50,27 @@ print('you selected')
 print(f'{usr_choice_lst[0]} {usr_choice_lst[1]}')
 print(functions.RTN())
 
-print(usr_choice)
-print(functions.RTN())
-
 if usr_choice - 1 < 0:
     usr_choice == DCT[-1]
 else:
     prec_shift = usr_choice - 1
     prec_shift_lst = DCT[prec_shift]
+    prec_shift_date = prec_shift_lst[0]
     prec_shift_assign = prec_shift_lst[1]
-    print(f'preceding shift {prec_shift} {prec_shift_assign}')
+    print(f'preceding shift {prec_shift}')
+    print(f'{prec_shift_date} - {prec_shift_assign}')
+
+print(functions.RTN())
 
 if usr_choice + 1 > len(DCT):
     usr_choice == DCT[+1]
 else:
     succ_shift = usr_choice + 1
     succ_shift_lst = DCT[succ_shift]
+    succ_shift_date = succ_shift_lst[0]
     succ_shift_assign = succ_shift_lst[1]
-    print(f'succeeding shift {succ_shift} {succ_shift_assign}')
+    print(f'succeeding shift {succ_shift}')
+    print(f'{succ_shift_date} - {succ_shift_assign}')
 
 print(functions.RTN())
 
