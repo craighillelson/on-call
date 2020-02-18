@@ -1,5 +1,7 @@
 """ __doc__ """
 
+import functions
+
 USER_OPTIONS = {
     'a': 'add_employees.py',
     'b': 'build_sched.py',
@@ -24,9 +26,10 @@ def open_file(a):
 
 
 # prompt user to select one of the options provided
+print(functions.RTN())
 print('please select an option')
-for k, v in USER_OPTIONS.items():
-    print(k, v)
+for opt, action in USER_OPTIONS.items():
+    print(opt, action)
 
 while True:
     usr_choice = input()
