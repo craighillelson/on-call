@@ -15,18 +15,14 @@ AVAILS = {}
 ASSIGNMENTS = {}
 CONFLICTS = {}
 EDIT_MERGED_ASSIGNMENTS = {}
+PTO = dict(pto.PTO)
 REM_EMPS_DCT = {}
+SCHED_GROUPED_BY_EMP = {}
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
 ALL_EMPS = list(eligible_emps.ELIG_EMPS)
 REM_EMPS = []
-SCHED_GROUPED_BY_EMP = {}
-
-# functions
-def switch_case(a, b):
-    """ switch case statement """
-    a
-    return a.get(b, 'nothing')
+SHIFTS = list(create_shifts.SHIFTS)
 
 today = date.today()
 
@@ -40,7 +36,7 @@ if UNFILT_ASSIGNS:
     if len(UNFILT_ASSIGNS) > 1:
         print('assignments - break on conflict')
         for i, ((k, v), (k2, v2)) in enumerate(zip(UNFILT_ASSIGNS.items(),
-                                                   pto.PTO.items()), 1):
+                                                   PTO.items()), 1):
             if v != v2:
                 ASSIGNMENTS[k] = v
                 print(i, k, v)
@@ -48,7 +44,7 @@ if UNFILT_ASSIGNS:
                 break
     else:
         print('assignment - break on conflict')
-        for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), pto.PTO.items()):
+        for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), PTO.items()):
             if v != v2:
                 ASSIGNMENTS[k] = v
                 print(k, v)
@@ -60,8 +56,8 @@ else:
 print(functions.RTN())
 
 range_start = len(ASSIGNMENTS)
-range_stop = len(create_shifts.SHIFTS)
-REMAINING_SHIFTS = create_shifts.SHIFTS[range_start:range_stop]
+range_stop = len(SHIFTS)
+REMAINING_SHIFTS = SHIFTS[range_start:range_stop]
 
 if REMAINING_SHIFTS:
     print('shifts to fill')
@@ -72,7 +68,7 @@ if REMAINING_SHIFTS:
 
     print('remaining shifts')
     for i, (shift, email) in enumerate(zip(REMAINING_SHIFTS,
-                                       cycle(eligible_emps.ELIG_EMPS)), 1):
+                                       cycle(ALL_EMPS)), 1):
         UPDATED_ASSIGNMENTS[shift] = email
         print(i, shift, email)
 
@@ -94,8 +90,8 @@ if CONFLICTS:
     AVAILABLE_EMPS = eligible_emps.ELIG_EMPS
     if len(CONFLICTS) > 1:
         print('multiple conflicts')
-        for i, (k, v) in enumerate(CONFLICTS.items(), 1):
-            print(f'{i} {k} {v}')
+        for i, (shift, email) in enumerate(CONFLICTS.items(), 1):
+            print(f'{i} {shift} {email}')
             conflict_index = AVAILABLE_EMPS.index(v)
         del AVAILABLE_EMPS[conflict_index]
         print(functions.RTN())
@@ -107,26 +103,20 @@ if CONFLICTS:
                 print(functions.RTN())
             else:
                 print('option')
-                for emp in AVAILABLE_EMPS:
-                    print(emp)
-                print(functions.RTN())
+                functions.output_emps(emp, AVAILABLE_EMPS)
         else:
             print(f'there are no employees available to cover the shift '
                   f'starting on {k}')
     else:
         print('one conflict')
-        for k, v in CONFLICTS.items():
-            print(k, v)
+        for shift, email in CONFLICTS.items():
+            print(shift, email)
             next_week = k + datetime.timedelta(days=-today.weekday(), weeks=1)
             conflict_index = AVAILABLE_EMPS.index(v)
         del AVAILABLE_EMPS[conflict_index]
         print(functions.RTN())
         if AVAILABLE_EMPS:
             if len(AVAILABLE_EMPS) > 1:
-                # print('all options')
-                # for i, emp in enumerate(AVAILABLE_EMPS, 1):
-                #     print(i, emp)
-                # print(functions.RTN())
                 prev_shift_assign = k + datetime.timedelta(days=-k.weekday(),
                                                            weeks=-1)
                 emp = MERGED_ASSIGNMENTS[prev_shift_assign]
@@ -144,14 +134,10 @@ if CONFLICTS:
                 if AVAILABLE_EMPS:
                     if len(AVAILABLE_EMPS) > 1:
                         print('best options')
-                        for emp in AVAILABLE_EMPS:
-                            print(emp)
-                        print(functions.RTN())
+                        functions.output_emps(emp, AVAILABLE_EMPS)
                     else:
-                        print('best option')
-                        for emp in AVAILABLE_EMPS:
-                            print(emp)
-                        print(functions.RTN())
+                        print('available option')
+                        functions.output_emps(emp, AVAILABLE_EMPS)
                 else:
                     print(f'there are no employees available to cover the '
                           f'shift starting on {k}')
@@ -167,8 +153,8 @@ else:
     pass
 
 print('proposed assignments')
-for i, (k, v) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
-    print(i, k, v)
+for i, (shift, email) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
+    print(i, shift, email)
 
 print(functions.RTN())
 
@@ -216,17 +202,19 @@ for email, shifts in SCHED_GROUPED_BY_EMP.items():
         print(i, shift)
     print(functions.RTN())
 
+# write assignments to csv
 HEADERS = 'shift','email'
 
 with open('assignments.csv', 'w') as out_file:
     out_csv = csv.writer(out_file)
     out_csv.writerow(HEADERS)
-    for k, v in MERGED_ASSIGNMENTS.items():
-    # for k, v in EDIT_MERGED_ASSIGNMENTS.items():
-        keys_values = (v[0], v[1])
+    for shift, email in MERGED_ASSIGNMENTS.items():
+        keys_values = (shift, email)
         out_csv.writerow(keys_values)
 
 # update user
 print('"updated_assignments.csv" exported successfully')
+
+print(functions.RTN())
 
 # text each employee a list of shifts assigned to them
