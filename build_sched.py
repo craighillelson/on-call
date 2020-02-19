@@ -4,7 +4,7 @@ import create_shifts
 import csv
 import datetime
 import employees
-import eligible_emps
+import elig_emps
 import functions
 import pto
 from datetime import date
@@ -20,7 +20,7 @@ REM_EMPS_DCT = {}
 SCHED_GROUPED_BY_EMP = {}
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
-ALL_EMPS = list(eligible_emps.ELIG_EMPS)
+ALL_EMPS = list(elig_emps.ELIG_EMPS)
 REM_EMPS = []
 SHIFTS = list(create_shifts.SHIFTS)
 
@@ -28,7 +28,7 @@ today = date.today()
 
 # build unfiltered assignments
 for shift, email in zip(create_shifts.SHIFTS,
-                        cycle(eligible_emps.ELIG_EMPS)):
+                        cycle(elig_emps.ELIG_EMPS)):
     UNFILT_ASSIGNS[shift] = email
 
 # find pto conflicts
@@ -90,7 +90,7 @@ for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), pto.PTO.items()):
 
 # resolve pto conflicts
 if CONFLICTS:
-    # AVAILABLE_EMPS = eligible_emps.ELIG_EMPS
+    # AVAILABLE_EMPS = elig_emps.ELIG_EMPS
     if len(CONFLICTS) > 1:
         print('multiple conflicts')
         for i, (shift, email) in enumerate(CONFLICTS.items(), 1):
