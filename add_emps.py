@@ -3,7 +3,7 @@
 # imports
 import csv
 import functions
-import employees
+import emps
 
 # prompt user
 # get domain name from existing employees
@@ -17,14 +17,14 @@ while True:
         break
     print('start date')
     start_date = input()
-    employees.EMPLOYEES_DCT[email] = start_date
+    emps.EMPLOYEES_DCT[email] = start_date
 
 # write dictionary to csv
-functions.write_dct_to_csv(['email', 'start_date'], 'employees.csv',
-                           'email, start_date', employees.EMPLOYEES_DCT)
+functions.write_dct_to_csv(['email', 'start_date'], 'emps.csv',
+                           'email, start_date', emps.EMPLOYEES_DCT)
 
 # update user
 print('updated list of employees')
 print('email, start date')
-for email, start_date in employees.EMPLOYEES_DCT.items():
+for email, start_date in emps.EMPLOYEES_DCT.items():
     print(email, start_date)
