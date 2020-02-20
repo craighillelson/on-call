@@ -15,37 +15,21 @@ def calc_dates(a, b, c):
     return a
 
 
+def csv_write(a, b, c, d):
+    """ write dictionary to csv """
+    HEADERS = a
+    with open(b, 'w') as out_file:
+        out_csv = csv.writer(out_file)
+        out_csv.writerow(HEADERS) # define HEADERS before running function
+        for c in d.items(): # rename keys and values to make to make them meaningful
+            keys_values = (c)
+            out_csv.writerow(keys_values)
+
+
 def find_day(a):
     """ determine if the start """
     usr_start_day = datetime.datetime.strptime(a, '%Y-%m-%d').weekday()
     return (calendar.day_name[usr_start_day])
-
-
-def append_shifts(a, b):
-    """ add dates of the next 13 mondays to the shifts list """
-    for i in range(0, 14, 1):
-        monday = a + datetime.timedelta(days=-a.weekday(), weeks=i)
-        b.append(monday)
-
-
-def find_closest_start_mon(a, b):
-    """ based on input from user, find monday before pto start date """
-    if a.weekday() == 0:
-        b = a
-    else:
-        b = a + relativedelta(weekday=MO(1))
-
-    return b
-
-
-def find_closest_end_mon(a, b):
-    """ based on input from user, find monday after pto end date  """
-    if a.weekday() == 0:
-        b = a + relativedelta(weekday=MO(+2))
-    else:
-        b = a + relativedelta(weekday=MO(+1))
-
-    return b
 
 
 def fmt_date(a, b):
@@ -63,7 +47,6 @@ def open_csv(a):
         for rows in F_CSV:
             row = CSV_ROW(*rows)
             a[row.shift] = [row.email]
-            # a[row.shift] = row.email
 
 
 def output_pto_sched(a):
@@ -78,63 +61,27 @@ def output_pto_sched(a):
             pass
 
 
-def output_enum_dct(a):
-    """ """
-    for i, (shift, email) in enumerate(a.items(), 1):
-        print(i, shift, email)
-
-
-def output_enum_lst(a, b):
-    """ """
-    for i, a in enumerate(b, 1):
-        print(i, a)
-
-
-def output_unavails(a, b, c, d):
-    """ output shifts for which an employee is unavailable """
-    print(a)
-    for shift in b:
-        d[shift] = [c]
-
-
-def output_emps(a, b):
-    """ """
-    for a in b:
-        print(a)
-    print(RTN())
+def prev_subs_shift_lst(a, b, c, d):
+    """ find previous or subsequent shift """
+    a = b[c + d]
+    return a
 
 
 def prompt_user_for_pto_start_end(a, b):
-    """ """
+    """ prompt user for pto start and end dates """
     print(a)
     b = input()
     return b
 
 
-def reset_next_emp(a, b):
-    """ """
-    if a == len(b):
-        a = 0
-    else:
-        pass
-    return a
-
-
 def switch_case(a, b):
     """ switch case statement """
-    b
-    return b.get(a, 'nothing')
+    a
+    return a.get(b, 'nothing')
 
 
-def write_dct_to_csv(a, b, c, d):
-    """ write dictionary to a csv """
-    import csv
-
-    HEADERS = a
-
-    with open(b, 'w') as out_file:
-        out_csv = csv.writer(out_file)
-        out_csv.writerow(HEADERS)
-        for c in d.items():
-            keys_values = (c)
-            out_csv.writerow(keys_values)
+def update_user(a):
+    """ update user regarding an action taken """
+    print(RTN())
+    print(a)
+    print(RTN())
