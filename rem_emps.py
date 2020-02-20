@@ -41,7 +41,7 @@ for email, start_date in emps.EMPLOYEES_DCT.items():
 
 print(functions.RTN())
 
-functions.write_dct_to_csv(['email','start_date'], 'emps.csv', 'k, v',
+functions.csv_write(['email','start_date'], 'emps.csv', 'k, v',
                            emps.EMPLOYEES_DCT)
 
 # update user
