@@ -20,7 +20,7 @@ while True:
     emps.EMPLOYEES_DCT[email] = start_date
 
 # write dictionary to csv
-functions.write_dct_to_csv(['email', 'start_date'], 'emps.csv',
+functions.csv_write(['email','start_date'], 'emps.csv',
                            'email, start_date', emps.EMPLOYEES_DCT)
 
 # update user
