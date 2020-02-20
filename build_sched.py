@@ -140,14 +140,10 @@ else:
                                               usr_sel_shift)
     sel_shift = usr_sel_shift_lst[0]
     sel_assign = usr_sel_shift_lst[1]
-    print(functions.RTN())
-    print(f'you selected')
-    print(f'{sel_shift} {sel_assign}')
-    print(functions.RTN())
+    functions.update_user(f'you selected\n{sel_shift} {sel_assign}')
     prev_shift_lst = functions.prev_subs_shift_lst('prev_shift_lst',
                                                    MERGED_ASSIGNMENTS_ENUM,
                                                    usr_sel_shift, -1)
-    # prev_shift_lst = MERGED_ASSIGNMENTS_ENUM[usr_sel_shift - 1]
     prev_shift = prev_shift_lst[0]
     prev_shift_assign = prev_shift_lst[1]
     subs_shift_lst = functions.prev_subs_shift_lst('subs_shift_lst',
