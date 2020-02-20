@@ -3,7 +3,7 @@
 import create_shifts
 import csv
 import datetime
-import employees
+import emps
 import elig_emps
 import functions
 import pto
@@ -11,20 +11,22 @@ from datetime import date
 from itertools import cycle
 
 # data stores
-AVAILS = {}
 ASSIGNMENTS = {}
+AVAILS = {}
+AVAIL_EMPS = {}
 CONFLICTS = {}
-EDIT_MERGED_ASSIGNMENTS = {}
 PTO = dict(pto.PTO)
-REM_EMPS_DCT = {}
-SCHED_GROUPED_BY_EMP = {}
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
 ALL_EMPS = list(elig_emps.ELIG_EMPS)
-REM_EMPS = []
 SHIFTS = list(create_shifts.SHIFTS)
 
 today = date.today()
+
+def switch_case(a, b):
+    """ switch case statement """
+    a
+    return a.get(b, 'nothing')
 
 # build unfiltered assignments
 for shift, email in zip(create_shifts.SHIFTS,
@@ -78,86 +80,38 @@ else:
 # merge existing assignments with assignments wherein conflicts have been
 # resolved
 MERGED_ASSIGNMENTS = {}
+MERGED_ASSIGNMENTS_ENUM = {}
 MERGED_ASSIGNMENTS.update(ASSIGNMENTS)
 MERGED_ASSIGNMENTS.update(UPDATED_ASSIGNMENTS)
 
-# find conflicts
-for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), pto.PTO.items()):
-    if v != v2:
-        AVAILS[k] = v
-    else:
-        CONFLICTS[k] = v
 
-# resolve pto conflicts
-if CONFLICTS:
-    # AVAILABLE_EMPS = elig_emps.ELIG_EMPS
-    if len(CONFLICTS) > 1:
-        print('multiple conflicts')
-        for i, (shift, email) in enumerate(CONFLICTS.items(), 1):
-            print(f'{i} {shift} {email}')
-            conflict_index = ALL_EMPS.index(v)
-        del ALL_EMPS[conflict_index]
-        print(functions.RTN())
-        if AVAILABLE_EMPS:
-            if len(ALL_EMPS) > 1:
-                print('options')
-                for i, emp in enumerate(ALL_EMPS, 1):
-                    print(i, emp)
-                print(functions.RTN())
-            else:
-                print('option')
-                functions.output_emps(emp, ALL_EMPS)
-        else:
-            print(f'there are no employees available to cover the shift '
-                  f'starting on {k}')
+# find conflicts
+for (shift1, email1), (shift2, email2) in zip(UNFILT_ASSIGNS.items(),
+                                              pto.PTO.items()):
+    if email1 != email2:
+        AVAILS[shift1] = email1
     else:
-        print('one conflict')
+        CONFLICTS[shift1] = email1
+
+if CONFLICTS:
+    if len(CONFLICTS) > 1:
+        print('conflicts')
+        for i, (shift, email) in enumerate(CONFLICTS.items(), 1):
+            print(f'{i} {shift} {email} - PTO')
+    else:
+        print('conflict')
         for shift, email in CONFLICTS.items():
-            print(shift, email)
-            next_week = k + datetime.timedelta(days=-today.weekday(), weeks=1)
-            conflict_index = ALL_EMPS.index(v)
-        del ALL_EMPS[conflict_index]
-        print(functions.RTN())
-        if ALL_EMPS:
-            if len(ALL_EMPS) > 1:
-                prev_shift_assign = k + datetime.timedelta(days=-k.weekday(),
-                                                           weeks=-1)
-                emp = MERGED_ASSIGNMENTS[prev_shift_assign]
-                print('previous shift assignment')
-                print(f'{prev_shift_assign} {emp}')
-                print(functions.RTN())
-                next_shift_assign = k + datetime.timedelta(days=-k.weekday(),
-                                                           weeks=1)
-                emp = MERGED_ASSIGNMENTS[next_shift_assign]
-                print('next shift assignment')
-                print(f'{next_shift_assign} {emp}')
-                conflict_index = ALL_EMPS.index(emp)
-                del ALL_EMPS[conflict_index]
-                print(functions.RTN())
-                if ALL_EMPS:
-                    if len(ALL_EMPS) > 1:
-                        print('best options')
-                        functions.output_emps(emp, ALL_EMPS)
-                    else:
-                        print('available option')
-                        functions.output_emps(emp, ALL_EMPS)
-                else:
-                    print(f'there are no employees available to cover the '
-                          f'shift starting on {k}')
-            else:
-                print('option')
-                for emp in ALL_EMPS:
-                    print(emp)
-                print(functions.RTN())
-        else:
-            print(f'there are no employees available to cover the shift '
-                  f'starting on {k}')
+            print(f'{shift} {email} - PTO')
 else:
     pass
+
+
+print(functions.RTN())
 
 print('proposed assignments')
 for i, (shift, email) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
     print(i, shift, email)
+    MERGED_ASSIGNMENTS_ENUM[i] = [shift, email]
 
 print(functions.RTN())
 
@@ -185,18 +139,59 @@ if usr_choice == 'y':
             keys_values = (shift, email)
             out_csv.writerow(keys_values)
     print(functions.RTN())
-    print(f'"{file_name}" exported successfully')
+    print(f'"assignments.csv" exported successfully')
+    print(functions.RTN())
 else:
-    exec(open('edit_sched.py').read())
-
-for shift, email in sorted(MERGED_ASSIGNMENTS.items()):
-    SCHED_GROUPED_BY_EMP.setdefault(email, []).append(shift)
-
-# write assignments to csv
-HEADERS = 'shift','email'
-with open('assignments.csv', 'w') as out_file:
-    out_csv = csv.writer(out_file) # should be a function
-    out_csv.writerow(HEADERS)
-    for shift, email in MERGED_ASSIGNMENTS.items():
-        keys_values = (shift, email)
-        out_csv.writerow(keys_values)
+    print('please select a shift')
+    for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
+        shift = shift_email[0]
+        email = shift_email[1]
+        print(num, shift, email)
+    usr_sel_shift = int(input())
+    usr_sel_shift_lst = switch_case(MERGED_ASSIGNMENTS_ENUM, usr_sel_shift)
+    sel_shift = usr_sel_shift_lst[0]
+    sel_assign = usr_sel_shift_lst[1]
+    print(functions.RTN())
+    print(f'you selected')
+    print(f'{sel_shift} {sel_assign}')
+    print(functions.RTN())
+    prev_shift_lst = MERGED_ASSIGNMENTS_ENUM[usr_sel_shift - 1]
+    subs_shift_lst = MERGED_ASSIGNMENTS_ENUM[usr_sel_shift + 1]
+    prev_shift = prev_shift_lst[0]
+    prev_shift_assign = prev_shift_lst[1]
+    subs_shift = subs_shift_lst[0]
+    subs_shift_assign = subs_shift_lst[1]
+    print(f'previous shift {prev_shift} {prev_shift_assign}')
+    print(f'subsequent shift {subs_shift} {subs_shift_assign}')
+    print(functions.RTN())
+    print('please select an employee')
+    print(functions.RTN())
+    i = 1
+    for emp in ALL_EMPS:
+        if emp != sel_assign and emp != prev_shift_assign \
+        and emp != subs_shift_assign:
+            AVAIL_EMPS[i] = emp
+            i += 1
+    for num, email in AVAIL_EMPS.items():
+        print(num, email)
+    usr_sel_emp = int(input())
+    sel_emp = switch_case(AVAIL_EMPS, usr_sel_emp)
+    print(f'you selected {sel_emp}')
+    print(functions.RTN())
+    print('shift to update')
+    print(f'{usr_sel_shift} {sel_shift} {sel_emp}')
+    MERGED_ASSIGNMENTS_ENUM[usr_sel_shift] = [sel_shift, sel_emp]
+    print(functions.RTN())
+    print('upadted assignments')
+    for k, v in MERGED_ASSIGNMENTS_ENUM.items():
+        print(k, v[0], v[1])
+    HEADERS = 'num','shift','email'
+    with open('updated_assignments.csv', 'w') as out_file:
+        out_csv = csv.writer(out_file)
+        out_csv.writerow(HEADERS)
+        for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
+            keys_values = (num, shift_email)
+            out_csv.writerow(keys_values)
+    print(functions.RTN())
+    print('"updated_assignments.csv" exported successfully')
+    print(functions.RTN())
