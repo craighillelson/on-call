@@ -23,11 +23,6 @@ SHIFTS = list(create_shifts.SHIFTS)
 
 today = date.today()
 
-def switch_case(a, b):
-    """ switch case statement """
-    a
-    return a.get(b, 'nothing')
-
 # build unfiltered assignments
 for shift, email in zip(create_shifts.SHIFTS,
                         cycle(elig_emps.ELIG_EMPS)):
@@ -131,16 +126,9 @@ if usr_choice == 'y':
     first_shift = str(create_shifts.SHIFTS[0])
     last_shift = str(create_shifts.SHIFTS[-1])
     file_name = 'assignments' + '_' + first_shift + '-' + last_shift + '.csv'
-    HEADERS = 'shift','email'
-    with open(file_name, 'w') as out_file: # should be a function
-        out_csv = csv.writer(out_file)
-        out_csv.writerow(HEADERS)
-        for shift, email in MERGED_ASSIGNMENTS.items():
-            keys_values = (shift, email)
-            out_csv.writerow(keys_values)
-    print(functions.RTN())
-    print(f'"assignments.csv" exported successfully')
-    print(functions.RTN())
+    functions.csv_write(['shift','email'], file_name, 'shift, email',
+                        MERGED_ASSIGNMENTS)
+    functions.update_user(f'{file_name} exported successfully')
 else:
     print('please select a shift')
     for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
@@ -148,24 +136,28 @@ else:
         email = shift_email[1]
         print(num, shift, email)
     usr_sel_shift = int(input())
-    usr_sel_shift_lst = switch_case(MERGED_ASSIGNMENTS_ENUM, usr_sel_shift)
+    usr_sel_shift_lst = functions.switch_case(MERGED_ASSIGNMENTS_ENUM,
+                                              usr_sel_shift)
     sel_shift = usr_sel_shift_lst[0]
     sel_assign = usr_sel_shift_lst[1]
     print(functions.RTN())
     print(f'you selected')
     print(f'{sel_shift} {sel_assign}')
     print(functions.RTN())
-    prev_shift_lst = MERGED_ASSIGNMENTS_ENUM[usr_sel_shift - 1]
-    subs_shift_lst = MERGED_ASSIGNMENTS_ENUM[usr_sel_shift + 1]
+    prev_shift_lst = functions.prev_subs_shift_lst('prev_shift_lst',
+                                                   MERGED_ASSIGNMENTS_ENUM,
+                                                   usr_sel_shift, -1)
+    # prev_shift_lst = MERGED_ASSIGNMENTS_ENUM[usr_sel_shift - 1]
     prev_shift = prev_shift_lst[0]
     prev_shift_assign = prev_shift_lst[1]
+    subs_shift_lst = functions.prev_subs_shift_lst('subs_shift_lst',
+                                                   MERGED_ASSIGNMENTS_ENUM,
+                                                   usr_sel_shift, 1)
     subs_shift = subs_shift_lst[0]
     subs_shift_assign = subs_shift_lst[1]
     print(f'previous shift {prev_shift} {prev_shift_assign}')
     print(f'subsequent shift {subs_shift} {subs_shift_assign}')
-    print(functions.RTN())
-    print('please select an employee')
-    print(functions.RTN())
+    functions.update_user('please select an employee')
     i = 1
     for emp in ALL_EMPS:
         if emp != sel_assign and emp != prev_shift_assign \
@@ -175,7 +167,7 @@ else:
     for num, email in AVAIL_EMPS.items():
         print(num, email)
     usr_sel_emp = int(input())
-    sel_emp = switch_case(AVAIL_EMPS, usr_sel_emp)
+    sel_emp = functions.switch_case(AVAIL_EMPS, usr_sel_emp)
     print(f'you selected {sel_emp}')
     print(functions.RTN())
     print('shift to update')
@@ -183,15 +175,8 @@ else:
     MERGED_ASSIGNMENTS_ENUM[usr_sel_shift] = [sel_shift, sel_emp]
     print(functions.RTN())
     print('upadted assignments')
-    for k, v in MERGED_ASSIGNMENTS_ENUM.items():
-        print(k, v[0], v[1])
-    HEADERS = 'num','shift','email'
-    with open('updated_assignments.csv', 'w') as out_file:
-        out_csv = csv.writer(out_file)
-        out_csv.writerow(HEADERS)
-        for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
-            keys_values = (num, shift_email)
-            out_csv.writerow(keys_values)
-    print(functions.RTN())
-    print('"updated_assignments.csv" exported successfully')
-    print(functions.RTN())
+    for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
+        print(num, shift_email[0], shift_email[1])
+    functions.csv_write(['num','shift','email'], 'updated_assignments.csv',
+                        'num, shift_email', MERGED_ASSIGNMENTS_ENUM)
+    functions.update_user('updated_assignments.csv')
