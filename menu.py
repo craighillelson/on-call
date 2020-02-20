@@ -5,12 +5,10 @@ import functions
 USER_OPTIONS = {
     'a': 'add_emps.py',
     'b': 'build_sched.py',
-    'c': 'edit_sched.py',
-    'd': 'list_emps.py',
-    'e': 'list_pto.py',
-    'f': 'list_shifts_by_emp.py',
-    'g': 'rem_emps.py',
-    'h': 'quit',
+    'c': 'list_emps.py',
+    'd': 'list_pto.py',
+    'e': 'list_shifts_by_emp.py',
+    'f': 'rem_emps.py',
 }
 
 KEYS = list(USER_OPTIONS.keys())
@@ -28,7 +26,7 @@ def open_file(a):
 
 # prompt user to select one of the options provided
 print(functions.RTN())
-print('please select an option')
+print('please select an option or press return to quit')
 for opt, action in USER_OPTIONS.items():
     print(f'{opt} - {action}')
 
