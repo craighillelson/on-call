@@ -8,8 +8,9 @@ USER_OPTIONS = {
     'c': 'edit_sched.py',
     'd': 'list_emps.py',
     'e': 'list_pto.py',
-    'f': 'remove_employee.py',
-    'g': 'quit',
+    'f': 'list_shifts_by_emp.py',
+    'g': 'rem_emps.py',
+    'h': 'quit',
 }
 
 KEYS = list(USER_OPTIONS.keys())
@@ -29,7 +30,7 @@ def open_file(a):
 print(functions.RTN())
 print('please select an option')
 for opt, action in USER_OPTIONS.items():
-    print(opt, action)
+    print(f'{opt} - {action}')
 
 while True:
     usr_choice = input()
