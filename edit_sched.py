@@ -1,120 +1,83 @@
 """ __doc__ """
 
 import csv
-import employees
+import elig_emps
+import emps
 import functions
 from collections import namedtuple
 
-def switch_case(a, b):
-    """ switch case statement """
-    a
-    return a.get(b, 'nothing')
+print(functions.RTN())
 
+ALL_EMPS = list(elig_emps.ELIG_EMPS)
+ASSIGNS = {}
+AVAIL_EMPS = {}
+MERGED_ASSIGNMENTS_ENUM = {}
 
-AVAILABLE_EMPS_DCT = {}
-DCT = {}
-SHIFTS_UPDATE = {}
-EMPS = employees.EMPLOYEES
-AVAILABLE_EMPS = []
-AVAILABLE_EMPS_OPTIONS = []
-
-# populate DCT with the contents of 'assignments.csv'
-with open('assignments_2020-02-24-2020-05-18.csv') as csv_file:
+with open('assignments.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
     COLUMN_HEADINGS = next(F_CSV)
     CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
-    i = 1
     for rows in F_CSV:
         row = CSV_ROW(*rows)
-        DCT[i] = [row.shift, row.email]
+        ASSIGNS[row.shift] = row.email
+
+for i, (k, v) in enumerate(ASSIGNS.items(), 1):
+    MERGED_ASSIGNMENTS_ENUM[i] = k, v
+
+print(functions.RTN())
+
+print('please select a shift')
+for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
+    shift = shift_email[0]
+    email = shift_email[1]
+    print(num, shift, email)
+usr_sel_shift = int(input())
+usr_sel_shift_lst = functions.switch_case(MERGED_ASSIGNMENTS_ENUM,
+                                          usr_sel_shift)
+sel_shift = usr_sel_shift_lst[0]
+sel_assign = usr_sel_shift_lst[1]
+functions.update_user(f'you selected\n{sel_shift} {sel_assign}')
+prev_shift_lst = functions.prev_subs_shift_lst('prev_shift_lst',
+                                               MERGED_ASSIGNMENTS_ENUM,
+                                               usr_sel_shift, -1)
+prev_shift = prev_shift_lst[0]
+prev_shift_assign = prev_shift_lst[1]
+subs_shift_lst = functions.prev_subs_shift_lst('subs_shift_lst',
+                                               MERGED_ASSIGNMENTS_ENUM,
+                                               usr_sel_shift, 1)
+subs_shift = subs_shift_lst[0]
+subs_shift_assign = subs_shift_lst[1]
+print(f'previous shift {prev_shift} {prev_shift_assign}')
+print(f'subsequent shift {subs_shift} {subs_shift_assign}')
+
+functions.update_user('please select an employee')
+
+i = 1
+for emp in ALL_EMPS:
+    if emp != sel_assign and emp != prev_shift_assign \
+    and emp != subs_shift_assign:
+        AVAIL_EMPS[i] = emp
         i += 1
 
-ASSIGN_OPTIONS = list(DCT.keys())
+for num, email in AVAIL_EMPS.items():
+    print(num, email)
 
-# prompt user to select a shift to edit
-# output available employees
-while True:
-    print(functions.RTN())
-    print('please select a shift to edit')
-    for k, v in DCT.items():
-        print(f'{k} {v[0]} {v[1]}')
-    usr_choice = int(input())
-    if usr_choice not in ASSIGN_OPTIONS:
-        print('not an option')
-    else:
-        break
+usr_sel_emp = int(input())
+sel_emp = functions.switch_case(AVAIL_EMPS, usr_sel_emp)
 
-print(functions.RTN())
-usr_choice_lst = switch_case(DCT, usr_choice)
-print('you selected')
-print(f'{usr_choice_lst[0]} {usr_choice_lst[1]}')
+print(f'you selected {sel_emp}')
 print(functions.RTN())
 
-if usr_choice - 1 < 0:
-    usr_choice == DCT[-1]
-else:
-    prec_shift = usr_choice - 1
-    prec_shift_lst = DCT[prec_shift]
-    prec_shift_date = prec_shift_lst[0]
-    prec_shift_assign = prec_shift_lst[1]
-    print(f'preceding shift {prec_shift}')
-    print(f'{prec_shift_date} - {prec_shift_assign}')
-
+print('shift to update')
+print(f'{usr_sel_shift} {sel_shift} {sel_emp}')
 print(functions.RTN())
 
-if usr_choice + 1 > len(DCT):
-    usr_choice == DCT[+1]
-else:
-    succ_shift = usr_choice + 1
-    succ_shift_lst = DCT[succ_shift]
-    succ_shift_date = succ_shift_lst[0]
-    succ_shift_assign = succ_shift_lst[1]
-    print(f'succeeding shift {succ_shift}')
-    print(f'{succ_shift_date} - {succ_shift_assign}')
+MERGED_ASSIGNMENTS_ENUM[usr_sel_shift] = [sel_shift, sel_emp]
 
-print(functions.RTN())
-
-for emp in EMPS:
-    if usr_choice_lst[1] != emp and emp != prec_shift_assign and \
-    emp != succ_shift_assign:
-        AVAILABLE_EMPS.append(emp)
-
-if AVAILABLE_EMPS:
-    if len(AVAILABLE_EMPS) > 1:
-        while True:
-            print(f'please select an employee to substitute for shift '
-                  f'{usr_choice_lst[0]}')
-            for i, emp in enumerate(AVAILABLE_EMPS, 1):
-                AVAILABLE_EMPS_DCT[i] = emp
-                print(i, emp)
-            emp_choice = int(input())
-            subs_emp = switch_case(AVAILABLE_EMPS_DCT, emp_choice)
-            print(f'you selected {subs_emp}')
-            break
-    else:
-        print('available employee')
-        print(AVAILABLE_EMPS[0])
-else:
-    print('there are no available employees')
-
-DCT[usr_choice] = [usr_choice_lst[0], subs_emp]
-
-print(functions.RTN())
-
-for k, v in DCT.items():
-    print(k, v[0], v[1])
-
-HEADERS = 'shift','email'
-
-with open('updates.csv', 'w') as out_file:
-    out_csv = csv.writer(out_file)
-    out_csv.writerow(HEADERS)
-    for k, v in DCT.items():
-        keys_values = (v[0], v[1])
-        out_csv.writerow(keys_values)
-
-print(functions.RTN())
-
-print('"updates.csv" exported successfully')
-
-print(functions.RTN())
+print('upadted assignments')
+for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
+    print(num, shift_email[0], shift_email[1])
+    
+functions.csv_write(['num','shift','email'], 'updated_assignments.csv',
+                    'num, shift_email', MERGED_ASSIGNMENTS_ENUM)
+functions.update_user('updated_assignments.csv')
