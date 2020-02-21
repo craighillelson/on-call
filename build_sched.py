@@ -154,26 +154,35 @@ else:
     subs_shift_assign = subs_shift_lst[1]
     print(f'previous shift {prev_shift} {prev_shift_assign}')
     print(f'subsequent shift {subs_shift} {subs_shift_assign}')
+
     functions.update_user('please select an employee')
+
     i = 1
     for emp in ALL_EMPS:
         if emp != sel_assign and emp != prev_shift_assign \
         and emp != subs_shift_assign:
             AVAIL_EMPS[i] = emp
             i += 1
+
     for num, email in AVAIL_EMPS.items():
         print(num, email)
+
     usr_sel_emp = int(input())
     sel_emp = functions.switch_case(AVAIL_EMPS, usr_sel_emp)
+
     print(f'you selected {sel_emp}')
     print(functions.RTN())
+    
     print('shift to update')
     print(f'{usr_sel_shift} {sel_shift} {sel_emp}')
-    MERGED_ASSIGNMENTS_ENUM[usr_sel_shift] = [sel_shift, sel_emp]
     print(functions.RTN())
+
+    MERGED_ASSIGNMENTS_ENUM[usr_sel_shift] = [sel_shift, sel_emp]
+
     print('upadted assignments')
     for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
         print(num, shift_email[0], shift_email[1])
+
     functions.csv_write(['num','shift','email'], 'updated_assignments.csv',
                         'num, shift_email', MERGED_ASSIGNMENTS_ENUM)
     functions.update_user('updated_assignments.csv')
