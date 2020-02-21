@@ -1,9 +1,9 @@
 """ __doc__ """
 
-import employees
+import emps
 import functions
 
-EMPS = employees.EMPLOYEES
+EMPS = emps.EMPLOYEES
 
 print(functions.RTN())
 
