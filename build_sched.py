@@ -123,9 +123,10 @@ if usr_choice not in selections:
     usr_choice = input()
 
 if usr_choice == 'y':
-    first_shift = str(create_shifts.SHIFTS[0])
-    last_shift = str(create_shifts.SHIFTS[-1])
-    file_name = 'assignments' + '_' + first_shift + '-' + last_shift + '.csv'
+    # first_shift = str(create_shifts.SHIFTS[0])
+    # last_shift = str(create_shifts.SHIFTS[-1])
+    # file_name = 'assignments' + '_' + first_shift + '-' + last_shift + '.csv'
+    file_name = 'assignments.csv'
     functions.csv_write(['shift','email'], file_name, 'shift, email',
                         MERGED_ASSIGNMENTS)
     functions.update_user(f'{file_name} exported successfully')
