@@ -46,6 +46,7 @@ functions.csv_write(['email','start_date'], 'emps.csv', 'k, v',
 
 # update user
 print('"emps.csv" exported successfully')
+print(f'{emp_to_del} was scheduled for the following shifts')
 
 with open('assignments.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
@@ -55,11 +56,14 @@ with open('assignments.csv') as csv_file:
         row = CSV_ROW(*rows)
         SCHED[row.shift] = row.email
 
+print(functions.RTN())
+
 for shift, email in SCHED.items():
     if emp_to_del in email:
         print(shift, email)
 
-# find conflicts
-print('it is suggested that you edit or rebuild the schedule')
+functions.update_user('it is suggested that you edit or rebuild the schedule')
 
-print(functions.RTN())
+# print(functions.RTN())
+# print('it is suggested that you edit or rebuild the schedule')
+# print(functions.RTN())
