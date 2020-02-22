@@ -12,6 +12,7 @@ ALL_EMPS = list(elig_emps.ELIG_EMPS)
 ASSIGNS = {}
 AVAIL_EMPS = {}
 MERGED_ASSIGNMENTS_ENUM = {}
+UPDATED_ASSIGNS = {}
 
 with open('assignments.csv') as csv_file:
     F_CSV = csv.reader(csv_file)
@@ -77,7 +78,8 @@ MERGED_ASSIGNMENTS_ENUM[usr_sel_shift] = [sel_shift, sel_emp]
 print('upadted assignments')
 for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
     print(num, shift_email[0], shift_email[1])
-    
-functions.csv_write(['num','shift','email'], 'updated_assignments.csv',
-                    'num, shift_email', MERGED_ASSIGNMENTS_ENUM)
+    UPDATED_ASSIGNS[shift_email[0]] = shift_email[1]
+
+functions.csv_write(['shift','email'], 'updated_assignments.csv',
+                    'shift_email', UPDATED_ASSIGNS)
 functions.update_user('updated_assignments.csv')
