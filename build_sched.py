@@ -15,6 +15,7 @@ ASSIGNMENTS = {}
 AVAILS = {}
 AVAIL_EMPS = {}
 CONFLICTS = {}
+MERGED_ASSIGNS = {}
 PTO = dict(pto.PTO)
 UNFILT_ASSIGNS = {}
 UPDATED_ASSIGNMENTS = {}
@@ -172,7 +173,7 @@ else:
 
     print(f'you selected {sel_emp}')
     print(functions.RTN())
-    
+
     print('shift to update')
     print(f'{usr_sel_shift} {sel_shift} {sel_emp}')
     print(functions.RTN())
@@ -182,7 +183,8 @@ else:
     print('upadted assignments')
     for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
         print(num, shift_email[0], shift_email[1])
+        MERGED_ASSIGNS[shift_email[0]] = shift_email[1]
 
-    functions.csv_write(['num','shift','email'], 'updated_assignments.csv',
-                        'num, shift_email', MERGED_ASSIGNMENTS_ENUM)
+    functions.csv_write(['shift','email'], 'updated_assignments.csv',
+                        'shift_email', MERGED_ASSIGNS)
     functions.update_user('updated_assignments.csv')
