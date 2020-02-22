@@ -5,10 +5,11 @@ import functions
 USER_OPTIONS = {
     'a': 'add_emps.py',
     'b': 'build_sched.py',
-    'c': 'list_emps.py',
-    'd': 'list_pto.py',
-    'e': 'list_shifts_by_emp.py',
-    'f': 'rem_emps.py',
+    'c': 'edit_sched.py',
+    'd': 'list_emps.py',
+    'e': 'list_pto.py',
+    'f': 'list_shifts_by_emp.py',
+    'g': 'rem_emps.py',
 }
 
 KEYS = list(USER_OPTIONS.keys())
