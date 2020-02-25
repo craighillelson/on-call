@@ -117,10 +117,10 @@ selections = [
 ]
 
 # prompt user to accept schedule as is or make edits
-print('enter "y" to accept this schedule or "n" to make edits')
+print('enter \'y\' to accept this schedule or \'n\' to make edits')
 usr_choice = input()
 if usr_choice not in selections:
-    print('enter "y" to accept this schedule or "n" to make edits')
+    print('enter \'y\' to accept this schedule or \'n\' to make edits')
     usr_choice = input()
 
 if usr_choice == 'y':
