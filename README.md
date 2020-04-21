@@ -1,7 +1,7 @@
 Python 3.8 script to loop through a list of employees and assign them on call shifts
 
 # Requirement
-* https://pypi.org/project/python-dateutil/
+https://pypi.org/project/python-dateutil/
 
 # Instructions
 1. Save all files to a directory
