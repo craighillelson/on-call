@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Add employees to emps.csv."""
 
 # imports
 import csv
