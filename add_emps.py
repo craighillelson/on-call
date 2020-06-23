@@ -1,12 +1,9 @@
 """Add employees to emps.csv."""
 
-# imports
 import csv
 import functions
 import emps
 
-# prompt user
-# get domain name from existing employees
 domain = input('What is your domain name?\n')
 
 while True:
@@ -19,11 +16,9 @@ while True:
     start_date = input()
     emps.EMPLOYEES_DCT[email] = start_date
 
-# write dictionary to csv
 functions.csv_write(['email','start_date'], 'emps.csv',
                            'email, start_date', emps.EMPLOYEES_DCT)
 
-# update user
 print('updated list of employees')
 print('email, start date')
 for email, start_date in emps.EMPLOYEES_DCT.items():
