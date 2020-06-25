@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Build schedule."""
 
 import create_shifts
 import csv
