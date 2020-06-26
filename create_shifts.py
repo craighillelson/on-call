@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Create on-call shifts. Write the results to a csv."""
 
 import csv
 import datetime
