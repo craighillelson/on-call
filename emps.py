@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Import a csv and populate lists and dictionaries."""
 
 import csv
 from collections import namedtuple
