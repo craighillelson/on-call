@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Present user with options."""
 
 import functions
 
