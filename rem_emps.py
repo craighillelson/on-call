@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Remove employee and write the remaining employees to 'emps.csv'."""
 
 # remove employee
 import csv
