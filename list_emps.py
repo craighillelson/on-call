@@ -1,4 +1,4 @@
-""" __doc__ """
+"""List employees."""
 
 import emps
 import functions
