@@ -10,7 +10,7 @@ from dateutil.rrule import MO
 RTN = lambda: '\n'
 
 def calc_dates(a, b, c):
-    """ calculate dates """
+    """Calculate dates."""
     a = b + datetime.timedelta(days=-b.weekday(), weeks=c)
     return a
 
