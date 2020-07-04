@@ -44,8 +44,6 @@ for i in range(0, 13, 1):
     SHIFTS.append(shift)
     i += 1
 
-# HEADER = 'shift'
-
 with open('shifts.csv', 'w') as out_file:
     out_csv = csv.writer(out_file)
     out_csv.writerow(['shift'])
