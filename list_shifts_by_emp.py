@@ -1,4 +1,4 @@
-""" __doc__ """
+"""List each employee's assigned shifts."""
 
 # imports
 import csv
