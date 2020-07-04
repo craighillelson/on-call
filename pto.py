@@ -1,6 +1,5 @@
-""" __doc__ """
+"""Populate dictionary wtih shifts as the keys and assignments as the values."""
 
-# imports
 import csv
 from collections import namedtuple
 
