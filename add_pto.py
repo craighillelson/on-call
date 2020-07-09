@@ -1,11 +1,11 @@
-# imports
+"""Add PTO to 'pto.csv'.""" 
+
 import csv
 from collections import namedtuple
 import datetime
 import employees
 import functions
 
-# data stores
 BOOKED_PTO = {}
 EMP_DCT = {}
 PTO = {}
