@@ -4,10 +4,12 @@ import functions
 import pyinputplus as pyip
 
 options = {
-    1: 'add_employees.py',
-    2: 'list_employees.py',
-    3: 'lunch_roulette.py',
-    4: 'remove_employees.py',
+    1: 'add_emps.py',
+    2: 'build_sched.py'
+    3: 'list_emps.py',
+    4: 'list_pto.py',
+    5: 'list_shifts_by_emp.py',
+    6: 'remove_emps.py'
 }
 
 def switch_case(argument):
