@@ -9,7 +9,7 @@ options = {
     3: 'list_emps.py',
     4: 'list_pto.py',
     5: 'list_shifts_by_emp.py',
-    6: 'remove_emps.py'
+    6: 'remove_emps.py',
 }
 
 def switch_case(argument):
