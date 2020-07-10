@@ -9,6 +9,7 @@ from dateutil.rrule import MO
 
 RTN = lambda: '\n'
 
+
 def calc_dates(a, b, c):
     """Calculate dates."""
     a = b + datetime.timedelta(days=-b.weekday(), weeks=c)
@@ -20,8 +21,8 @@ def csv_write(a, b, c, d):
     HEADERS = a
     with open(b, 'w') as out_file:
         out_csv = csv.writer(out_file)
-        out_csv.writerow(HEADERS) # define HEADERS before running function
-        for c in d.items(): # rename keys and values to make to make them meaningful
+        out_csv.writerow(HEADERS)
+        for c in d.items():
             keys_values = (c)
             out_csv.writerow(keys_values)
 
@@ -82,6 +83,4 @@ def switch_case(a, b):
 
 def update_user(a):
     """Update user regarding an action taken."""
-    print(RTN())
-    print(a)
-    print(RTN())
+    print(f'\n{a}')
