@@ -72,9 +72,5 @@ with open('pto.csv', 'w') as out_file:
         out_csv.writerow(keys_values)
         print(shift, email)
 
-print(functions.RTN())
-
 # update user
-print('"pto.csv" exported successfully')
-
-print(functions.RTN())
+print('\n"pto.csv" exported successfully\n')
