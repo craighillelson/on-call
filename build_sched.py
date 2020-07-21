@@ -29,8 +29,6 @@ today = date.today()
 for shift, email in zip(create_shifts.SHIFTS, cycle(elig_emps.ELIG_EMPS)):
     UNFILT_ASSIGNS[shift] = email
 
-print(functions.RTN())
-
 # find range of remaining shifts
 range_start = len(ASSIGNMENTS)
 range_stop = len(SHIFTS)
