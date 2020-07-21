@@ -35,8 +35,6 @@ else:
                 print(f'\nstart date: {next_mon}')
             break
 
-print(functions.RTN())
-
 for i in range(0, 13, 1):
     shift = sched_start + datetime.timedelta(days=-sched_start.weekday(),
                                               weeks=i)
