@@ -16,8 +16,7 @@ usr_choice = pyip.inputYesNo(f'\nWould you like the on-call schedule to start '
 
 if usr_choice == 'yes':
     sched_start = day
-    print(functions.RTN())
-    print(f'schedule will start on {sched_start}')
+    print(f'\nschedule will start on {sched_start}')
 else:
     while True:
         print('please specify a start date for the schedule (YYYY-MM-DD)')
