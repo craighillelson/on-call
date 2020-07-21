@@ -5,7 +5,7 @@ import pyinputplus as pyip
 
 options = {
     1: 'add_emps.py',
-    2: 'build_sched.py'
+    2: 'build_sched.py',
     3: 'list_emps.py',
     4: 'list_pto.py',
     5: 'list_shifts_by_emp.py',
