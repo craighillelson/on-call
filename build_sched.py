@@ -36,7 +36,7 @@ REMAINING_SHIFTS = SHIFTS[range_start:range_stop]
 
 # if a conflict is found, zip remaining shifts with employees
 if REMAINING_SHIFTS:
-    print('shifts to fill')
+    print('\nshifts to fill')
     for i, shift in enumerate(REMAINING_SHIFTS, 1):
         print(i, shift)
     print('\nremaining shifts')
@@ -54,6 +54,7 @@ MERGED_ASSIGNMENTS = {}
 MERGED_ASSIGNMENTS_ENUM = {}
 MERGED_ASSIGNMENTS.update(ASSIGNMENTS)
 MERGED_ASSIGNMENTS.update(UPDATED_ASSIGNMENTS)
+
 
 # find conflicts
 for (shift1, email1), (shift2, email2) in zip(UNFILT_ASSIGNS.items(),
