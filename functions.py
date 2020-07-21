@@ -10,10 +10,9 @@ from dateutil.rrule import MO
 RTN = lambda: '\n'
 
 
-def calc_dates(a, b, c):
+def calc_dates(a, b):
     """Calculate dates."""
-    a = b + datetime.timedelta(days=-b.weekday(), weeks=c)
-    return a
+    return a + datetime.timedelta(days=-a.weekday(), weeks=b)
 
 
 def csv_write(a, b, c, d):
