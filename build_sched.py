@@ -55,7 +55,6 @@ MERGED_ASSIGNMENTS_ENUM = {}
 MERGED_ASSIGNMENTS.update(ASSIGNMENTS)
 MERGED_ASSIGNMENTS.update(UPDATED_ASSIGNMENTS)
 
-
 # find conflicts
 for (shift1, email1), (shift2, email2) in zip(UNFILT_ASSIGNS.items(),
                                               pto.PTO.items()):
