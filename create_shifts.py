@@ -6,8 +6,6 @@ import functions
 import pyinputplus as pyip
 from datetime import date
 
-SHIFTS = []
-
 today = date.today()
 day = today + datetime.timedelta(days=-today.weekday(), weeks=1)
 
@@ -34,6 +32,8 @@ else:
                                               weeks=1)
                 print(f'\nstart date: {next_mon}')
             break
+
+SHIFTS = []
 
 for i in range(0, 13, 1):
     shift = sched_start + datetime.timedelta(days=-sched_start.weekday(),
