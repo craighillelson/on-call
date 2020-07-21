@@ -11,10 +11,10 @@ SHIFTS = []
 today = date.today()
 day = today + datetime.timedelta(days=-today.weekday(), weeks=1)
 
-usr_choice = pyip.inputYesNo(f'\nWould you like the on-call schedule to start '
+user_choice = pyip.inputYesNo(f'\nWould you like the on-call schedule to start '
                              f'on {day} (yes/no)?\n> ')
 
-if usr_choice == 'yes':
+if user_choice == 'yes':
     sched_start = day
     print(f'\nschedule will start on {sched_start}')
 else:
