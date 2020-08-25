@@ -1,6 +1,5 @@
-""" __doc__ """
+"""Remove employee and write the remaining employees to 'emps.csv'."""
 
-# remove employee
 import csv
 from collections import namedtuple
 import emps
@@ -16,8 +15,7 @@ for i, email in enumerate(emps.EMPLOYEES, 1):
 
 print(functions.RTN())
 
-# prompt user to select an employee to remove
-print(f'Please select an employee to remove.')
+print('Please select an employee to remove.')
 for num, email in EMP_DCT.items():
     print(num, email)
 
@@ -41,10 +39,9 @@ for email, start_date in emps.EMPLOYEES_DCT.items():
 
 print(functions.RTN())
 
-functions.csv_write(['email','start_date'], 'emps.csv', 'k, v',
-                           emps.EMPLOYEES_DCT)
+functions.csv_write(['email', 'start_date'], 'emps.csv', 'k, v',
+                    emps.EMPLOYEES_DCT)
 
-# update user
 print('"emps.csv" exported successfully')
 print(f'{emp_to_del} was scheduled for the following shifts')
 
