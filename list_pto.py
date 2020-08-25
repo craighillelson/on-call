@@ -1,6 +1,5 @@
-""" __doc__ """
+"""List PTO."""
 
-# imports
 import csv
 import functions
 from collections import namedtuple

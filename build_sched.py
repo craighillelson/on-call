@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Build schedule."""
 
 import create_shifts
 import csv
@@ -7,6 +7,7 @@ import emps
 import elig_emps
 import functions
 import pto
+import pyinputplus as pyip
 from datetime import date
 from itertools import cycle
 
@@ -25,33 +26,8 @@ SHIFTS = list(create_shifts.SHIFTS)
 today = date.today()
 
 # build unfiltered assignments
-for shift, email in zip(create_shifts.SHIFTS,
-                        cycle(elig_emps.ELIG_EMPS)):
+for shift, email in zip(create_shifts.SHIFTS, cycle(elig_emps.ELIG_EMPS)):
     UNFILT_ASSIGNS[shift] = email
-
-# find pto conflicts
-if UNFILT_ASSIGNS:
-    if len(UNFILT_ASSIGNS) > 1:
-        print('assignments - break on conflict')
-        for i, ((k, v), (k2, v2)) in enumerate(zip(UNFILT_ASSIGNS.items(),
-                                                   PTO.items()), 1):
-            if v != v2:
-                ASSIGNMENTS[k] = v
-                print(i, k, v)
-            else:
-                break
-    else:
-        print('assignment - break on conflict')
-        for (k, v), (k2, v2) in zip(UNFILT_ASSIGNS.items(), PTO.items()):
-            if v != v2:
-                ASSIGNMENTS[k] = v
-                print(k, v)
-            else:
-                break
-else:
-    pass
-
-print(functions.RTN())
 
 # find range of remaining shifts
 range_start = len(ASSIGNMENTS)
@@ -60,11 +36,10 @@ REMAINING_SHIFTS = SHIFTS[range_start:range_stop]
 
 # if a conflict is found, zip remaining shifts with employees
 if REMAINING_SHIFTS:
-    print('shifts to fill')
+    print('\nshifts to fill')
     for i, shift in enumerate(REMAINING_SHIFTS, 1):
         print(i, shift)
-    print(functions.RTN())
-    print('remaining shifts')
+    print('\nremaining shifts')
     for i, (shift, email) in enumerate(zip(REMAINING_SHIFTS,
                                        cycle(ALL_EMPS)), 1):
         UPDATED_ASSIGNMENTS[shift] = email
@@ -101,32 +76,15 @@ if CONFLICTS:
 else:
     pass
 
-
-print(functions.RTN())
-
 print('proposed assignments')
 for i, (shift, email) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
     print(i, shift, email)
     MERGED_ASSIGNMENTS_ENUM[i] = [shift, email]
 
-print(functions.RTN())
+usr_choice = pyip.inputYesNo('\nenter \'yes\' to accept this schedule or '
+                             '\'no\' to make edits\n> ')
 
-selections = [
-    'y',
-    'n',
-]
-
-# prompt user to accept schedule as is or make edits
-print('enter "y" to accept this schedule or "n" to make edits')
-usr_choice = input()
-if usr_choice not in selections:
-    print('enter "y" to accept this schedule or "n" to make edits')
-    usr_choice = input()
-
-if usr_choice == 'y':
-    # first_shift = str(create_shifts.SHIFTS[0])
-    # last_shift = str(create_shifts.SHIFTS[-1])
-    # file_name = 'assignments' + '_' + first_shift + '-' + last_shift + '.csv'
+if usr_choice == 'yes':
     file_name = 'assignments.csv'
     functions.csv_write(['shift','email'], file_name, 'shift, email',
                         MERGED_ASSIGNMENTS)

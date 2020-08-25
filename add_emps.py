@@ -1,6 +1,5 @@
 """Add employees to emps.csv."""
 
-# import csv
 import functions
 import emps
 

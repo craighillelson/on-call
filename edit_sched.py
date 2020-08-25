@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Edit on-call schedule."""
 
 import csv
 import elig_emps

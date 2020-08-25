@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Import a csv and populate lists and dictionaries."""
 
 import csv
 from collections import namedtuple
@@ -14,11 +14,11 @@ with open('emps.csv', 'r') as csv_file:
     CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
     for rows in F_CSV:
         row = CSV_ROW(*rows)
-        emp = row.email
+        employee = row.email
         start = row.start_date
-        EMPLOYEES.append(emp)
+        EMPLOYEES.append(employee)
         EMP_START_DATES.append(start)
-        EMPLOYEES_DCT[emp] = start
+        EMPLOYEES_DCT[employee] = start
 
-for i, emp in enumerate(EMPLOYEES, 1):
-    EMPLOYEES_ENUM[i] = emp
+for i, employee in enumerate(EMPLOYEES, 1):
+    EMPLOYEES_ENUM[i] = employee

@@ -1,38 +1,24 @@
-""" __doc__ """
+"""Create on-call shifts. Write the results to a csv."""
 
 import csv
 import datetime
 import functions
+import pyinputplus as pyip
 from datetime import date
-
-SHIFTS = []
 
 today = date.today()
 day = today + datetime.timedelta(days=-today.weekday(), weeks=1)
 
-print(f'Would you like the on-call schedule to start on {day} (y/n)? ')
+user_choice = pyip.inputYesNo(f'\nWould you like the on-call schedule to start '
+                             f'on {day} (yes/no)?\n> ')
 
-answers = [
-    'y',
-    'n'
-]
-
-while True:
-    usr_choice = input()
-    if usr_choice not in answers:
-        print(f'Would you like the on-call schedule to start on {day} '
-              f'(y/n)? ')
-    else:
-        break
-
-if usr_choice == 'y':
+if user_choice == 'yes':
     sched_start = day
-    print(functions.RTN())
-    print(f'schedule will start on {sched_start}')
+    print(f'\nschedule will start on {sched_start}')
 else:
     while True:
         print('please specify a start date for the schedule (YYYY-MM-DD)')
-        usr_spec_start = input()
+        usr_spec_start = input('> ')
         sched_start = functions.fmt_date('sched_start', usr_spec_start)
         if today >= sched_start:
             print('please specify a date in the future')
@@ -44,11 +30,10 @@ else:
                 next_mon = sched_start + \
                            datetime.timedelta(days=-sched_start.weekday(),
                                               weeks=1)
-                print(functions.RTN())
-                print(f'start date: {next_mon}')
+                print(f'\nstart date: {next_mon}')
             break
 
-print(functions.RTN())
+SHIFTS = []
 
 for i in range(0, 13, 1):
     shift = sched_start + datetime.timedelta(days=-sched_start.weekday(),
@@ -56,11 +41,9 @@ for i in range(0, 13, 1):
     SHIFTS.append(shift)
     i += 1
 
-HEADER = 'shift'
-
 with open('shifts.csv', 'w') as out_file:
     out_csv = csv.writer(out_file)
-    out_csv.writerow([HEADER])
+    out_csv.writerow(['shift'])
     for shift in SHIFTS:
         shift_fmt = shift.strftime('%Y-%m-%d')
         out_csv.writerow([shift_fmt])

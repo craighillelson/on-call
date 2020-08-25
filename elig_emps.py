@@ -1,4 +1,7 @@
-""" __doc__ """
+"""
+Based on start date, determine the earliest date that each employee would
+be eligible to be scheduled for an on-call shift.
+"""
 
 import csv
 import emps
@@ -22,6 +25,6 @@ last_shift = SHIFTS[-1]
 
 for email, start_date in emps.EMPLOYEES_DCT.items():
     start_date_fmt = functions.fmt_date('start_date', start_date)
-    first_elig_shift = functions.calc_dates('first_elig', start_date_fmt, 12)
+    first_elig_shift = functions.calc_dates(start_date_fmt, 12)
     if first_elig_shift < last_shift:
         ELIG_EMPS.append(email)

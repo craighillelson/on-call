@@ -1,4 +1,4 @@
-""" __doc__ """
+"""Functions."""
 
 import csv
 from collections import namedtuple
@@ -9,19 +9,19 @@ from dateutil.rrule import MO
 
 RTN = lambda: '\n'
 
-def calc_dates(a, b, c):
-    """ calculate dates """
-    a = b + datetime.timedelta(days=-b.weekday(), weeks=c)
-    return a
+
+def calc_dates(a, b):
+    """Calculate dates."""
+    return a + datetime.timedelta(days=-a.weekday(), weeks=b)
 
 
 def csv_write(a, b, c, d):
-    """ write dictionary to csv """
+    """Write dictionary to csv."""
     HEADERS = a
     with open(b, 'w') as out_file:
         out_csv = csv.writer(out_file)
-        out_csv.writerow(HEADERS) # define HEADERS before running function
-        for c in d.items(): # rename keys and values to make to make them meaningful
+        out_csv.writerow(HEADERS)
+        for c in d.items():
             keys_values = (c)
             out_csv.writerow(keys_values)
 
@@ -33,13 +33,13 @@ def find_day(a):
 
 
 def fmt_date(a, b):
-    """ format date """
+    """Format date."""
     a = datetime.datetime.strptime(b, '%Y-%m-%d').date()
     return a
 
 
 def open_csv(a):
-    """ open csv and populate dictionary with its contents """
+    """Open csv and populate dictionary with its contents."""
     with open('pto.csv') as csv_file:
         F_CSV = csv.reader(csv_file)
         COLUMN_HEADINGS = next(F_CSV)
@@ -50,7 +50,7 @@ def open_csv(a):
 
 
 def output_pto_sched(a):
-    """ oututs current pto schedule """
+    """Output current pto schedule."""
     for shift, email in a.items():
         for emp in email:
             if email == '':
@@ -62,26 +62,24 @@ def output_pto_sched(a):
 
 
 def prev_subs_shift_lst(a, b, c, d):
-    """ find previous or subsequent shift """
+    """Find previous or subsequent shift."""
     a = b[c + d]
     return a
 
 
 def prompt_user_for_pto_start_end(a, b):
-    """ prompt user for pto start and end dates """
+    """Prompt user for pto start and end dates."""
     print(a)
     b = input()
     return b
 
 
 def switch_case(a, b):
-    """ switch case statement """
+    """Switch case statement."""
     a
     return a.get(b, 'nothing')
 
 
 def update_user(a):
-    """ update user regarding an action taken """
-    print(RTN())
-    print(a)
-    print(RTN())
+    """Update user regarding an action taken."""
+    print(f'\n{a}')
