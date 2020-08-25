@@ -4,8 +4,9 @@ be eligible to be scheduled for an on-call shift.
 """
 
 import csv
-import emps
-import functions
+from emps import EMPLOYEES_DCT
+from functions import (calc_dates,
+                       fmt_date)
 from collections import namedtuple
 from datetime import datetime
 
@@ -23,8 +24,8 @@ with open('shifts.csv') as csv_file:
 
 last_shift = SHIFTS[-1]
 
-for email, start_date in emps.EMPLOYEES_DCT.items():
-    start_date_fmt = functions.fmt_date('start_date', start_date)
-    first_elig_shift = functions.calc_dates(start_date_fmt, 12)
+for email, start_date in EMPLOYEES_DCT.items():
+    start_date_fmt = fmt_date('start_date', start_date)
+    first_elig_shift = calc_dates(start_date_fmt, 12)
     if first_elig_shift < last_shift:
         ELIG_EMPS.append(email)
