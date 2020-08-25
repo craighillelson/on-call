@@ -54,7 +54,7 @@ def output_pto_sched(a):
     for shift, email in a.items():
         for emp in email:
             if email == '':
-                print(f'{shift} - no pto booked')
+                print(f"{shift} - no pto booked")
             else:
                 print(f'{shift} - {emp}')
         else:
@@ -76,7 +76,6 @@ def prompt_user_for_pto_start_end(a, b):
 
 def switch_case(a, b):
     """Switch case statement."""
-    a
     return a.get(b, 'nothing')
 
 
