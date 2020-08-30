@@ -5,7 +5,10 @@ import csv
 import datetime
 import emps
 import elig_emps
-import functions
+from functions import (csv_write,
+                       prev_subs_shift_lst,
+                       switch_case,
+                       update_user)
 import pto
 import pyinputplus as pyip
 from datetime import date
@@ -44,7 +47,7 @@ if REMAINING_SHIFTS:
                                        cycle(ALL_EMPS)), 1):
         UPDATED_ASSIGNMENTS[shift] = email
         print(i, shift, email)
-    print(functions.RTN())
+    # print(functions.RTN())
 else:
     print('no conflicts found')
 
@@ -76,7 +79,7 @@ if CONFLICTS:
 else:
     pass
 
-print('proposed assignments')
+print('\nproposed assignments')
 for i, (shift, email) in enumerate(MERGED_ASSIGNMENTS.items(), 1):
     print(i, shift, email)
     MERGED_ASSIGNMENTS_ENUM[i] = [shift, email]
@@ -86,9 +89,9 @@ usr_choice = pyip.inputYesNo('\nenter \'yes\' to accept this schedule or '
 
 if usr_choice == 'yes':
     file_name = 'assignments.csv'
-    functions.csv_write(['shift','email'], file_name, 'shift, email',
+    csv_write(['shift','email'], file_name, 'shift, email',
                         MERGED_ASSIGNMENTS)
-    functions.update_user(f'{file_name} exported successfully')
+    update_user(f'{file_name} exported successfully')
 else:
     print('please select a shift')
     for num, shift_email in MERGED_ASSIGNMENTS_ENUM.items():
@@ -96,11 +99,11 @@ else:
         email = shift_email[1]
         print(num, shift, email)
     usr_sel_shift = int(input())
-    usr_sel_shift_lst = functions.switch_case(MERGED_ASSIGNMENTS_ENUM,
+    usr_sel_shift_lst = switch_case(MERGED_ASSIGNMENTS_ENUM,
                                               usr_sel_shift)
     sel_shift = usr_sel_shift_lst[0]
     sel_assign = usr_sel_shift_lst[1]
-    functions.update_user(f'you selected\n{sel_shift} {sel_assign}')
+    update_user(f'you selected\n{sel_shift} {sel_assign}')
     prev_shift_lst = functions.prev_subs_shift_lst('prev_shift_lst',
                                                    MERGED_ASSIGNMENTS_ENUM,
                                                    usr_sel_shift, -1)
@@ -114,7 +117,7 @@ else:
     print(f'previous shift {prev_shift} {prev_shift_assign}')
     print(f'subsequent shift {subs_shift} {subs_shift_assign}')
 
-    functions.update_user('please select an employee')
+    update_user('please select an employee')
 
     i = 1
     for emp in ALL_EMPS:
@@ -127,14 +130,14 @@ else:
         print(num, email)
 
     usr_sel_emp = int(input())
-    sel_emp = functions.switch_case(AVAIL_EMPS, usr_sel_emp)
+    sel_emp = switch_case(AVAIL_EMPS, usr_sel_emp)
 
-    print(f'you selected {sel_emp}')
-    print(functions.RTN())
+    print(f'you selected {sel_emp}\n')
+    # print(functions.RTN())
 
     print('shift to update')
-    print(f'{usr_sel_shift} {sel_shift} {sel_emp}')
-    print(functions.RTN())
+    print(f'{usr_sel_shift} {sel_shift} {sel_emp}\n')
+    # print(functions.RTN())
 
     MERGED_ASSIGNMENTS_ENUM[usr_sel_shift] = [sel_shift, sel_emp]
 
@@ -143,6 +146,6 @@ else:
         print(num, shift_email[0], shift_email[1])
         MERGED_ASSIGNS[shift_email[0]] = shift_email[1]
 
-    functions.csv_write(['shift','email'], 'updated_assignments.csv',
+    csv_write(['shift','email'], 'updated_assignments.csv',
                         'shift_email', MERGED_ASSIGNS)
-    functions.update_user('updated_assignments.csv')
+    update_user('updated_assignments.csv')
