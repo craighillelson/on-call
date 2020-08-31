@@ -8,7 +8,7 @@ EMP_START_DATES = []
 EMPLOYEES_DCT = {}
 EMPLOYEES_ENUM = {}
 
-with open('emps.csv', 'r') as csv_file:
+with open("emps.csv", "r") as csv_file:
     F_CSV = csv.reader(csv_file)
     COLUMN_HEADINGS = next(F_CSV)
     CSV_ROW = namedtuple('Row', COLUMN_HEADINGS)
