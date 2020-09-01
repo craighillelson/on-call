@@ -1,17 +1,10 @@
 """List employees."""
 
-import emps
-import functions
+from emps import EMPLOYEES
 
-EMPS = emps.EMPLOYEES
-
-print(functions.RTN())
-
-print('employees')
-if EMPS:
-    for i, email in enumerate(EMPS, 1):
+print("\nemployees")
+if EMPLOYEES:
+    for i, email in enumerate(EMPLOYEES, 1):
         print(i, email)
 else:
     print('"employees.csv" is empty')
-
-print(functions.RTN())
