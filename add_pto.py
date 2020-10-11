@@ -11,8 +11,6 @@ EMP_DCT = {}
 PTO = {}
 NUMS = []
 
-# print(functions.RTN())
-
 for i, email in enumerate(employees.EMPLOYEES, 1):
     NUMS.append(i)
     EMP_DCT[i] = email
@@ -60,8 +58,6 @@ print(functions.RTN())
 
 pto_start_fmt = functions.fmt_date("pto_start_fmt", pto_start)
 BOOKED_PTO[pto_start_fmt] = email
-
-# HEADERS = 'shift','email'
 
 print('updated pto')
 with open('pto.csv', 'w') as out_file:
