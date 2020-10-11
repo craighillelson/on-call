@@ -1,8 +1,6 @@
 """List PTO."""
 
-import csv
 import functions
-from collections import namedtuple
 
 PTO_SCHED = {}
 EMP_DCT = {}
