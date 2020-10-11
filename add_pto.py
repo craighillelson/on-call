@@ -2,8 +2,7 @@
 
 import csv
 from collections import namedtuple
-import datetime
-import employees
+import emps
 import functions
 
 BOOKED_PTO = {}
@@ -11,7 +10,7 @@ EMP_DCT = {}
 PTO = {}
 NUMS = []
 
-for i, email in enumerate(employees.EMPLOYEES, 1):
+for i, email in enumerate(emps.EMPLOYEES, 1):
     NUMS.append(i)
     EMP_DCT[i] = email
 
