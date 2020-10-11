@@ -4,8 +4,8 @@ import csv
 from collections import namedtuple
 import calendar
 import datetime
-from dateutil.relativedelta import relativedelta
-from dateutil.rrule import MO
+# from dateutil.relativedelta import relativedelta
+# from dateutil.rrule import MO
 
 RTN = lambda: '\n'
 
@@ -29,7 +29,7 @@ def csv_write(a, b, c, d):
 def find_day(a):
     """ determine if the start """
     usr_start_day = datetime.datetime.strptime(a, '%Y-%m-%d').weekday()
-    return (calendar.day_name[usr_start_day])
+    return calendar.day_name[usr_start_day]
 
 
 def fmt_date(a, b):
