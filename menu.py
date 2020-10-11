@@ -1,7 +1,7 @@
 """Provide a list of options to the user."""
 
-from functions import switch_case
 import pyinputplus as pyip
+from functions import switch_case
 
 options = {
     1: "add_emps.py",
