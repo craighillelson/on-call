@@ -2,15 +2,15 @@
 
 import csv
 import datetime
-import functions
-import pyinputplus as pyip
 from datetime import date
+import pyinputplus as pyip
+import functions
 
 today = date.today()
 day = today + datetime.timedelta(days=-today.weekday(), weeks=1)
 
 user_choice = pyip.inputYesNo(f'\nWould you like the on-call schedule to start '
-                             f'on {day} (yes/no)?\n> ')
+                              f'on {day} (yes/no)?\n> ')
 
 if user_choice == 'yes':
     sched_start = day
@@ -37,7 +37,7 @@ SHIFTS = []
 
 for i in range(0, 13, 1):
     shift = sched_start + datetime.timedelta(days=-sched_start.weekday(),
-                                              weeks=i)
+                                             weeks=i)
     SHIFTS.append(shift)
     i += 1
 
