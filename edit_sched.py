@@ -1,10 +1,9 @@
 """Edit on-call schedule."""
 
 import csv
-import elig_emps
-import emps
-import functions
 from collections import namedtuple
+import elig_emps
+import functions
 
 print(functions.RTN())
 
