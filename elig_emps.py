@@ -4,11 +4,11 @@ be eligible to be scheduled for an on-call shift.
 """
 
 import csv
+from collections import namedtuple
+from datetime import datetime
 from emps import EMPLOYEES_DCT
 from functions import (calc_dates,
                        fmt_date)
-from collections import namedtuple
-from datetime import datetime
 
 ELIG_EMPS = []
 SHIFTS = []
